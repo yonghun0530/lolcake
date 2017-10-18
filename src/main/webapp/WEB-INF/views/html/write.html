@@ -1,0 +1,65 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>내용</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                var i = 1;
+                $("#btnAdd").hide();
+                $("#text1").hide();
+                $("button").click(
+                    function() {
+
+                        var itext = $("#text1").val();
+
+                        var addText = "<tr>" +
+                            "<td>" + i + "</td>" +
+                            "<td>" + itext + "</td>" +
+                            "</tr>";
+                        $("div table").prepend(addText);
+                        i++;
+
+                        $("#btnAdd").hide();
+                        $("#text1").hide();
+                        $("#text1").val("");
+
+                    });
+                if ($("#check").prop('checked', true)) {
+                    function(){
+                    $("#btnAdd").show();
+                    $("#text1").show();
+                    }
+                } else if ($("#check").prop('checked', false)) {
+                    function(){
+                    $("#btnAdd").hide();
+                    $("#text1").hide();
+                    }
+                }
+            });
+
+        </script>
+        <style>
+            input {
+                display: inline-block;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <button type="button" id="btnAdd">추가</button>
+            <input type="text" placeholder="입력" id="text1" /> <input type="checkbox" id="check" />
+            <table border=1>
+            </table>
+        </div>
+    </body>
+
+    </html>

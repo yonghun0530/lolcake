@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LOLCAKE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="../js/jquery-2.2.1.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#menu > ul > li').mouseup(function() {
+                var idx = $('#menu > ul > li').index(this);
+                $('#menu > ul > li').removeClass('on').addClass('off');
+                $('#menu > ul > li').eq(idx)
+                    .addClass('on').removeClass('off');
+                $('#menu > ul > li').eq(4).removeClass('off').removeClass('on');
+
+            });
+
+        });
+
+    </script>
+</head>
+
+<body>
+    <div id="main">
+        <div id="menu">
+            <ul>
+                <li class="on">
+                    <a href="main.html"></a>
+                    <h4>HOME</h4>
+                </li>
+                <li class="off">
+                    <a href="#"></a>
+                    <h4>자유게시판</h4>
+                </li>
+                <li class="off">
+                    <a href="AllChamp.html"></a>
+                    <h4>챔피언</h4>
+                </li>
+                <li class="off">
+                    <a href="lanking.html"></a>
+                    <h4>랭킹</h4>
+                </li>
+                <li>
+                    <button>익명채팅방</button>
+                </li>
+            </ul>
+        </div>
+        <div id="container">
+            <div id="sections">
+                <section id="bbsshow">
+                    <div class="bbsmenu">
+                        <ul>
+                            <li><button>인기</button></li>
+                            <li><button>공지</button></li>
+                            <li><button>자유</button></li>
+                            <li><button>화제</button></li>
+                        </ul>
+                    </div>
+
+                    <div class="bbsright">
+                        <div>
+
+                            <div class="bbsSearch1">
+                                <select name="drop" id="ddown">
+                                   <option value="title">제목</option>
+                                   <option value="author">작성자</option>
+                                </select>
+                            </div>
+
+                            <div class="bbsSearch1">
+                                <input type="text" placeholder="검색해주세요.">
+                                <button id="bsSearch1" type="button">글쓰기</button>
+                            </div>
+
+                            <div class="bbsSearch1">
+                                <button type="button">검색</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+        <footer id="footer">
+            <div class="basic">
+                <p>서울시 금천구 가산디지털2로 115 대륭테크노타운3차 <span>|</span>Goodee<span>|</span>김성진 임채영 주용훈 최혁<span>|</span>사업자 등록번호 119-86-83838</p>
+            </div>
+
+            <div class="sub">
+                <ul>
+                    <li>
+                        <a class="fb" href="http://www.facebook.com/1lolcake2/"><img src="../img/002-facebook-logo-button.png"></a>
+                    </li>
+                    <li>
+                        <a class="gram" href="https://www.instagram.com/lolcake.yum/"><img src="../img/001-instagram-logo.png"></a>
+                    </li>
+                    <li>
+                        <a href="https://kr.leagueoflegends.com/"><img class="lol" src="../img/lol.png"></a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h6>Copyright(c) LoLcake^^Yum</h6>
+            </div>
+
+        </footer>
+    </div>
+</body>
+
+</html>
