@@ -14,7 +14,7 @@
 <!-- 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/name" expected-type="javax.sql.DataSource"/> -->
 	<bean id="dataSource" 
 		  class="org.springframework.jndi.JndiObjectFactoryBean" 
-		  p:jndiName="java:/comp/env/jdbc/팀명" 
+		  p:jndiName="java:/comp/env/jdbc/gdj7" 
 		  p:resourceRef="true"/>
 
 		<!-- SqlSessionFactory 생성 -->
