@@ -17,18 +17,33 @@ a {
     cursor: pointer;
 }
 
+li {
+    list-style: none;
+}
+
+button {
+    width: 80px;
+    height: 32px;
+}
+
+body {
+    overflow: hidden;
+}
 
 /*가운데정렬 시 사용*/
 
-#sections,
-#footer {
-    margin-left: 50%;
-    transform: translateX(-50%);
+#container {
+    margin: 0 10%;
 }
 
+.h1 {
+    font-weight: bold;
+    font-size: 2em;
+    padding: 0px;
+    margin: 0px;
+}
 
 /***********************************/
-
 
 /*홈페이지 전체 크기*/
 
@@ -39,6 +54,7 @@ a {
     position: fixed;
     overflow-x: hidden;
     overflow-y: scroll;
+    top: 0;
 }
 
 
@@ -128,13 +144,13 @@ a {
     display: none;
 }
 
-
 /*로고 및 검색*/
 
 #banner {
     width: 100%;
     margin-top: 70px;
     text-align: center;
+    margin-bottom: 60px;
 }
 
 #banner a img,
@@ -142,23 +158,19 @@ a {
     height: 150px;
 }
 
-#banner #search {
-    padding: 25px 0;
-}
 
-#banner #search input,
-#banner #search button {
+.search input {
     border: 0;
 }
 
-#banner #search input {
+.search input {
     width: 250px;
     height: 30px;
     padding: 1px 5px;
 }
 
-#banner #search button {
-    width: 80px;
+.search input[type="button"] {
+    width: 60px;
     height: 32px;
     background-color: #ff9d00;
     color: white;
@@ -168,16 +180,14 @@ a {
 
 #footer {
     width: 100%;
-    position: absolute;
-    bottom: 0;
-    margin-bottom: 20px;
+    position: relative;
     text-align: center;
 }
 
 #footer .basic span {
-    margin: 10px;
+    margin: 5px;
     padding: 10px;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 #footer .basic p {
@@ -198,16 +208,16 @@ a {
     margin: 5px;
 }
 
-
 /***********************************/
-
 
 /*세션 테두리*/
 
-#sections {
+#container {
     width: 80%;
     height: 100%;
-    margin-top: 70px;
+    margin-top: 80px;
+    margin-bottom: 30px;
+    position: relative;
 }
 
 
@@ -239,13 +249,13 @@ a {
     width: 100%;
     border-spacing: 0px;
     background-color: white;
-    border-bottom: 1px solid #655050;
+    border-bottom: 1px solid #36161c;
     /*테이블제목간격*/
 }
 
 #bestbbs .table th,
 #bestmovie .table th {
-    background-color: #655050;
+    background-color: #36161c;
     color: white;
     padding: 5px 0;
 }
@@ -276,58 +286,91 @@ a {
     float: left;
 }
 
-
 /***********************************/
 
-#moviewrite {
+#write {
+    width: 100%;
     position: relative;
+    text-align: center;
 }
 
-#moviewrite ul {
-    position: absolute;
-    right: 0;
-    background-color: white;
-    border: 1px solid #dbdbdb;
-}
-
-#moviewrite ul li {
-    padding: 10px 20px;
-    display: inline-block;
+#write ul li {
+    width: calc(100% / 3);
+    padding: 8px 0;
     font-weight: bold;
+    float: left;
+    list-style: none;
+    margin-bottom: 30px;
 }
 
-#moviewrite .on {
-    background-color: #ff9d00;
+.commenu ul li {
+    width: calc(100% / 4);
+    padding: 8px 0;
+    font-weight: bold;
+    float: left;
+    list-style: none;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
-#moviewrite .on a {
+.commenu .on,
+#write ul li:hover {
+    background-color: #36161c;
+}
+
+.commenu .on li,
+#write ul li:hover a {
     color: white;
     margin: 0;
 }
 
-#moviewrite .off {
-    background-color: white;
+.commenu .off {
+    background-color: rgb(255, 255, 255);
 }
 
-#moviewrite .off a {
+.commenu .off li {
     color: black;
     margin: 0;
 }
 
-#moviewrite div {
-    position: absolute;
-    width: 100%;
-    margin-top: 53px;
-    height: 300px;
-    background-color: #f5f5f5;
+#write button {
+    border: none;
+    font-weight: bold;
+    color: white;
+    background-color: #ff9d00;
+    margin-top: 10px;
 }
 
-#moviewrite div input {
+/**** 동영상글쓰기 ****/
+
+#write .moviewrite .h1 {
     width: 100%;
     padding: 0;
     border: none;
     background-color: rgba(0, 0, 0, 0);
+    font-size: 13px;
 }
+
+#write .moviewrite textarea {
+    background-color: white;
+    width: calc(100% - 12px);
+    max-width: calc(100% - 12px);
+    height: 200px;
+    max-height: 200px;
+    padding: 5px;
+    border: 1px solid #9f9f9f;
+    overflow-y: scroll;
+}
+
+#write .bbswrite .h1 {
+    width: 100%;
+    padding: 0;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 13px;
+}
+
+/*********************************************/
 
 #bbsshow .bbsmenu ul li {
     list-style: none;
@@ -348,26 +391,10 @@ a {
 }
 
 #bbsshow .bbsright select {
-    height: 23px
-}
-
-#bbsshow input {
-    border: 1px solid;
-    padding: 0.3em;
-}
-
-#bbsshow .bbsSearch1 button {
-    border: 1px solid;
-    height: 1.9em;
-}
-
-#bbsshow .bbsSearch1 button #bsSearch1 {
-    border-left: 0px;
-}
-
-#bbsshow .bbsSearch1 {
-    float: left;
-    margin: 0px 8px;
+    height: 33px;
+    padding: 1px 5px;
+    font-weight: bold;
+    vertical-align: middle;
 }
 
 
@@ -379,7 +406,6 @@ a {
 
 
 /*테이블 css 236번줄부터 257번까지 참고*/
-
 
 /*********************************************챔프디테일*/
 
@@ -413,17 +439,13 @@ P,
     height: 40px;
 }
 
-#champDetail ul .li1:hover{
-}
+#champDetail ul .li1:hover {}
 
-#champDetail ul .li2:hover{
-}
+#champDetail ul .li2:hover {}
 
-#champDetail ul .li3:hover{
-}
+#champDetail ul .li3:hover {}
 
-#champDetail ul .li4:hover{
-}
+#champDetail ul .li4:hover {}
 
 #champDetail #champSkilInfo {
     clear: both;
@@ -443,41 +465,51 @@ P,
 
 /**************************************랭크*/
 
-
 /*li를 가운데로 가게하려면 텍스트얼란을 부모한테 줘야하는데 그게안댐.. 일단보류*/
 
-#lankSearch {
-    float: right;
-    padding: 0px 5px;
+#lanking #lankHead {
+    height: 70px;
 }
 
-#lanking #lankSearch .bbsSearch1 {
+#lankHead .search {
     float: right;
 }
 
-#lanking .h1 {
-    font-size: 2em;
-    padding: 0px;
-    margin: 0px;
+#lanking #lankHead .h1 {
+    position: absolute;
 }
 
 #lanking #lankHead {
     clear: both;
 }
 
-#lanking #lankHead ul {
-    list-style: none;
+#lanking #lankSession {
+    width: 100%;
+    height: 50px;
+    background-color: #ffffff;
 }
 
-#lanking #lankHead ul li {
+#lanking #lankSession ul li {
+    text-align: center;
+    width: calc(100% / 4);
     float: left;
-    margin: 0px 50px;
+    padding: 10px 0;
+    font-weight: bold;
+    background-color: #36161c;
+    color: white;
+}
+
+#lanking #lankSession #lankdata li {
+    padding: 5px 0;
+    border-bottom: 1px solid #d9d9d9;
+    font-weight: bold;
+    background-color: #ffffff;
+    color: black;
 }
 
 #lanking #lankName {
     clear: both;
 }
-
 
 /********************유저검색시 나오는 전적창**********/
 
@@ -512,7 +544,7 @@ P,
     border-bottom: 1px solid black;
 }
 
-#userInfo #userdata{
+#userInfo #userdata {
     padding: 3em;
 }
 
@@ -537,33 +569,99 @@ P,
     margin: 0px;
 }
 
-
-
-
 /*********champAll*****************/
+#champAll #sections{
+    text-align: left;
+    margin: 20px 100px;
+}
 
 #champAll .divGrid {
-    width: 62.6vw;
-    height: 60vh;
-    background-color: royalblue;
-    text-align: left;
-    padding: 8px;
-    
+    background-color: #f4c500;
+    width: 100%;
+    height: 100%;
+}
+
+#champAll .h1 {
+    height: 70px;
+}
+
+#champAll h4 {
+    color: #343434;
+    margin-bottom: 30px;
+}
+
+#champAll .divGrid .detailChampion {
+    background-color: #f4c500;
+    display: inline-block;
+}
+
+#champAll .divGrid .championImage img {
+    height: 82px;
+    width: 82px;
+}
+
+#champAll .divGrid .championName {
+    text-align: center;
+    width: 82px;
 }
 
 #champAll .divGrid .champ{
-    background-color: red;
-    width: 5vw;
-    height: 5vw;
-    display: inline-block;
-    margin: 4px;
+}
+/****************8videoDetail*******************/
+
+#videoDetail #sections .board {
+    width: 100%;
+    margin: 20px 0px;
 }
 
-/*******write**********/
-#write #SE{
-    display: inline-block;
+#videoDetail #sections .board ul {
+    float: left;
+    width: calc(100% / 6);
 }
 
-#write #sections{
-    transform: translateX
+#videoDetail #sections .board li {
+    float: left;
+    width: calc(100% / 6);
+    list-style: none;
+    text-align: center;
+}
+
+#videoDetail #sections .board ul li {
+    width: 100%;
+    height: 40px;
+    list-style: none;
+    text-align: center;
+    background-color: #ffffff;
+    border-bottom: dashed 1px;
+    cursor: pointer;
+    padding-top: 20px;
+}
+
+#videoDetail .btnWrite {
+    float: right;
+    clear: both;
+}
+
+#videoDetail .somenail li img {
+    width: 70px;
+    height: 45px;
+    padding-top: 0px;
+    transform: translateY(-11px);
+}
+
+#videoDetail .th li {
+    padding: 20px 0px;
+    background-color: #36161c;
+    color: white;
+    padding: 10px 0px;
+}
+
+#videoDetail {
+    clear: both;
+    padding: 30px 0px;
+    margin: 0px;
+}
+
+.search {
+    margin-top: 10px;
 }
