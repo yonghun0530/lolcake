@@ -36,7 +36,7 @@
 	</select>
 	
 	<select id="bbsmovie" resultType="hashmap"> <!-- 영상상세보기 보류 -->
-		select #{no}, #{title}, #{dept}, #{nickname}, #{time}, #{hit}
+		select #{no}, #{title}, #{dept}, #{nickname}, #{time}, #{hit}, #{url}
 		from board
 		where no = #{no}
 	</select>
@@ -50,14 +50,19 @@
 	<!-- 게시글 삭제 -->
 	
 	<update id="bbsupdate" parameterType="hashmap">
-		update board set title = #{title}, dept = #{dept}, time = now() where no = #{no}
+		update board set type = #{type}, title = #{title}, dept = #{dept}, time = now(), url = #{url} where no = #{no}
 	</update>
 	
 	<!-- 게시글 수정 -->
 	
-	<insert id="bbswrite" parameterType="hashmap">
+	<insert id="boardwrite" parameterType="hashmap"> <!-- 글쓰기 작성 -->
 		insert into board(type, title, dept, nickname, time, passwd, hit, del_yn)
 		values(#{type}, #{title}, #{dept}, #{nickname}, now(), #{passwd}, 0, 'N')
+	</insert>
+	
+	<insert id="moviewrite" parameterType="hashmap"> <!-- 영상 글쓰기 작성 -->
+		insert into board(type, title, dept, nickname, time, passwd, hit, del_yn, url)
+		values(#{type}, #{title}, #{dept}, #{nickname}, now(), #{passwd}, 0, 'N', #{url})
 	</insert>
 	
 	<!-- 게시글 작성 -->
