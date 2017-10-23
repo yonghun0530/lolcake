@@ -81,7 +81,7 @@
 		for(int i = 0; i < map.size(); i++){
 %>
                 <ul class="no">
-                    <li><%=map.get(i).get("no")%></li>
+                    <li><%=map.get(i).get("divide")%></li>
                 </ul>
                 <ul class="somenail">
                     <li><img src="http://www.op.gg/forum/outImage/https://i.ytimg.com/vi/YBXTf1gSr_A/hqdefault.jpg"></li>
