@@ -3,7 +3,70 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sql">
-	<select id="test" resultType="hashmap">
-		select '테스트' as data
+	<select id="bbsif" resultType="hashmap"> <!-- 게시판 정보 목록 -->
+		select #{no}, #{title}, #{nickname}, #{time}, #{hit} 
+		from board 
+		where del_yn = 'N' and type = 'if'
 	</select>
+	
+	<select id="bbsmd" resultType="hashmap"> <!-- 게시판 영상 목록 -->
+		select #{no}, #{title}, #{nickname}, #{time}, #{hit} 
+		from board 
+		where del_yn = 'N' and type = 'md'
+	</select>
+	
+	<select id="bbsfr" resultType="hashmap"> <!-- 게시판 자유 목록 -->
+		select #{no}, #{title}, #{nickname}, #{time}, #{hit} 
+		from board 
+		where del_yn = 'N' and type = 'fr'
+	</select>
+	
+	<select id="bbsbest" resultType="hashmap"> <!-- 게시판 인기 목록 -->
+		select #{no}, #{title}, #{nickname}, #{time}, #{hit}
+		from board
+		where del_yn = 'N' and type in ('if', 'md')
+	</select>
+	
+	<!-- 게시판 목록 -->
+	
+	<select id="bbsboard" resultType="hashmap">
+		select #{no}, #{title}, #{dept}, #{nickname}, #{time}, #{hit}
+		from board
+		where no = #{no}
+	</select>
+	
+	<select id="bbsmovie" resultType="hashmap"> <!-- 영상상세보기 보류 -->
+		select #{no}, #{title}, #{dept}, #{nickname}, #{time}, #{hit}
+		from board
+		where no = #{no}
+	</select>
+	
+	<!-- 게시판 상세보기 -->
+	
+	<update id="bbsremove" parameterType="hashmap">
+		update board set del_yn = 'Y' where no = #{no}
+	</update> 
+	
+	<!-- 게시글 삭제 -->
+	
+	<update id="bbsupdate" parameterType="hashmap">
+		update board set title = #{title}, dept = #{dept}, time = now() where no = #{no}
+	</update>
+	
+	<!-- 게시글 수정 -->
+	
+	<insert id="bbswrite" parameterType="hashmap">
+		insert into board(type, title, dept, nickname, time, passwd, hit, del_yn)
+		values(#{type}, #{title}, #{dept}, #{nickname}, now(), #{passwd}, 0, 'N')
+	</insert>
+	
+	<!-- 게시글 작성 -->
+	
+	<update id="hitclick" parameterType="hashmap">
+		update board set hit = (hit + 1) where no = #{no}
+	</update>
+	
+	<!-- 추천(hit) 증가 -->
+	
+	
 </mapper>
