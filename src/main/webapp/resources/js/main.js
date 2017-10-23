@@ -14,8 +14,8 @@ function readyEvent(){
 function popstateEvent(event){
     /* 변경 내용 적용 : 브라우저 콘트롤 버튼 이벤트 처리 */
     $('#container').load(location.href + ' #container');
-}
 
-$(document).ready(readyEvent);
-    
-$(window).on('popstate', popstateEvent);
+    $(document).ready(readyEvent);
+        
+    $(window).on('popstate', popstateEvent);
+}
