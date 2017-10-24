@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 
 
 public interface BoardServiceInterface {
-	   public List<HashMap<String, Object>> selectbbsif();
+	   public HashMap<String, Object> selectbbsif();
 	   
-	   public List<HashMap<String, Object>> selectbbsmd();
+	   public HashMap<String, Object> selectbbsmd();
 	   
-	   public List<HashMap<String, Object>> selectbbsfr();
+	   public HashMap<String, Object> selectbbsfr();
 	   
-	   public List<HashMap<String, Object>> selectbbshot();
-
+	   public HashMap<String, Object> selectbbshot();
+	   
+	   public HashMap<String, Object> selectTotCnt();
+	   
+	   public HashMap<String, Object> select(HashMap<String, Object> param);
 }

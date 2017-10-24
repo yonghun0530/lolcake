@@ -31,7 +31,22 @@ public class BoardDao implements BoardDaoInterface {
 	   
 	   @Override
 	   public List<HashMap<String, Object>> selectbbshot() {
-	      return session.selectList("sql.bbshot");
+	      return session.selectList("sql.selectHot");
+	   }
+	   
+	   @Override
+	   public HashMap<String, Object> selectbbshotCnt() {
+	      return session.selectOne("sql.selectHotCnt");
+	   }
+	   
+	   @Override
+	   public List<HashMap<String, Object>> select(HashMap<String, Object> param) {
+	      return session.selectList("sql.select", param);
+	   }
+
+	   @Override
+	   public List<HashMap<String, Object>> totCnt() {
+	      return session.selectList("sql.totCnt");
 	   }
 
 	}

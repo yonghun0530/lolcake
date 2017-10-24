@@ -73,5 +73,35 @@
 	
 	<!-- 추천(hit) 증가 -->
 	
+	<select id="select" parameterType="hashmap" resultType="hashmap">
+      select * from board where type = #{type} limit #{start}, #{viewRow}
+   </select>
+   <select id="totCnt" resultType="hashmap">
+      select upper(type) as type, count(*) as tot from board group by upper(type)
+   </select>
+   
+   <select id="selectHot" resultType="hashmap">
+	  select *, 
+	  		 case when b.type = 'if' then 'INFO' when b.type = 'md' then 'VIDEO' else '몰라' end as viewType, 
+	  		 DATE_FORMAT(b.time, '%X-%m-%d') as datetime
+	  from board as b 
+	  where exists (select 1 from (
+					 (select no from board where type = 'if' and del_yn = 'N' group by no order by hit desc limit 0, 5)
+					union all
+					 (select no from board where type = 'md' and del_yn = 'N' group by no order by hit desc limit 0, 5)) as s 
+				    where b.`no` = s.no)
+	  order by hit desc
+   </select>
+   
+   <select id="selectHotCnt" resultType="hashmap">
+	  select count(*) as cnt 
+	  from board as b 
+	  where exists (select 1 from (
+					 (select no from board where type = 'if' and del_yn = 'N' group by no order by hit desc limit 0, 5)
+					union all
+					 (select no from board where type = 'md' and del_yn = 'N' group by no order by hit desc limit 0, 5)) as s 
+				    where b.`no` = s.no)
+   </select>
+	
 	
 </mapper>

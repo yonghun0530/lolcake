@@ -21,10 +21,50 @@
                 $('#menu > ul > li').eq(4).removeClass('off').removeClass('on');
 
             });
-        	$("button").click(function(){
-        		console.log($("button").index(this));
-        	});
-        });
+            
+            var data = []; // 데이터 담을 배열 변수 선언
+            var page = 1; // 현재 페이지 값
+            var viewRow = 10; // 화면에 보여질 행 갯수
+            var totCnt = 0; // 데이터 전체 객수
+            
+            function createHtml(){ // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
+            	console.log(data);
+               for(var i = 0; i < data.length; i++){
+            	   var tag = "";
+            	   tag += '<ul class="board">';
+            	   tag += '<li>'+data[i].no+'</li>';
+            	   tag += '<li>'+data[i].viewType+'</li>';
+            	   tag += '<li><img src="http://www.op.gg/forum/outImage/https://i.ytimg.com/vi/YBXTf1gSr_A/hqdefault.jpg"></li>';
+            	   tag += '<li>'+data[i].title+'</li>';
+            	   tag += '<li>'+data[i].nickname+'</li>';
+            	   tag += '<li>'+data[i].datetime+'</li>';
+            	   tag += '<li>'+data[i].hit+'</li>';
+            	   tag += '</ul>';
+                  $("#videoDetail #sections").append(tag);
+               }
+            }
+            
+            function initData(){ // 디비에서 데이터 가져오기 위한 함수
+               $.ajax({
+                     type:"post", // post 방식으로 통신 요청
+                     url:"bbshotData", // Spring에서 만든 URL 호출
+                     typedata: "json"
+               }).done(function(result){ // 비동기식 데이터 가져오기
+                  data = result.list; // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
+                  totCnt = result.cnt.cnt;
+                  createHtml(); // 화면에 표현하기 위하여 함수 호출
+               });
+            }
+            
+            $("a").on("click", function(){
+            	hash = $(this).attr("href");
+            	page = hash.substr(1, hash.length);
+            	console.log(page);
+            });
+            
+            initData();
+         });
+       
 
     </script>
 </head>
@@ -35,16 +75,16 @@
             <div class="commenu">
                 <ul>
                     <li class="off">
-                    <a href="#">HOT</a>
+                    <a href="#HOT">HOT</a>
                     </li>
                     <li class="off">
-                        <a href="#">FREE</a>
+                        <a href="#FR">FREE</a>
                     </li>
                     <li class="off">
-                        <a href="#">INFO</a>
+                        <a href="#IF">INFO</a>
                     </li>
                     <li class="on">
-                        <a href="#">VIDEO</a>
+                        <a href="#MD">VIDEO</a>
                     </li>
                 </ul>
             </div>
@@ -67,43 +107,66 @@
     <section id="videoDetail">
         <div id="sections">
             <ul class="board">
-                <div class="th">
-                    <li>번호</li>
-                    <li>썸네일</li>
-                    <li>제목</li>
-                    <li>작성자</li>
-                    <li>작성시간</li>
-                    <li>추천수</li>
-                </div>
-                <%
-   List<HashMap<String, HashMap<String, Object>>> map = (List<HashMap<String, HashMap<String, Object>>>) request.getAttribute("list");
-	if(map != null){
-		for(int i = 0; i < map.size(); i++){
-%>
-                <ul class="no">
-                    <li><%=map.get(i).get("divide")%></li>
-                </ul>
-                <ul class="somenail">
-                    <li><img src="http://www.op.gg/forum/outImage/https://i.ytimg.com/vi/YBXTf1gSr_A/hqdefault.jpg"></li>
-                </ul>
-                <ul class="title">
-                    <li><%=map.get(i).get("title")%></li>
-                </ul>
-                <ul class="writer">
-                    <li><%=map.get(i).get("nickname")%></li>
-                </ul>
-                <ul class="time">
-                	<li><%=map.get(i).get("time")%></li>
-                </ul>
-                <ul class="hit">
-                    <li><%=map.get(i).get("hit")%></li>
-                </ul>
-                <%}
-}%>
-            </ul>
-            <div class="search">
-                <input type="button" value="글쓰기" id="insert" style="float: right">
-            </div>
+<!--                 <div class="th"> -->
+                <li>번호</li>
+                <li>종류</li>
+                <li>썸네일</li>
+                <li>제목</li>
+                <li>작성자</li>
+                <li>작성시간</li>
+                <li>추천수</li>
+<!--                 </div> -->
+			</ul>
+<!--             <ul class="board"> -->
+<!--             	<li>1</li> -->
+<!--             	<li><img src="http://www.op.gg/forum/outImage/https://i.ytimg.com/vi/YBXTf1gSr_A/hqdefault.jpg"></li> -->
+<!--             	<li>2</li> -->
+<!--             	<li>3</li> -->
+<!--             	<li>4</li> -->
+<!--             	<li>5</li> -->
+<!--             </ul> -->
+<!--                 <ul > -->
+<!--                     <li>1</li> -->
+<!--                 </ul> -->
+<!--                 <ul class="somenail"> -->
+<!--                     <li><img src="http://www.op.gg/forum/outImage/https://i.ytimg.com/vi/YBXTf1gSr_A/hqdefault.jpg"></li> -->
+<!--                 </ul> -->
+<!--                 <ul class="title"> -->
+<!--                     <li>2</li> -->
+<!--                 </ul> -->
+<!--                 <ul class="writer"> -->
+<!--                     <li>3</li> -->
+<!--                 </ul> -->
+<!--                 <ul class="time"> -->
+<!--                 	<li>4</li> -->
+<!--                 </ul> -->
+<!--                 <ul class="hit"> -->
+<!--                     <li>5</li> -->
+<!--                 </ul> -->
+                
+                
+<!--                 <ul class="no"> -->
+<!--                     <li>2</li> -->
+<!--                 </ul> -->
+<!--                 <ul class="somenail"> -->
+<!--                     <li><img src="http://www.op.gg/forum/outImage/https://i.ytimg.com/vi/YBXTf1gSr_A/hqdefault.jpg"></li> -->
+<!--                 </ul> -->
+<!--                 <ul class="title"> -->
+<!--                     <li>2</li> -->
+<!--                 </ul> -->
+<!--                 <ul class="writer"> -->
+<!--                     <li>3</li> -->
+<!--                 </ul> -->
+<!--                 <ul class="time"> -->
+<!--                 	<li>4</li> -->
+<!--                 </ul> -->
+<!--                 <ul class="hit"> -->
+<!--                     <li>5</li> -->
+<!--                 </ul> -->
+<!--             </ul> -->
+        </div>
+        <div class="search">
+            <input type="button" value="글쓰기" id="insert" style="float: right">
         </div>
     </section>
     

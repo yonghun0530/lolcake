@@ -11,4 +11,10 @@ public interface BoardDaoInterface {
 	public List<HashMap<String, Object>> selectbbsfr();
 	
 	public List<HashMap<String, Object>> selectbbshot();
+	public HashMap<String, Object> selectbbshotCnt();
+	
+	public List<HashMap<String, Object>> select(HashMap<String, Object> param);
+	
+	public List<HashMap<String, Object>> totCnt();
+	
 }
