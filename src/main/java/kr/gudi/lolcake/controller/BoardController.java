@@ -24,12 +24,10 @@ public class BoardController {
 	  @Autowired
 	   BoardServiceInterface tsi;
 	  
-	  @RequestMapping("/bbsif")
+	  @RequestMapping(value = "/bbsif", method = RequestMethod.GET)
 	    public ModelAndView bbsif(ModelAndView mav){
-	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tsi.selectbbsif();
-	      mav.addObject("list", list);
-	      mav.setViewName("commif");
-	      return mav;
+		  mav.setViewName("commif");
+		  return mav;
 	    }
 	  
 	  @RequestMapping("/bbsmd")
@@ -58,6 +56,11 @@ public class BoardController {
 	  public void bbshot(HttpServletResponse response){
 		  HttpUtil.sendResponceToJson(response, tsi.selectbbshot());
 	  }
+	  
+	  @RequestMapping(value = "/bbsifData", method = RequestMethod.POST)
+	  public void bbsif(HttpServletResponse response){
+		  HttpUtil.sendResponceToJson(response, tsi.selectbbsif());
+	  }
 	   
 	  @RequestMapping("/totCntData")
 	  public void totCntData(HttpServletResponse response){
@@ -69,6 +72,13 @@ public class BoardController {
 	      HashMap<String, Object> param = new HashMap<String, Object>();
 	      param.put("start", Integer.parseInt(req.getParameter("start")));
 	      param.put("viewRow", Integer.parseInt(req.getParameter("viewRow")));
-	      return HttpUtil.makeHashToJsonModelAndView(tsi.select(param));
+	      
+	      JSONObject jsonObject = new JSONObject();
+	      jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(tsi.select(param)));
+	      mav.addObject("message", jsonObject.toString());
+			
+	      mav.setViewName("json");
+	      return mav;
+//	      return HttpUtil.makeHashToJsonModelAndView(tsi.select(param));
 	  }
 }

@@ -20,6 +20,7 @@ public class BoardService implements BoardServiceInterface {
 	   public HashMap<String, Object> selectbbsif() {
 		  map = new HashMap<String, Object>();
 		  map.put("list", tdi.selectbbsif());
+		  map.put("cnt", tdi.selectbbsif());
 	      return map;
 	   }
 	   
@@ -54,6 +55,7 @@ public class BoardService implements BoardServiceInterface {
 	      map.put("list", pdi.totCnt());
 	      return map;
 	   }
+	   
 	   
 	   @Override
 	   public HashMap<String, Object> select(HashMap<String, Object> param) {

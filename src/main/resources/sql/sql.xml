@@ -79,7 +79,10 @@
    <select id="totCnt" resultType="hashmap">
       select upper(type) as type, count(*) as tot from board group by upper(type)
    </select>
-   
+   <select id="totCntif" resultType="hashmap">
+   	  select count(*) as tot1 from board where del_yn = 'N' and type = 'if';
+   </select>
+    
    <select id="selectHot" resultType="hashmap">
 	  select *, 
 	  		 case when b.type = 'if' then 'INFO' when b.type = 'md' then 'VIDEO' else '몰라' end as viewType, 

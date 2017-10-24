@@ -49,4 +49,11 @@ public class BoardDao implements BoardDaoInterface {
 	      return session.selectList("sql.totCnt");
 	   }
 
+	@Override
+	public List<HashMap<String, Object>> totCntif() {
+		return session.selectOne("sql.totCntif");
+	}
+
+	   
+
 	}
