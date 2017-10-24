@@ -21,7 +21,7 @@
 		where del_yn = 'N' and type = 'fr';
 	</select>
 	
-	<select id="bbsbest" resultType="hashmap"> <!-- 게시판 인기 목록 -->
+	<select id="bbshot" resultType="hashmap"> <!-- 게시판 인기 목록 -->
 		select no, title, nickname, time, hit
 		from board
 		where del_yn = 'N' and type in ('if', 'md')

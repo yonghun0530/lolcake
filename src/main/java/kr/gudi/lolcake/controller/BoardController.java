@@ -16,11 +16,35 @@ public class BoardController {
 	  @Autowired
 	   BoardServiceInterface tsi;
 	  
-	  @RequestMapping("/boardlist")
-	    public ModelAndView boardlist(ModelAndView mav){
+	  @RequestMapping("/bbsif")
+	    public ModelAndView bbsif(ModelAndView mav){
 	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tsi.select();
 	      mav.addObject("list", list);
-	      mav.setViewName("comm");
+	      mav.setViewName("commif");
+	      return mav;
+	    }
+	  
+	  @RequestMapping("/bbsmd")
+	    public ModelAndView bbsmd(ModelAndView mav){
+	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tsi.select1();
+	      mav.addObject("list", list);
+	      mav.setViewName("commmd");
+	      return mav;
+	    }
+	  
+	  @RequestMapping("/bbsfr")
+	    public ModelAndView bbsfr(ModelAndView mav){
+	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tsi.select2();
+	      mav.addObject("list", list);
+	      mav.setViewName("commfr");
+	      return mav;
+	    }
+	  
+	  @RequestMapping("/bbshot")
+	    public ModelAndView bbshot(ModelAndView mav){
+	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tsi.select3();
+	      mav.addObject("list", list);
+	      mav.setViewName("commhot");
 	      return mav;
 	    }
 	   

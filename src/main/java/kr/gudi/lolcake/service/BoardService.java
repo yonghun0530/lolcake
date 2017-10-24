@@ -20,4 +20,25 @@ public class BoardService implements BoardServiceInterface {
 
 	      return list;
 	   }
+	   
+	   @Override
+	   public List<HashMap<String, Object>> select1() {
+	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tdi.select1();
+
+	      return list;
+	   }
+	   
+	   @Override
+	   public List<HashMap<String, Object>> select2() {
+	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tdi.select2();
+
+	      return list;
+	   }
+	   
+	   @Override
+	   public List<HashMap<String, Object>> select3() {
+	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tdi.select3();
+
+	      return list;
+	   }
 }
