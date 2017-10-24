@@ -18,7 +18,7 @@ public class BoardController {
 	  
 	  @RequestMapping("/bbsif")
 	    public ModelAndView bbsif(ModelAndView mav){
-	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tsi.select();
+	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tsi.selectbbsif();
 	      mav.addObject("list", list);
 	      mav.setViewName("commif");
 	      return mav;
@@ -26,7 +26,7 @@ public class BoardController {
 	  
 	  @RequestMapping("/bbsmd")
 	    public ModelAndView bbsmd(ModelAndView mav){
-	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tsi.select1();
+	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tsi.selectbbsmd();
 	      mav.addObject("list", list);
 	      mav.setViewName("commmd");
 	      return mav;
@@ -34,7 +34,7 @@ public class BoardController {
 	  
 	  @RequestMapping("/bbsfr")
 	    public ModelAndView bbsfr(ModelAndView mav){
-	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tsi.select2();
+	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tsi.selectbbsfr();
 	      mav.addObject("list", list);
 	      mav.setViewName("commfr");
 	      return mav;
@@ -42,7 +42,7 @@ public class BoardController {
 	  
 	  @RequestMapping("/bbshot")
 	    public ModelAndView bbshot(ModelAndView mav){
-	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tsi.select3();
+	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tsi.selectbbshot();
 	      mav.addObject("list", list);
 	      mav.setViewName("commhot");
 	      return mav;

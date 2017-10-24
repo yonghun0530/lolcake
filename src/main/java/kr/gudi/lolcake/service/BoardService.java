@@ -15,29 +15,29 @@ public class BoardService implements BoardServiceInterface {
 	   BoardDaoInterface tdi;
 	   
 	   @Override
-	   public List<HashMap<String, Object>> select() {
-	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tdi.select();
+	   public List<HashMap<String, Object>> selectbbsif() {
+	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tdi.selectbbsif();
 
 	      return list;
 	   }
 	   
 	   @Override
-	   public List<HashMap<String, Object>> select1() {
-	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tdi.select1();
+	   public List<HashMap<String, Object>> selectbbsmd() {
+	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tdi.selectbbsmd();
 
 	      return list;
 	   }
 	   
 	   @Override
-	   public List<HashMap<String, Object>> select2() {
-	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tdi.select2();
+	   public List<HashMap<String, Object>> selectbbsfr() {
+	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tdi.selectbbsfr();
 
 	      return list;
 	   }
 	   
 	   @Override
-	   public List<HashMap<String, Object>> select3() {
-	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tdi.select3();
+	   public List<HashMap<String, Object>> selectbbshot() {
+	      List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) tdi.selectbbshot();
 
 	      return list;
 	   }

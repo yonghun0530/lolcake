@@ -15,22 +15,22 @@ public class BoardDao implements BoardDaoInterface {
 	   SqlSession session;
 	   
 	   @Override
-	   public List<HashMap<String, Object>> select() {
+	   public List<HashMap<String, Object>> selectbbsif() {
 	      return session.selectList("sql.bbsif");
 	   }
 	   
 	   @Override
-	   public List<HashMap<String, Object>> select1() {
+	   public List<HashMap<String, Object>> selectbbsmd() {
 	      return session.selectList("sql.bbsmd");
 	   }
 	   
 	   @Override
-	   public List<HashMap<String, Object>> select2() {
+	   public List<HashMap<String, Object>> selectbbsfr() {
 	      return session.selectList("sql.bbsfr");
 	   }
 	   
 	   @Override
-	   public List<HashMap<String, Object>> select3() {
+	   public List<HashMap<String, Object>> selectbbshot() {
 	      return session.selectList("sql.bbshot");
 	   }
 
