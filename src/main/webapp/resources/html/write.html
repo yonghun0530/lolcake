@@ -1,63 +1,71 @@
-    <!DOCTYPE html>
-    <html>
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<head>
+    <title></title>
+    
+</head>
+	<script src="../js/main.js"></script>
+    <script src="../js/jquery-2.2.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../ckeditor/"></script> <!-- 에디터 가져오는거 모름 -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".moviewrite").hide();
+        $(".bbswrite").show();
+    });
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>내용</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                var i = 1;
-                $("#btnAdd").hide();
-                $("#text1").hide();
-                $("button").click(
-                    function() {
+</script>
 
-                        var itext = $("#text1").val();
-
-                        var addText = "<tr>" +
-                            "<td>" + i + "</td>" +
-                            "<td>" + itext + "</td>" +
-                            "</tr>";
-                        $("div table").prepend(addText);
-                        i++;
-
-                        $("#btnAdd").hide();
-                        $("#text1").hide();
-                        $("#text1").val("");
-
-                    });
-                if ($("#check").prop('checked', true)) {
-                    function(){
-                    $("#btnAdd").show();
-                    $("#text1").show();
-                    }
-                } else if ($("#check").prop('checked', false)) {
-                    function(){
-                    $("#btnAdd").hide();
-                    $("#text1").hide();
-                    }
-                }
-            });
-
-        </script>
-        <style>
-            input {
-                display: inline-block;
-            }
-        </style>
-    </head>
-
-    <body>
-        <div>
-            <button type="button" id="btnAdd">추가</button>
-            <input type="text" placeholder="입력" id="text1" /> <input type="checkbox" id="check" />
-            <table border=1>
-            </table>
+<body>
+    <section id="write" class="commenu">
+        <ul>
+            <li>
+                <a href="#FR-W" class="on">FREE</a>
+            </li>
+            <li>
+                <a href="#IF-W">INFO</a>
+            </li>
+            <li>
+                <a href="#MD-W">VIDEO</a>
+            </li>
+        </ul>
+        <div class="moviewrite">
+            <!--영상-->
+            <input class="h1" type="text" placeholder="제목을 입력하세요." />
+            <hr>
+            <input class="h1" type="url" value="http://">
+            <hr>
+            <textarea placeholder="내용을 입력하세요.(선택)"></textarea>
+            <input class="id" type="text" placeholder="닉네임을 입력하세요.">
+            <input class="pwd" type="text" placeholder="비밀번호를 입력하세요.">
+            <hr>
+            <button>글쓰기</button>
         </div>
-    </body>
 
-    </html>
+        <div class="bbswrite">
+            <!--글쓰기-->
+            <input type="text" class="h1" placeholder="제목을 입력하세요.">
+            <hr>
+            <textarea name="boContent" id="contents" cols="67" rows="15" placeholder="내용을 입력하세요."></textarea>
+            <script>
+                $.getScript( "https://cdn.ckeditor.com/4.7.3/full-all/ckeditor.js").done(function(){
+                    if (CKEDITOR.instances['contents']) {
+                        CKEDITOR.instances['contents'].destroy();
+                    }
+                    CKEDITOR.replace('contents', {
+                        customConfig: '/html/ckeditor/config.js'
+                    });
+                });
+                // CKEDITOR.instances['contents'].getData()
+                // CKEDITOR.instances['contents'].setData("내용")
+            </script>
+            <input class="id" type="text" placeholder="닉네임을 입력하세요.">
+            <input class="pwd" type="text" placeholder="비밀번호를 입력하세요.">
+            <hr>
+            <button>글쓰기</button>
+        </div>
+    </section>
+</body>
+
+</html>

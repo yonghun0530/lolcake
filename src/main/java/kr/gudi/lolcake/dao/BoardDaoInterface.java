@@ -17,5 +17,5 @@ public interface BoardDaoInterface {
 	
 	public List<HashMap<String, Object>> totCnt();
 	
-	public List<HashMap<String, Object>> totCntif();
+	public HashMap<String, Object> totCntif();
 }

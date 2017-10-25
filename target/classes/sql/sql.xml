@@ -73,14 +73,15 @@
 	
 	<!-- 추천(hit) 증가 -->
 	
-	<select id="select" parameterType="hashmap" resultType="hashmap">
-      select * from board where type = #{type} limit #{start}, #{viewRow}
+   <select id="select" parameterType="hashmap" resultType="hashmap">
+      select divide, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as time, hit
+      from board where type = 'if' limit #{start}, #{viewRow}
    </select>
    <select id="totCnt" resultType="hashmap">
       select upper(type) as type, count(*) as tot from board group by upper(type)
    </select>
    <select id="totCntif" resultType="hashmap">
-   	  select count(*) as tot1 from board where del_yn = 'N' and type = 'if';
+   	  select count(*) as tot from board where del_yn = 'N' and type = 'if';
    </select>
     
    <select id="selectHot" resultType="hashmap">

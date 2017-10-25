@@ -1,127 +1,129 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>LOLCAKE</title>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="../css/main.css">
     <script src="../js/main.js"></script>
     <script src="../js/jquery-2.2.1.js"></script>
     <script src="../js/main.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#menu > ul > li').mouseup(function() {
-                var idx = $('#menu > ul > li').index(this);
-                $('#menu > ul > li').removeClass('on').addClass('off');
-                $('#menu > ul > li').eq(idx)
-                    .addClass('on').removeClass('off');
-                $('#menu > ul > li').eq(4).removeClass('off').removeClass('on');
-
-            });
-
-        });
-    </script>
 </head>
 
 <body>
-    <div id="main">
-        <div id="menu">
-            <ul>
-                <li class="on">
-                    <a href="#"></a>
-                    <h4>HOME</h4>
-                </li>
-                <li class="off">
-                    <a href="#"></a>
-                    <h4>자유게시판</h4>
-                </li>
-                <li class="off">
-                    <a href="#"></a>
-                    <h4>챔피언</h4>
-                </li>
-                <li class="off">
-                    <a href="#"></a>
-                    <h4>랭킹</h4>
-                </li>
-                <li>
-                    <button>익명채팅방</button>
-                </li>
-            </ul>
-        </div>
-        <section id="champDetail">
-            <div id="container">
-                <div id="sections">
-                    <div>
-                        <p ="h1">챔피언 설명 </p>
-                        <p>챔피언의 영상과 설명이 담겨있습니다.</p>
+    <section id="champDetail">
+        <div id="sections">
+            <p class="h1">챔피언 설명 </p>
+            <div id="championHead">
+                <div id="skilVideo">
+                    <p>드레이븐<span>못생긴순위(상위 0.1%)</span></p>
+                    <div id="championImg">
+                        <img src="http://opgg-static.akamaized.net/images/lol/champion/Draven.png?image=c_scale,w_100&v=1">
                     </div>
-
-                    <div id="championHead">
-                        <div id="championImg" class="Cdiv">
-                            <img src="http://opgg-static.akamaized.net/images/lol/champion/Draven.png?image=c_scale,w_100&v=1">
-                        </div>
-                        <div id="championInfo" class="Cdiv">
-                            <div id="chamname">드레이븐</div>
-                            <div id="chamSkil">
-                                <ul>
-                                    <li>
-                                        <a href=""><img src="http://opgg-static.akamaized.net/images/lol/passive/Draven_passive.png?image=c_scale,w_50&v=1"></a>
-                                    </li>
-                                    <li>
-                                        <a href=""><img src="http://opgg-static.akamaized.net/images/lol/spell/DravenSpinning.png?image=c_scale,w_48&v=1"></a>
-                                    </li>
-                                    <li>
-                                        <a href=""><img src="http://opgg-static.akamaized.net/images/lol/spell/DravenFury.png?image=c_scale,w_48&v=1"></a>
-                                    </li>
-                                    <li>
-                                        <a href=""><img src="http://opgg-static.akamaized.net/images/lol/spell/DravenDoubleShot.png?image=c_scale,w_48&v=1"></a>
-                                    </li>
-                                    <li>
-                                        <a href=""><img src="http:////opgg-static.akamaized.net/images/lol/spell/DravenRCast.png?image=c_scale,w_48&v=1"></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="champSkilInfo">
-                        <table border="1">
-                            <th>스킬</th>
-                            <th>명칭</th>
-                            <th>설명</th>
-                            <tr>
-                                <td>1그림</td>
-                                <td>2이름</td>
-                                <td>3설명</td>
-                            </tr>
-                        </table>
+                    <div id="champskil">
+                        <ul class="board1">
+                            <li>Passive</li>
+                            <li>Q</li>
+                            <li>W</li>
+                            <li>E</li>
+                            <li>R</li>
+                        </ul>
+                        <ul class="board1">
+                            <li>
+                                <a href="">
+                                    <!--img 지우고 경로를 api로--><img src="http://opgg-static.akamaized.net/images/lol/champion/Draven.png?image=c_scale,w_100&v=1"></a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <!--img 지우고 경로를 api로--><img src="http://opgg-static.akamaized.net/images/lol/spell/DravenSpinning.png?image=c_scale,w_48&v=1"></a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <!--img 지우고 경로를 api로--><img src="http://opgg-static.akamaized.net/images/lol/spell/DravenFury.png?image=c_scale,w_48&v=1"></a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <!--img 지우고 경로를 api로--><img src="http://opgg-static.akamaized.net/images/lol/spell/DravenDoubleShot.png?image=c_scale,w_48&v=1"></a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <!--img 지우고 경로를 api로--><img src="http:////opgg-static.akamaized.net/images/lol/spell/DravenRCast.png?image=c_scale,w_48&v=1"></a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </section>
-        <footer id="footer">
-            <div class="basic">
-                <p>서울시 금천구 가산디지털2로 115 대륭테크노타운3차 <span>|</span>Goodee<span>|</span>김성진 임채영 주용훈 최혁<span>|</span>사업자 등록번호 119-86-83838</p>
-            </div>
 
-            <div class="sub">
-                <ul>
+            <div id="champSkilInfo">
+                <ul class="board2">
+                    <li>이미지</li>
+                    <li>스킬이름</li>
+                    <li>스킬설명</li>
+                </ul>
+                <ul class="board2">
+                    <li><img src="http://opgg-static.akamaized.net/images/lol/spell/DravenSpinning.png?image=c_scale,w_48&v=1"></li>
+                    <li>도끼1</li>
+                    <li></li>
+                </ul>
+                <ul class="board2">
+                    <li><img src="http://opgg-static.akamaized.net/images/lol/spell/DravenSpinning.png?image=c_scale,w_48&v=1"></li>
+                    <li>도끼2</li>
                     <li>
-                        <a class="fb" href="http://www.facebook.com/1lolcake2/"><img src="../img/002-facebook-logo-button.png"></a>
-                    </li>
-                    <li>
-                        <a class="gram" href="https://www.instagram.com/lolcake.yum/"><img src="../img/001-instagram-logo.png"></a>
-                    </li>
-                    <li>
-                        <a href="https://kr.leagueoflegends.com/"><img class="lol" src="../img/lol.png"></a>
+                        마나 소모: 45 재사용 대기시간: 12/11/10/9/8초 드레이븐의 다음 공격이 추가 물리 피해를 입힙니다. 기본 피해량 30/35/40/45/50, 추가 피해량은 총 공격력의 65/75/85/95/105%와 동일합니다. 드레이븐의 도끼가 대상에게 맞고 튕겨 나가 공중으로 높이 뜹니다. 공중에 뜬 도끼를 드레이븐이 잡으면 자동으로 회전 도끼를 다시 사용합니다. 드레이븐은 한 번에 두 개의 도끼를 사용할 수 있습니다.
                     </li>
                 </ul>
-            </div>
-            <div>
-                <h6>Copyright(c) LoLcake^^Yum</h6>
-            </div>
+                <ul class="board2">
+                    <li><img src="http://opgg-static.akamaized.net/images/lol/spell/DravenSpinning.png?image=c_scale,w_48&v=1"></li>
+                    <li>도끼3</li>
+                    <li>
+                        마나 소모: 45 재사용 대기시간: 12/11/10/9/8초 드레이븐의 다음 공격이 추가 물리 피해를 입힙니다. 기본 피해량 30/35/40/45/50, 추가 피해량은 총 공격력의 65/75/85/95/105%와 동일합니다. 드레이븐의 도끼가 대상에게 맞고 튕겨 나가 공중으로 높이 뜹니다. 공중에 뜬 도끼를 드레이븐이 잡으면 자동으로 회전 도끼를 다시 사용합니다. 드레이븐은 한 번에 두 개의 도끼를 사용할 수 있습니다.
+                    </li>
+                </ul>
+                <ul class="board2">
+                    <li><img src="http://opgg-static.akamaized.net/images/lol/spell/DravenSpinning.png?image=c_scale,w_48&v=1"></li>
+                    <li>도끼4</li>
+                    <li>
+                        마나 소모: 45 재사용 대기시간: 12/11/10/9/8초 드레이븐의 다음 공격이 추가 물리 피해를 입힙니다. 기본 피해량 30/35/40/45/50, 추가 피해량은 총 공격력의 65/75/85/95/105%와 동일합니다. 드레이븐의 도끼가 대상에게 맞고 튕겨 나가 공중으로 높이 뜹니다. 공중에 뜬 도끼를 드레이븐이 잡으면 자동으로 회전 도끼를 다시 사용합니다. 드레이븐은 한 번에 두 개의 도끼를 사용할 수 있습니다.
+                    </li>
+                </ul>
+                <ul class="board2">
+                    <li><img src="http://opgg-static.akamaized.net/images/lol/spell/DravenSpinning.png?image=c_scale,w_48&v=1"></li>
+                    <li>도끼5</li>
+                    <li>
+                        마나 소모: 45 재사용 대기시간: 12/11/10/9/8초 드레이븐의 다음 공격이 추가 물리 피해를 입힙니다. 기본 피해량 30/35/40/45/50, 추가 피해량은 총 공격력의 65/75/85/95/105%와 동일합니다. 드레이븐의 도끼가 대상에게 맞고 튕겨 나가 공중으로 높이 뜹니다. 공중에 뜬 도끼를 드레이븐이 잡으면 자동으로 회전 도끼를 다시 사용합니다. 드레이븐은 한 번에 두 개의 도끼를 사용할 수 있습니다.
+                    </li>
+                </ul>
+                <ul class="board2">
+                    <li><img src="http://opgg-static.akamaized.net/images/lol/spell/DravenSpinning.png?image=c_scale,w_48&v=1"></li>
+                    <li>도끼5</li>
+                    <li>
+                        마나 소모: 45 재사용 대기시간: 12/11/10/9/8초 드레이븐의 다음 공격이 추가 물리 피해를 입힙니다. 기본 피해량 30/35/40/45/50, 추가 피해량은 총 공격력의 65/75/85/95/105%와 동일합니다. 드레이븐의 도끼가 대상에게 맞고 튕겨 나가 공중으로 높이 뜹니다. 공중에 뜬 도끼를 드레이븐이 잡으면 자동으로 회전 도끼를 다시 사용합니다. 드레이븐은 한 번에 두 개의 도끼를 사용할 수 있습니다.
+                    </li>
+                </ul>
+                <ul class="board2">
+                    <li><img src="http://opgg-static.akamaized.net/images/lol/spell/DravenSpinning.png?image=c_scale,w_48&v=1"></li>
+                    <li>도끼5</li>
+                    <li>
+                        마나 소모: 45 재사용 대기시간: 12/11/10/9/8초 드레이븐의 다음 공격이 추가 물리 피해를 입힙니다. 기본 피해량 30/35/40/45/50, 추가 피해량은 총 공격력의 65/75/85/95/105%와 동일합니다. 드레이븐의 도끼가 대상에게 맞고 튕겨 나가 공중으로 높이 뜹니다. 공중에 뜬 도끼를 드레이븐이 잡으면 자동으로 회전 도끼를 다시 사용합니다. 드레이븐은 한 번에 두 개의 도끼를 사용할 수 있습니다.
+                    </li>
+                </ul>
+                <ul class="board2">
+                    <li><img src="http://opgg-static.akamaized.net/images/lol/spell/DravenSpinning.png?image=c_scale,w_48&v=1"></li>
+                    <li>도끼5</li>
+                    <li>
+                        마나 소모: 45 재사용 대기시간: 12/11/10/9/8초 드레이븐의 다음 공격이 추가 물리 피해를 입힙니다. 기본 피해량 30/35/40/45/50, 추가 피해량은 총 공격력의 65/75/85/95/105%와 동일합니다. 드레이븐의 도끼가 대상에게 맞고 튕겨 나가 공중으로 높이 뜹니다. 공중에 뜬 도끼를 드레이븐이 잡으면 자동으로 회전 도끼를 다시 사용합니다. 드레이븐은 한 번에 두 개의 도끼를 사용할 수 있습니다.
+                    </li>
+                </ul>
+                <ul class="board2">
+                    <li><img src="http://opgg-static.akamaized.net/images/lol/spell/DravenSpinning.png?image=c_scale,w_48&v=1"></li>
+                    <li>도끼5</li>
+                    <li>
+                        마나 소모: 45 재사용 대기시간: 12/11/10/9/8초 드레이븐의 다음 공격이 추가 물리 피해를 입힙니다. 기본 피해량 30/35/40/45/50, 추가 피해량은 총 공격력의 65/75/85/95/105%와 동일합니다. 드레이븐의 도끼가 대상에게 맞고 튕겨 나가 공중으로 높이 뜹니다. 공중에 뜬 도끼를 드레이븐이 잡으면 자동으로 회전 도끼를 다시 사용합니다. 드레이븐은 한 번에 두 개의 도끼를 사용할 수 있습니다.
+                    </li>
+                </ul>
 
-        </footer>
-    </div>
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>

@@ -20,7 +20,6 @@ public class BoardService implements BoardServiceInterface {
 	   public HashMap<String, Object> selectbbsif() {
 		  map = new HashMap<String, Object>();
 		  map.put("list", tdi.selectbbsif());
-		  map.put("cnt", tdi.selectbbsif());
 	      return map;
 	   }
 	   
@@ -46,23 +45,22 @@ public class BoardService implements BoardServiceInterface {
 	      return map;
 	   }
 	   
-	   @Autowired
-	   BoardDaoInterface pdi;
-	   
 	   @Override
 	   public HashMap<String, Object> selectTotCnt() {
 	      HashMap<String, Object> map = new HashMap<String, Object>();
-	      map.put("list", pdi.totCnt());
+	      map.put("list", tdi.totCnt());
 	      return map;
 	   }
-	   
 	   
 	   @Override
 	   public HashMap<String, Object> select(HashMap<String, Object> param) {
 	      
-	      List<HashMap<String, Object>> list = pdi.select(param);
+	      List<HashMap<String, Object>> list = tdi.select(param);
 	      HashMap<String, Object> map = new HashMap<String, Object>();
 	      map.put("list", list);
+	      
+	      HashMap<String, Object> totCnt = tdi.totCntif();
+	      map.put("totCntif", totCnt);
 	      
 	      return map;
 	   }

@@ -31,7 +31,7 @@
             	console.log(data);
                for(var i = 0; i < data.length; i++){
             	   var tag = "";
-            	   tag += '<ul class="board">';
+            	   tag += '<ul class="board-body">';
             	   tag += '<li>'+data[i].no+'</li>';
             	   tag += '<li>'+data[i].viewType+'</li>';
             	   tag += '<li><img src="http://www.op.gg/forum/outImage/https://i.ytimg.com/vi/YBXTf1gSr_A/hqdefault.jpg"></li>';
@@ -105,70 +105,25 @@
         </section>
     </div>
     <section id="videoDetail">
-        <div id="sections">
-            <ul class="board">
-<!--                 <div class="th"> -->
-                <li>번호</li>
-                <li>종류</li>
-                <li>썸네일</li>
-                <li>제목</li>
-                <li>작성자</li>
-                <li>작성시간</li>
-                <li>추천수</li>
-<!--                 </div> -->
+		<div id="sections">
+			<ul class="boardhead">
+				<li>번호</li>
+				<li>종류</li>
+				<li>썸네일</li>
+				<li>제목</li>
+				<li>작성자</li>
+				<li>작성시간</li>
+				<li>추천수</li>
 			</ul>
-<!--             <ul class="board"> -->
-<!--             	<li>1</li> -->
-<!--             	<li><img src="http://www.op.gg/forum/outImage/https://i.ytimg.com/vi/YBXTf1gSr_A/hqdefault.jpg"></li> -->
-<!--             	<li>2</li> -->
-<!--             	<li>3</li> -->
-<!--             	<li>4</li> -->
-<!--             	<li>5</li> -->
-<!--             </ul> -->
-<!--                 <ul > -->
-<!--                     <li>1</li> -->
-<!--                 </ul> -->
-<!--                 <ul class="somenail"> -->
-<!--                     <li><img src="http://www.op.gg/forum/outImage/https://i.ytimg.com/vi/YBXTf1gSr_A/hqdefault.jpg"></li> -->
-<!--                 </ul> -->
-<!--                 <ul class="title"> -->
-<!--                     <li>2</li> -->
-<!--                 </ul> -->
-<!--                 <ul class="writer"> -->
-<!--                     <li>3</li> -->
-<!--                 </ul> -->
-<!--                 <ul class="time"> -->
-<!--                 	<li>4</li> -->
-<!--                 </ul> -->
-<!--                 <ul class="hit"> -->
-<!--                     <li>5</li> -->
-<!--                 </ul> -->
-                
-                
-<!--                 <ul class="no"> -->
-<!--                     <li>2</li> -->
-<!--                 </ul> -->
-<!--                 <ul class="somenail"> -->
-<!--                     <li><img src="http://www.op.gg/forum/outImage/https://i.ytimg.com/vi/YBXTf1gSr_A/hqdefault.jpg"></li> -->
-<!--                 </ul> -->
-<!--                 <ul class="title"> -->
-<!--                     <li>2</li> -->
-<!--                 </ul> -->
-<!--                 <ul class="writer"> -->
-<!--                     <li>3</li> -->
-<!--                 </ul> -->
-<!--                 <ul class="time"> -->
-<!--                 	<li>4</li> -->
-<!--                 </ul> -->
-<!--                 <ul class="hit"> -->
-<!--                     <li>5</li> -->
-<!--                 </ul> -->
-<!--             </ul> -->
-        </div>
-        <div class="search">
-            <input type="button" value="글쓰기" id="insert" style="float: right">
-        </div>
-    </section>
+			<div class="board-body">
+			</div>
+		</div>
+		<div class="search">
+			<input type="button" value="글쓰기" id="insert" style="float: right">
+		</div>
+		<br>
+		<div id="paging"></div>
+	</section>
     
 </body>
 

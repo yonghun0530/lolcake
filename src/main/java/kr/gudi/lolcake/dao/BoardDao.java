@@ -50,10 +50,7 @@ public class BoardDao implements BoardDaoInterface {
 	   }
 
 	@Override
-	public List<HashMap<String, Object>> totCntif() {
+	public HashMap<String, Object> totCntif() {
 		return session.selectOne("sql.totCntif");
 	}
-
-	   
-
-	}
+}
