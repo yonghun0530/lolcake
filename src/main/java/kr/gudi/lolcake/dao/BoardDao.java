@@ -53,4 +53,22 @@ public class BoardDao implements BoardDaoInterface {
 	public HashMap<String, Object> totCntif() {
 		return session.selectOne("sql.totCntif");
 	}
+	
+	@Override
+	public HashMap<String, Object> totCntfr() {
+		return session.selectOne("sql.totCntfr");
+	}
+	@Override
+	public HashMap<String, Object> totCntmd() {
+		return session.selectOne("sql.totCntmd");
+	}
+	@Override
+	   public List<HashMap<String, Object>> selectfr(HashMap<String, Object> param) {
+	      return session.selectList("sql.selectfr", param);
+	   }
+	@Override
+	   public List<HashMap<String, Object>> selectmd(HashMap<String, Object> param) {
+	      return session.selectList("sql.selectmd", param);
+	   }
+	
 }

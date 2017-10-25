@@ -64,4 +64,44 @@ public class BoardService implements BoardServiceInterface {
 	      
 	      return map;
 	   }
+	   
+	   @Override
+	   public HashMap<String, Object> selectTotCntfr() {
+	      HashMap<String, Object> map = new HashMap<String, Object>();
+	      map.put("list", tdi.totCnt());
+	      return map;
+	   }
+	   
+	   @Override
+	   public HashMap<String, Object> selectfr(HashMap<String, Object> param) {
+	      
+	      List<HashMap<String, Object>> list = tdi.selectfr(param);
+	      HashMap<String, Object> map = new HashMap<String, Object>();
+	      map.put("list", list);
+	      
+	      HashMap<String, Object> totCnt = tdi.totCntfr();
+	      map.put("totCntfr", totCnt);
+	      
+	      return map;
+	   }
+	   
+	   @Override
+	   public HashMap<String, Object> selectTotCntmd() {
+	      HashMap<String, Object> map = new HashMap<String, Object>();
+	      map.put("list", tdi.totCnt());
+	      return map;
+	   }
+	   
+	   @Override
+	   public HashMap<String, Object> selectmd(HashMap<String, Object> param) {
+	      
+	      List<HashMap<String, Object>> list = tdi.selectmd(param);
+	      HashMap<String, Object> map = new HashMap<String, Object>();
+	      map.put("list", list);
+	      
+	      HashMap<String, Object> totCnt = tdi.totCntmd();
+	      map.put("totCntmd", totCnt);
+	      
+	      return map;
+	   }
 }

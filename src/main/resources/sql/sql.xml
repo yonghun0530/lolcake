@@ -77,11 +77,25 @@
       select divide, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as time, hit
       from board where type = 'if' limit #{start}, #{viewRow}
    </select>
+   <select id="selectfr" parameterType="hashmap" resultType="hashmap">
+      select divide, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as time, hit
+      from board where type = 'fr' limit #{start}, #{viewRow}
+   </select>
+   <select id="selectmd" parameterType="hashmap" resultType="hashmap">
+      select divide, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as time, hit
+      from board where type = 'md' limit #{start}, #{viewRow}
+   </select>
    <select id="totCnt" resultType="hashmap">
       select upper(type) as type, count(*) as tot from board group by upper(type)
    </select>
    <select id="totCntif" resultType="hashmap">
    	  select count(*) as tot from board where del_yn = 'N' and type = 'if';
+   </select>
+   <select id="totCntfr" resultType="hashmap">
+   	  select count(*) as tot from board where del_yn = 'N' and type = 'fr';
+   </select>
+   <select id="totCntmd" resultType="hashmap">
+   	  select count(*) as tot from board where del_yn = 'N' and type = 'md';
    </select>
     
    <select id="selectHot" resultType="hashmap">
