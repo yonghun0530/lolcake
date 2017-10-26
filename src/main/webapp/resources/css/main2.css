@@ -27,15 +27,10 @@ button {
 }
 
 body {
-    overflow: hidden;
+/*     overflow: hidden; */
 }
 
 /*가운데정렬 시 사용*/
-
-#containerBox {
-	position: relative;
-	margin-bottom: 30px;
-}
 
 .h1 {
     font-weight: bold;
@@ -56,92 +51,6 @@ body {
     overflow-x: hidden;
     overflow-y: scroll;
     top: 0;
-}
-
-
-/*메뉴*/
-
-#menu {
-    width: 100%;
-    height: 60px;
-    position: fixed;
-    z-index: 1;
-    overflow: hidden;
-    text-align: center;
-}
-
-#menu ul {
-    background-color: black;
-    position: relative;
-}
-
-#menu ul li {
-    display: inline-block;
-}
-
-#menu ul li a {
-    margin: 12px 5px;
-    border: 6px solid;
-    border-radius: 100px;
-    display: inline-block;
-}
-
-#menu ul li:hover a {
-    border-color: #ff9d00;
-}
-
-#menu ul li:hover h4 {
-    display: block;
-}
-
-#menu ul li h4 {
-    position: absolute;
-    width: 100%;
-    height: 20px;
-    left: 0;
-    top: 40px;
-    background-color: #ffd295;
-    color: white;
-    display: none;
-}
-
-#menu ul li h4:after {
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 10px solid #ffd295;
-    content: "";
-    position: absolute;
-    top: -10px;
-    left: calc(50% - 10px);
-}
-
-#menu ul li button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0;
-    margin-right: 5px;
-    height: 30px;
-    background-color: #9a9a9a;
-    color: white;
-    border: none;
-    font-weight: bold;
-}
-
-#menu .on a {
-    border-color: #ff9d00;
-}
-
-#menu .on h4 {
-    display: block;
-}
-
-#menu .off a {
-    border-color: #f2f2f2;
-}
-
-#menu .off h4 {
-    display: none;
 }
 
 /*로고 및 검색*/
@@ -177,38 +86,6 @@ body {
     font-weight: bold;
     vertical-align: middle;
 }
-
-#footer {
-    width: 100%;
-    position: relative;
-    text-align: center;
-}
-
-#footer .basic span {
-    margin: 5px;
-    padding: 10px;
-    font-size: 15px;
-}
-
-#footer .basic p {
-    font-size: 11px;
-}
-
-#footer .sub ul li {
-    list-style: none;
-    display: inline;
-}
-
-#footer .sub .lol {
-    width: 35px;
-    height: 31px;
-}
-
-#footer a {
-    margin: 5px;
-}
-
-/***********************************/
 
 /*세션 테두리*/
 

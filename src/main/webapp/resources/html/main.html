@@ -4,8 +4,7 @@
 <link rel="stylesheet" href="../css/main.css">
 <head>
     <title>LOLCAKE</title>
-    <script src="resources/js/main.js"></script>
-    <script src="resources/js/jquery-2.2.1.js"></script>
+    <script src="/lolcake/resources/js/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
@@ -25,9 +24,9 @@
         });
 
         function htmlLoad() {
-            var url = "../html/" + hash.substr(1, hash.length) + ".html";
+            var url = "../html/" + hash.substr(1, hash.length) + ".html #container";
             // div 태그 속에 url에서 가져온 데이터 넣기.
-            $("#container").load(url, function(d, s, x) {
+            $("#containerBox").load(url, function(d, s, x) {
                 if (s == "error") { // 오류 발생 시 (404, 500) 등등...
                     alert("잘못된 주소를 입력하셨습니다. 처음으로 돌아 갑니다.");
                     location.href = "home.html"; // 화면 다시 읽어 오게 만든다.
@@ -67,7 +66,7 @@
             </li>
         </ul>
     </div>
-    <div id="container">
+    <div id="containerBox">
         <header id="banner">
             <a href="javascript:location.reload();"><img src="../img/logo.png"></a>
             <div class="search">

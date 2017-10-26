@@ -4,25 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sql">
 	<select id="bbsif" resultType="hashmap"> <!-- 게시판 정보 목록 -->
-		select divide, title, nickname, time, hit 
+		select divide, '인포' as viewType, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit 
 		from board 
 		where del_yn = 'N' and type = 'if';
 	</select>
 	
 	<select id="bbsmd" resultType="hashmap"> <!-- 게시판 영상 목록 -->
-		select divide, title, nickname, time, hit
+		select divide, '무비' as viewType, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit
 		from board 
 		where del_yn = 'N' and type = 'md';
 	</select>
 	
 	<select id="bbsfr" resultType="hashmap"> <!-- 게시판 자유 목록 -->
-		select divide, title, nickname, time, hit 
+		select divide, '몰라' as viewType, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit 
 		from board 
 		where del_yn = 'N' and type = 'fr';
 	</select>
 	
 	<select id="bbshot" resultType="hashmap"> <!-- 게시판 인기 목록 -->
-		select no, title, nickname, time, hit
+		select no, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit
 		from board
 		where del_yn = 'N' and type in ('if', 'md')
 	</select>
@@ -74,15 +74,15 @@
 	<!-- 추천(hit) 증가 -->
 	
    <select id="select" parameterType="hashmap" resultType="hashmap">
-      select divide, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as time, hit
+      select divide, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit
       from board where type = 'if' limit #{start}, #{viewRow}
    </select>
    <select id="selectfr" parameterType="hashmap" resultType="hashmap">
-      select divide, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as time, hit
+      select divide, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit
       from board where type = 'fr' limit #{start}, #{viewRow}
    </select>
    <select id="selectmd" parameterType="hashmap" resultType="hashmap">
-      select divide, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as time, hit
+      select divide, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit
       from board where type = 'md' limit #{start}, #{viewRow}
    </select>
    <select id="totCnt" resultType="hashmap">
