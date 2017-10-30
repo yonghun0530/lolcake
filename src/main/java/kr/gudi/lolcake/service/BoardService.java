@@ -12,96 +12,44 @@ import kr.gudi.lolcake.dao.BoardDaoInterface;
 public class BoardService implements BoardServiceInterface {
 	   
 	   @Autowired
-	   BoardDaoInterface tdi;
+	   BoardDaoInterface bdi;
 	   
 	   public HashMap<String, Object> map;
-	   
+/*	   
 	   @Override
-	   public HashMap<String, Object> selectbbsif() {
-		  map = new HashMap<String, Object>();
-		  map.put("list", tdi.selectbbsif());
-	      return map;
-	   }
-	   
-	   @Override
-	   public HashMap<String, Object> selectbbsmd() {
-		   map = new HashMap<String, Object>();
-		   map.put("list", tdi.selectbbsmd());
-		   return map;
-	   }
-	   
-	   @Override
-	   public HashMap<String, Object> selectbbsfr() {
-		   map = new HashMap<String, Object>();
-		   map.put("list", tdi.selectbbsfr());
-		   return map;
-	   }
-	   
-	   @Override
-	   public HashMap<String, Object> selectbbshot() {
+	   public HashMap<String, Object> bbshot() {
 	      map = new HashMap<String, Object>();
-	      map.put("list", tdi.selectbbshot());
-	      map.put("cnt", tdi.selectbbshotCnt());
+	      map.put("list", bdi.bbshot());
+	      map.put("cnt", bdi.bbshotCnt());
 	      return map;
 	   }
 	   
+
 	   @Override
-	   public HashMap<String, Object> selectTotCnt() {
+	   public HashMap<String, Object> TotCnt() {
 	      HashMap<String, Object> map = new HashMap<String, Object>();
-	      map.put("list", tdi.totCnt());
+	      map.put("list", bdi.totCnt());
 	      return map;
-	   }
+	   }*/
 	   
 	   @Override
-	   public HashMap<String, Object> select(HashMap<String, Object> param) {
+	   public HashMap<String, Object> all(HashMap<String, Object> param) {
 	      
-	      List<HashMap<String, Object>> list = tdi.select(param);
-	      HashMap<String, Object> map = new HashMap<String, Object>();
-	      map.put("list", list);
-	      
-	      HashMap<String, Object> totCnt = tdi.totCntif();
-	      map.put("totCntif", totCnt);
-	      
-	      return map;
-	   }
-	   
-	   @Override
-	   public HashMap<String, Object> selectTotCntfr() {
-	      HashMap<String, Object> map = new HashMap<String, Object>();
-	      map.put("list", tdi.totCnt());
-	      return map;
-	   }
-	   
-	   @Override
-	   public HashMap<String, Object> selectfr(HashMap<String, Object> param) {
-	      
-	      List<HashMap<String, Object>> list = tdi.selectfr(param);
+	      List<HashMap<String, Object>> list = bdi.all(param);
 	      HashMap<String, Object> map = new HashMap<String, Object>();
 	      map.put("list", list);
 	      
-	      HashMap<String, Object> totCnt = tdi.totCntfr();
-	      map.put("totCntfr", totCnt);
+	      HashMap<String, Object> totCnt = bdi.totCntall();
+	      map.put("totCntall", totCnt);
 	      
 	      return map;
 	   }
+
+//	@Override
+//	public HashMap<String, Object> totCntall() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	   
-	   @Override
-	   public HashMap<String, Object> selectTotCntmd() {
-	      HashMap<String, Object> map = new HashMap<String, Object>();
-	      map.put("list", tdi.totCnt());
-	      return map;
-	   }
-	   
-	   @Override
-	   public HashMap<String, Object> selectmd(HashMap<String, Object> param) {
-	      
-	      List<HashMap<String, Object>> list = tdi.selectmd(param);
-	      HashMap<String, Object> map = new HashMap<String, Object>();
-	      map.put("list", list);
-	      
-	      HashMap<String, Object> totCnt = tdi.totCntmd();
-	      map.put("totCntmd", totCnt);
-	      
-	      return map;
-	   }
+
 }

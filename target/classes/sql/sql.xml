@@ -3,6 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sql">
+<select id="bbsall" resultType="hashmap"> <!-- 게시판 정보 목록 -->
+		select no, type, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit 
+		from board 
+		where del_yn = 'N';
+	</select>
+	
 	<select id="bbsif" resultType="hashmap"> <!-- 게시판 정보 목록 -->
 		select divide, '인포' as viewType, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit 
 		from board 
@@ -21,27 +27,7 @@
 		where del_yn = 'N' and type = 'fr';
 	</select>
 	
-	<select id="bbshot" resultType="hashmap"> <!-- 게시판 인기 목록 -->
-		select no, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit
-		from board
-		where del_yn = 'N' and type in ('if', 'md')
-	</select>
-	
 	<!-- 게시판 목록 -->
-	
-	<select id="bbsboard" resultType="hashmap">
-		select divide, title, dept, nickname, time, hit
-		from board
-		where no = #{no}
-	</select>
-	
-	<select id="bbsmovie" resultType="hashmap"> <!-- 영상상세보기 보류 -->
-		select divide, title, dept, nickname, time, hit, url
-		from board
-		where no = #{no}
-	</select>
-	
-	<!-- 게시판 상세보기 -->
 	
 	<update id="bbsremove" parameterType="hashmap">
 		update board set del_yn = 'Y' where no = #{no}
@@ -73,32 +59,19 @@
 	
 	<!-- 추천(hit) 증가 -->
 	
-   <select id="select" parameterType="hashmap" resultType="hashmap">
-      select divide, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit
-      from board where type = 'if' limit #{start}, #{viewRow}
-   </select>
-   <select id="selectfr" parameterType="hashmap" resultType="hashmap">
-      select divide, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit
-      from board where type = 'fr' limit #{start}, #{viewRow}
-   </select>
-   <select id="selectmd" parameterType="hashmap" resultType="hashmap">
-      select divide, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit
-      from board where type = 'md' limit #{start}, #{viewRow}
-   </select>
    <select id="totCnt" resultType="hashmap">
       select upper(type) as type, count(*) as tot from board group by upper(type)
    </select>
+   
+   <select id="totCntall" resultType="hashmap">  <!-- 전체 글개수 -->
+   	  select count(*) as tot from board where del_yn = 'N';
+   </select>
+   
    <select id="totCntif" resultType="hashmap">
    	  select count(*) as tot from board where del_yn = 'N' and type = 'if';
    </select>
-   <select id="totCntfr" resultType="hashmap">
-   	  select count(*) as tot from board where del_yn = 'N' and type = 'fr';
-   </select>
-   <select id="totCntmd" resultType="hashmap">
-   	  select count(*) as tot from board where del_yn = 'N' and type = 'md';
-   </select>
     
-   <select id="selectHot" resultType="hashmap">
+   <select id="Hot" resultType="hashmap">
 	  select *, 
 	  		 case when b.type = 'if' then 'INFO' when b.type = 'md' then 'VIDEO' else '몰라' end as viewType, 
 	  		 DATE_FORMAT(b.time, '%X-%m-%d') as datetime
@@ -111,7 +84,7 @@
 	  order by hit desc
    </select>
    
-   <select id="selectHotCnt" resultType="hashmap">
+   <select id="HotCnt" resultType="hashmap">
 	  select count(*) as cnt 
 	  from board as b 
 	  where exists (select 1 from (

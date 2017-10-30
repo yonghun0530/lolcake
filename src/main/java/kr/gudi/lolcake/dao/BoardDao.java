@@ -15,60 +15,19 @@ public class BoardDao implements BoardDaoInterface {
 	   SqlSession session;
 	   
 	   @Override
-	   public List<HashMap<String, Object>> selectbbsif() {
-	      return session.selectList("sql.bbsif");
+	   public List<HashMap<String, Object>> all(HashMap<String, Object> param) {
+	      return session.selectList("sql.bbsall");
 	   }
 	   
 	   @Override
-	   public List<HashMap<String, Object>> selectbbsmd() {
-	      return session.selectList("sql.bbsmd");
-	   }
-	   
-	   @Override
-	   public List<HashMap<String, Object>> selectbbsfr() {
-	      return session.selectList("sql.bbsfr");
-	   }
-	   
-	   @Override
-	   public List<HashMap<String, Object>> selectbbshot() {
-	      return session.selectList("sql.selectHot");
-	   }
-	   
-	   @Override
-	   public HashMap<String, Object> selectbbshotCnt() {
-	      return session.selectOne("sql.selectHotCnt");
-	   }
-	   
-	   @Override
-	   public List<HashMap<String, Object>> select(HashMap<String, Object> param) {
-	      return session.selectList("sql.select", param);
+	   public HashMap<String, Object> totCntall() {
+	      return session.selectOne("sql.totCntall");
 	   }
 
-	   @Override
-	   public List<HashMap<String, Object>> totCnt() {
+/*	   @Override
+	   public List<HashMap<String, Object>> totCnt() { // 그룹바이
 	      return session.selectList("sql.totCnt");
-	   }
+	   }*/
 
-	@Override
-	public HashMap<String, Object> totCntif() {
-		return session.selectOne("sql.totCntif");
-	}
-	
-	@Override
-	public HashMap<String, Object> totCntfr() {
-		return session.selectOne("sql.totCntfr");
-	}
-	@Override
-	public HashMap<String, Object> totCntmd() {
-		return session.selectOne("sql.totCntmd");
-	}
-	@Override
-	   public List<HashMap<String, Object>> selectfr(HashMap<String, Object> param) {
-	      return session.selectList("sql.selectfr", param);
-	   }
-	@Override
-	   public List<HashMap<String, Object>> selectmd(HashMap<String, Object> param) {
-	      return session.selectList("sql.selectmd", param);
-	   }
 	
 }

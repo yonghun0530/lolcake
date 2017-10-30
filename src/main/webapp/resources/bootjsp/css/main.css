@@ -242,15 +242,15 @@ body {
     font-size: 12px;
 }
 
-.table-comm .info {
+.table-comm .INFO {
     color: #5cb85c;
 }
 
-.table-comm .movie {
+.table-comm .MOVIE {
     color: #f0ad4e;
 }
 
-.table-comm .free {
+.table-comm .FREE {
     color: #d9534f;
 }
 
