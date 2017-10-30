@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LOLCAKE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootjsp/css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.bbswrite input').eq(1).hide();
+            
+            var $target;
+            var hash = location.hash;
+            
+
+            $('.btn-filter').on('click', function() {
+                $target = $(this).data('target');
+                location.hash = $target.substring(0,2) + "-W";
+                pageload();
+
+            });
+            
+            $('#list').on('click', function() {
+                location.href = '../bootjsp/comm.html';
+
+            });
+
+            function pageload() {
+                hashload();
+                if ($target == 'MOVIE') {
+                     $('.bbswrite input').eq(1).show();
+                    //버튼을 연달아 누르면 문제발생 -> 질문
+                }else{
+                    $('.bbswrite input').eq(1).hide();
+                }
+                $('.panel-body h1').text($target + " WRITE");
+            }
+            
+            function hashload() {
+                hash = location.hash;
+                switch(hash){
+                    case "#FR-W" : $target = "FREE"; break;
+                    case "#IN-W" : $target = "INFO"; break;    
+                    case "#MO-W" : $target = "MOVIE"; break;    
+                }
+            }
+
+            function popstateEvent(event) {
+                hash = location.hash;
+                $target = hash.substr(1, hash.length);
+                pageload();
+            }
+
+
+            $(window).on('popstate', popstateEvent);
+
+        });
+    </script>
+</head>
+
+<body>
+        <section class="content">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-success btn-filter" data-target="FREE">FREE</button>
+                            <button type="button" class="btn btn-warning btn-filter" data-target="INFO">INFO</button>
+                            <button type="button" class="btn btn-danger btn-filter" data-target="MOVIE">MOVIE</button>
+                        </div>
+                        <h1>FREE WRITE</h1>
+                        <div class="bbswrite">
+                            <!--글쓰기-->
+                            <input type="text" placeholder="제목을 입력하세요.">
+                            <input type="url" value="http://">
+                            <input type="text" placeholder="닉네임을 입력하세요.">
+                            <input type="password" placeholder="비밀번호를 입력하세요.">
+                        </div>
+                        <textarea name="boContent" id="contents" cols="67" rows="15" placeholder="내용을 입력하세요."></textarea>
+                        <script>
+                            $.getScript("https://cdn.ckeditor.com/4.7.3/full-all/ckeditor.js").done(function() {
+                                if (CKEDITOR.instances['contents']) {
+                                    CKEDITOR.instances['contents'].destroy();
+                                }
+                                CKEDITOR.replace('contents', {
+                                    customConfig: '/html/ckeditor/config.js'
+                                });
+                            });
+                            // CKEDITOR.instances['contents'].getData()
+                            // CKEDITOR.instances['contents'].setData("내용")
+
+                        </script>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-danger" style="background-color: #b1b1b1;
+                            border: none; margin-top: 20px;">글쓰기</button>
+                            <button type="button" class="btn btn-danger" style="background-color: #b1b1b1;
+                            border: none; margin-top: 20px;" id="list">목록</button>
+                        </div>
+                        
+                    </div>
+                </div>
+    </div>
+    </section>
+</body>
+
+</html>

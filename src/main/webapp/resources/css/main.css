@@ -32,9 +32,8 @@ body {
 
 /*가운데정렬 시 사용*/
 
-#containerBox {
-	position: relative;
-	margin-bottom: 30px;
+#container {
+    margin: 0 10%;
 }
 
 .h1 {
@@ -49,10 +48,10 @@ body {
 /*홈페이지 전체 크기*/
 
 #main {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     background-color: #fff4f4;
-    position: relative;
+    position: fixed;
     overflow-x: hidden;
     overflow-y: scroll;
     top: 0;
@@ -66,7 +65,8 @@ body {
     height: 60px;
     position: fixed;
     z-index: 1;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
     text-align: center;
 }
 
@@ -84,14 +84,16 @@ body {
     border: 6px solid;
     border-radius: 100px;
     display: inline-block;
+    border-color: #f2f2f2;
 }
 
-#menu ul li:hover a {
+#menu ul li a:hover {
     border-color: #ff9d00;
 }
 
-#menu ul li:hover h4 {
+#menu ul li a:hover h4 {
     display: block;
+    z-index: 1;
 }
 
 #menu ul li h4 {
@@ -115,33 +117,12 @@ body {
     left: calc(50% - 10px);
 }
 
-#menu ul li button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0;
-    margin-right: 5px;
-    height: 30px;
-    background-color: #9a9a9a;
-    color: white;
-    border: none;
-    font-weight: bold;
-}
-
-#menu .on a {
+#menu .on {
     border-color: #ff9d00;
 }
 
 #menu .on h4 {
     display: block;
-}
-
-#menu .off a {
-    border-color: #f2f2f2;
-}
-
-#menu .off h4 {
-    display: none;
 }
 
 /*로고 및 검색*/
@@ -179,9 +160,9 @@ body {
 }
 
 #footer {
-    width: 100%;
+   text-align: center;
     position: relative;
-    text-align: center;
+    margin: 46px 0;
 }
 
 #footer .basic span {
@@ -214,10 +195,11 @@ body {
 
 #container {
     width: 80%;
-    height: 100%;
-    padding: 0 10%;
-/*     margin: 80px 10% 30px 10%; */
+    margin-top: 80px;
+    margin-bottom: 30px;
     position: relative;
+    min-height: calc(100vh - 270px);
+    margin-bottom: 30px;
 }
 
 
@@ -303,6 +285,15 @@ body {
     margin-bottom: 30px;
 }
 
+#write button {
+    border: none;
+    font-weight: bold;
+    color: white;
+    background-color: #ff9d00;
+    margin-top: 10px;
+}
+
+
 .commenu ul li {
     width: calc(100% / 4);
     padding: 8px 0;
@@ -311,34 +302,20 @@ body {
     list-style: none;
     margin-bottom: 30px;
     text-align: center;
+    background-color: white;
 }
 
-.commenu .on,
-#write ul li:hover {
+.commenu ul li a {
+    color: #36161c;
+}
+
+.commenu .on {
+    color: white;
+    margin: 0;
+}
+
+.commenu li:nth-of-type(1) {
     background-color: #36161c;
-}
-
-.commenu .on li,
-#write ul li:hover a {
-    color: white;
-    margin: 0;
-}
-
-.commenu .off {
-    background-color: rgb(255, 255, 255);
-}
-
-.commenu .off li {
-    color: black;
-    margin: 0;
-}
-
-#write button {
-    border: none;
-    font-weight: bold;
-    color: white;
-    background-color: #ff9d00;
-    margin-top: 10px;
 }
 
 /**** 동영상글쓰기 ****/
@@ -409,58 +386,118 @@ body {
 
 /*********************************************챔프디테일*/
 
-#champDetail .Cdiv {
-    float: left;
-}
-
 #champDetail .h1 {
     font-size: 2em;
+    padding: 0 0 20px 0;
+    border-bottom: solid 1px black;
 }
 
-#champDetail .Cdiv,
-P,
-#champInfo {
-    padding: 10px;
+#champDetail p{
+    font-size: 1.9em;
+    font-weight: bold;
+}
+
+#champDetail span{
+    margin-left: 30px;
+    font-size: 0.8em;
+    font-weight: bold;
 }
 
 #champDetail ul li {
     list-style: none;
     float: left;
-    height: 50px;
     width: 50px;
-    line-height: 50px;
-    text-align: center;
-    cursor: pointer;
-    /* 텍스트얼란,라인헤잍 이건 없애도댐 그냥 짤떄 이뻐볼라고,이미지정렬은 이미지넣고 이미지크키를 넣은다음 네임과 인포에 마진을 준다음 이미지는top으로 옮기면될듯.*/
+    /*,이미지정렬은 이미지넣고 이미지크키를 넣은다음 네임과 인포에 마진을 준다음 이미지는top으로 옮기면될듯.*/
 }
 
-#champDetail ul li img {
+#champDetail #championHead {
+    width: 100%;
+}
+
+#champDetail #championHead img {
     width: 40px;
     height: 40px;
 }
 
-#champDetail ul .li1:hover {}
-
-#champDetail ul .li2:hover {}
-
-#champDetail ul .li3:hover {}
-
-#champDetail ul .li4:hover {}
-
 #champDetail #champSkilInfo {
     clear: both;
-    margin-top: 200px;
+    margin: 10em 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    display: block;
+    position: relative;
 }
-
 #champDetail #championImg img {
-    width: 70px;
-    height: 70px;
+    float: left;
+    width: 100px;
+    height: 90px;
 }
 
-#champDetail #champSkilInfo table {
-    margin-left: auto;
-    margin-right: auto;
+#champDetail #champskil{
+    float: left;
+    height: 90px;
+    width:500px;
+    background-color: white;
 }
+
+#champDetail .board1 {
+    clear: both;
+}
+
+#champDetail .board1 li {
+    float: left;
+    list-style: none;
+    text-align: center;
+    width: calc(100%/5);
+    height: 100%;
+    
+}
+#champDetail .board1 li a img {
+    margin: 10px 0;
+}
+
+#champDetail .board1:nth-of-type(1) li{
+    background-color: #36161c;
+    color: white;
+    padding: 5px 0;
+}
+
+#champDetail .board2 {
+    width: 100%;
+}
+#champDetail .board2 li {
+    float: left;
+    list-style: none;
+    text-align: center;
+    width: calc(100% / 3);
+    margin: 0;
+    color: black;
+    height: 100px;
+    padding: 10px 0;
+    line-height: 50px;
+    border-bottom: 1px solid #959595;
+}
+
+#champDetail .board2 li p{
+    padding: 0;
+    margin: 0;    
+}
+
+#champDetail .board2 li img {
+    width: 50px;
+    height: 50px;
+}
+
+#champDetail .board2:nth-of-type(1) li {
+    background-color: #36161c;
+    color: white;
+    line-height:normal;
+    padding: 0px 0;
+    height: 20px;
+    border: 0;
+}
+
 
 
 /**************************************랭크*/
@@ -499,12 +536,13 @@ P,
     color: white;
 }
 
-#lanking #lankSession #lankdata li {
+#lanking #lankSession .lankdata li {
     padding: 5px 0;
     border-bottom: 1px solid #d9d9d9;
     font-weight: bold;
     background-color: #ffffff;
     color: black;
+    cursor: pointer;
 }
 
 #lanking #lankName {
@@ -570,15 +608,20 @@ P,
 }
 
 /*********champAll*****************/
-#champAll #sections{
-    text-align: left;
-    margin: 20px 100px;
+
+#champAll {
+    margin: 0px 251px;
 }
 
 #champAll .divGrid {
-    background-color: #f4c500;
-    width: 100%;
+    background-color: rgba(48, 54, 22, 0.75);
     height: 100%;
+    width: 1382px;
+    padding: 7px 10px;
+    color: white;
+    margin-bottom: 5em;
+    display: block;
+    position: relative;
 }
 
 #champAll .h1 {
@@ -586,119 +629,94 @@ P,
 }
 
 #champAll h4 {
-    color: #343434;
-    margin-bottom: 30px;
+    color: rgba(52, 52, 52, 0.42);
 }
 
 #champAll .divGrid .detailChampion {
-    background-color: #f4c500;
     display: inline-block;
+    padding: 5px;
+
 }
 
 #champAll .divGrid .championImage img {
-    height: 82px;
-    width: 82px;
+    height: 100px;
+    width: 100px;
+    display: block;
 }
 
 #champAll .divGrid .championName {
     text-align: center;
     width: 82px;
+    display: inline-block;
 }
 
-#champAll .divGrid .champ{
+#champAll a {
+    color: white;
 }
+
+#champAll .head {
+    width: 1402px;
+    margin-bottom: 50px;
+}
+
+#champAll .head span {
+    display: inline-block;
+}
+
+#champAll .search {
+    float: right;
+}
+
 /****************8videoDetail*******************/
 
-#videoDetail #sections .boardhead ,
-.board-body{
+#videoDetail #sections .board {
     width: 100%;
-    margin: 20px 0px;
 }
 
-
-
-
-
-/* #videoDetail #sections .board ul { */
-/*     float: left; */
-/*     width: calc(100% / 6); */
-/* } */
-
-#videoDetail #sections .board-body li {
+#videoDetail #sections .board ul {
     float: left;
-    width: calc(100% / 7);
+    width: calc(100% / 5);
+}
+
+#videoDetail #sections .board li {
+    float: left;
+    width: calc(100% / 5);
     list-style: none;
     text-align: center;
 }
 
-#videoDetail #sections .boardhead li {
-    float: left;
-    width: calc(100% / 7);
+#videoDetail #sections .board ul li {
+    width: 100%;
+    height: 40px;
     list-style: none;
     text-align: center;
+    background-color: #ffffff;
+    border-bottom: dashed 1px;
+    cursor: pointer;
+    padding-top: 20px;
 }
-
-/* #videoDetail #sections .board ul li { */
-/*     width: 100%; */
-/*     height: 40px; */
-/*     list-style: none; */
-/*     text-align: center; */
-/*     background-color: #ffffff; */
-/*     border-bottom: dashed 1px; */
-/*     cursor: pointer; */
-/*     padding-top: 20px; */
-/* } */
 
 #videoDetail .btnWrite {
     float: right;
     clear: both;
 }
 
-/* #videoDetail .somenail li img { */
-/*     width: 70px; */
-/*     height: 45px; */
-/*     padding-top: 0px; */
-/*     transform: translateY(-11px); */
-/* } */
+#videoDetail .somenail li img {
+    width: 80px;
+    height: 53px;
+    padding-top: 0px;
+    transform: translateY(-16px);
+}
 
-/* #videoDetail .th li { */
-/*     padding: 20px 0px; */
-/*     background-color: #36161c; */
-/*     color: white; */
-/*     padding: 10px 0px; */
-/* } */
-
-#videoDetail ul.boardhead li {
+#videoDetail .th li {
     padding: 20px 0px;
-    color: white;
-    padding: 10px 0px;
-    height: 21px;
     background-color: #36161c;
     color: white;
-    border-bottom: 0px;
-}
-
-#videoDetail ul.board-body li {
-    padding: 20px 0px;
-    color: black;
     padding: 10px 0px;
-    height: 30px;
-    border-bottom: dashed 1px;
-}
-
-#videoDetail ul.board-body li img {
-    width: 70px;
-    height: 45px;
-    padding-top: 2.5px;
-    transform: translateY(-11px);
 }
 
 #videoDetail {
     clear: both;
     padding: 30px 0px;
     margin: 0px;
-}
-
-.search {
-    margin-top: 10px;
 }

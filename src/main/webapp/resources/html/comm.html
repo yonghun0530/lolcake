@@ -120,59 +120,70 @@
                     <div class="commenu">
                         <ul>
                             <li>
-                                <a href="#comm/HOT">BEST</a>
+                                <a href="#HOT" class="on">BEST</a>
                             </li>
                             <li>
-                                <a href="#comm/FR">FREE</a>
+                                <a href="#FR">FREE</a>
                             </li>
                             <li>
-                                <a href="#comm/IF">INFO</a>
+                                <a href="#IF">INFO</a>
                             </li>
                             <li>
-                                <a href="#comm/MD">VIDEO</a>
+                                <a href="#MD">VIDEO</a>
                             </li>
                         </ul>
                     </div>
+
+                    <div class="bbsright">
+                        <div>
+                            <div class="search">
+                                <select name="drop" id="ddown">
+                            <option value="title">제목</option>
+                            <option value="author">작성자</option>
+                        </select>
+                                <input type="text" placeholder="검색해주세요.">
+                                <input type="button" value="검색">
+                                <input type="button" value="글쓰기" id="insert">
+                            </div>
+
+                        </div>
+                    </div>
                 </section>
             </div>
-            <div id="sections">
-		<section id="bbsshow">
-
-			<div class="bbsright">
-				<div>
-					<div class="search">
-						<select name="drop" id="ddown">
-							<option value="title">제목</option>
-							<option value="author">작성자</option>
-						</select> <input type="text" placeholder="검색해주세요."> <input
-							type="button" value="검색">
-					</div>
-
-				</div>
-			</div>
-		</section>
-	</div>
-	<section id="videoDetail">
-		<div id="sections">
-			<ul class="boardhead">
-				<li>번호</li>
-				<li>종류</li>
-				<li>썸네일</li>
-				<li>제목</li>
-				<li>작성자</li>
-				<li>작성시간</li>
-				<li>추천수</li>
-			</ul>
-			<div class="board-body">
-			</div>
-		</div>
-		<div class="search">
-			<input type="button" value="글쓰기" id="insert" style="float: right">
-		</div>
-		<br>
-		<div id="paging"></div>
-	</section>
-	</div>
+            <section id="videoDetail">
+                <div id="sections">
+                    <ul class="board">
+                        <div class="th">
+                            <li>번호</li>
+                            <li>썸네일</li>
+                            <li>제목</li>
+                            <li>작성자</li>
+                            <li>조회수</li>
+                        </div>
+                        <ul class="no">
+                            <li>1</li>
+                            <li>2</li>
+                        </ul>
+                        <ul class="somenail">
+                            <li><img src="http://www.op.gg/forum/outImage/https://i.ytimg.com/vi/YBXTf1gSr_A/hqdefault.jpg"></li>
+                            <li><img src="https://attach.s.op.gg/logo/20171019214320.53677222da376cf0c2a64776a1a75b71.PNG"></li>
+                        </ul>
+                        <ul class="title">
+                            <li>핫영상</li>
+                            <li>3</li>
+                        </ul>
+                        <ul class="writer">
+                            <li>가자가자가자미</li>
+                            <li>내이름은 코난</li>
+                        </ul>
+                        <ul class="hit">
+                            <li>1</li>
+                            <li>12</li>
+                        </ul>
+                    </ul>
+                </div>
+            </section>
+        </div>
         <footer id="footer">
             <div class="basic">
                 <p>서울시 금천구 가산디지털2로 115 대륭테크노타운3차 <span>|</span>Goodee<span>|</span>김성진 임채영 주용훈 최혁<span>|</span>사업자 등록번호 119-86-83838</p>
@@ -194,7 +205,7 @@
                 <h6>Copyright(c) LoLcake^^Yum</h6>
             </div>
         </footer>
-    
+    </div>
 </body>
 
 </html>
