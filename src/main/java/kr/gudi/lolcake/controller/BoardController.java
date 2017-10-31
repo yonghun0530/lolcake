@@ -18,44 +18,46 @@ import net.sf.json.JSONSerializer;
 
 @Controller
 public class BoardController {
-	
-	  @Autowired
-	   BoardServiceInterface bsi;
+   
+     @Autowired
+      BoardServiceInterface bsi;
 
-	 /* @RequestMapping(value = "/bbshot", method = RequestMethod.GET)
-	  public ModelAndView bbshot(ModelAndView mav){
-		  mav.setViewName("comm");
-		  return mav;
-	  }
-	  
-	  @RequestMapping(value = "/bbshotData", method = RequestMethod.POST)
-	  public void bbshot(HttpServletResponse response){
-		  HttpUtil.sendResponceToJson(response, bsi.bbshot());
-	  }
-	   
-	  @RequestMapping("/totCntData")
-	  public void totCntData(HttpServletResponse response){
-	      HttpUtil.sendResponceToJson(response, bsi.TotCnt());
-	  }
-	   */
-	  
-	  @RequestMapping(value = "/bbsall", method = RequestMethod.GET)
-	  public ModelAndView bbsall(ModelAndView mav){
-		  mav.setViewName("comm");
-		  return mav;
-	  }
-	  @RequestMapping("/allData")
-	   public ModelAndView listData(ModelAndView mav, HttpServletRequest req){
-	      HashMap<String, Object> param = new HashMap<String, Object>();
-	      param.put("start", Integer.parseInt(req.getParameter("start")));
-	      param.put("viewRow", Integer.parseInt(req.getParameter("viewRow")));
-	      
-	      JSONObject jsonObject = new JSONObject();
-	      jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(bsi.all(param)));
-	      mav.addObject("message", jsonObject.toString());
-			
-	      mav.setViewName("json");
-	      return mav;
-//	      return HttpUtil.makeHashToJsonModelAndView(bsi.totCntif(param));
-	  }
+    /* @RequestMapping(value = "/bbshot", method = RequestMethod.GET)
+     public ModelAndView bbshot(ModelAndView mav){
+        mav.setViewName("comm");
+        return mav;
+     }
+     
+     @RequestMapping(value = "/bbshotData", method = RequestMethod.POST)
+     public void bbshot(HttpServletResponse response){
+        HttpUtil.sendResponceToJson(response, bsi.bbshot());
+     }
+      
+     @RequestMapping("/totCntData")
+     public void totCntData(HttpServletResponse response){
+         HttpUtil.sendResponceToJson(response, bsi.TotCnt());
+     }
+      */
+     
+     @RequestMapping(value = "/bbsall", method = RequestMethod.GET)
+     public ModelAndView bbsall(ModelAndView mav){
+        mav.setViewName("comm");
+        return mav;
+     }
+     @RequestMapping("/allData")
+      public ModelAndView listData(ModelAndView mav, HttpServletRequest req){
+         HashMap<String, Object> param = new HashMap<String, Object>();
+         param.put("start", Integer.parseInt(req.getParameter("start")));
+         param.put("viewRow", Integer.parseInt(req.getParameter("viewRow")));
+         param.put("type", req.getParameter("type"));
+         //type 추가
+         
+         JSONObject jsonObject = new JSONObject();
+         jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(bsi.all(param)));
+         mav.addObject("message", jsonObject.toString());
+         
+         mav.setViewName("json");
+         return mav;
+//         return HttpUtil.makeHashToJsonModelAndView(bsi.totCntif(param));
+     }
 }

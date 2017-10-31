@@ -3,79 +3,83 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sql">
-<select id="bbsall" resultType="hashmap"> <!-- 게시판 정보 목록 -->
-		select no, type, title, divide, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit 
-		from board 
-		where del_yn = 'N'
-		order by no desc;
-	</select>
-	
-	<!-- 게시판 목록 -->
-	
-	<update id="bbsremove" parameterType="hashmap">
-		update board set del_yn = 'Y' where no = #{no}
-	</update> 
-	
-	<!-- 게시글 삭제 -->
-	
-	<update id="bbsupdate" parameterType="hashmap">
-		update board set type = #{type}, title = #{title}, dept = #{dept}, time = now(), url = #{url} where no = #{no}
-	</update>
-	
-	<!-- 게시글 수정 -->
-	
-	<insert id="boardwrite" parameterType="hashmap"> <!-- 글쓰기 작성 -->
-		insert into board(type, divide, title, dept, nickname, time, passwd, hit, del_yn)
-		values(#{type},(select ifnull(count(*),0)+1 from board ALIAS_FOR_SUBQUERY where type =#{type}), #{title}, #{dept}, #{nickname}, now(), #{passwd}, 0, 'N')
-	</insert>
-	
-	<insert id="moviewrite" parameterType="hashmap"> <!-- 영상 글쓰기 작성 -->
-		insert into board(type, title, dept, nickname, time, passwd, hit, del_yn, url)
-		values(#{type}, #{title}, #{dept}, #{nickname}, now(), #{passwd}, 0, 'N', #{url})
-	</insert>
-	
-	<!-- 게시글 작성 -->
-	
-	<update id="hitclick" parameterType="hashmap">
-		update board set hit = (hit + 1) where no = #{no}
-	</update>
-	
-	<!-- 추천(hit) 증가 -->
-	
+<select id="bbsall" resultType="hashmap" parameterType="hashmap"> <!-- 게시판 정보 목록 -->
+      select no, type, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit 
+      from board 
+      where del_yn = 'N' 
+      <if test="type != 'ALL'">
+         and type = #{type}
+      </if>
+      limit #{start}, #{viewRow};
+   </select>
+   <!-- 쿼리 수정 -->
+   
+   <!-- 게시판 목록 -->
+   
+   <update id="bbsremove" parameterType="hashmap">
+      update board set del_yn = 'Y' where no = #{no};
+   </update> 
+   
+   <!-- 게시글 삭제 -->
+   
+   <update id="bbsupdate" parameterType="hashmap">
+      update board set type = #{type}, title = #{title}, dept = #{dept}, time = now(), url = #{url} where no = #{no}
+   </update>
+   
+   <!-- 게시글 수정 -->
+   
+   <insert id="boardwrite" parameterType="hashmap"> <!-- 글쓰기 작성 -->
+      insert into board(type, divide, title, dept, nickname, time, passwd, hit, del_yn)
+      values(#{type},(select ifnull(count(*),0)+1 from board ALIAS_FOR_SUBQUERY where type =#{type}), #{title}, #{dept}, #{nickname}, now(), #{passwd}, 0, 'N')
+   </insert>
+   
+   <insert id="moviewrite" parameterType="hashmap"> <!-- 영상 글쓰기 작성 -->
+      insert into board(type, title, dept, nickname, time, passwd, hit, del_yn, url)
+      values(#{type}, #{title}, #{dept}, #{nickname}, now(), #{passwd}, 0, 'N', #{url});
+   </insert>
+   
+   <!-- 게시글 작성 -->
+   
+   <update id="hitclick" parameterType="hashmap">
+      update board set hit = (hit + 1) where no = #{no};
+   </update>
+   
+   <!-- 추천(hit) 증가 -->
+   
    <select id="totCnt" resultType="hashmap">
       select upper(type) as type, count(*) as tot from board group by upper(type)
    </select>
    
-   <select id="totCntall" resultType="hashmap">  <!-- 전체 글개수 -->
-   	  select count(*) as tot from board where del_yn = 'N';
-   </select>
-   
-   <select id="totCntif" resultType="hashmap">
-   	  select count(*) as tot from board where del_yn = 'N' and type = 'if';
+   <select id="totCntall" parameterType="hashmap" resultType="hashmap">  <!-- 전체 글개수 -->
+        select count(*) as tot from board 
+      where del_yn = 'N' 
+      <if test="type != 'ALL'">
+         and type = #{type}
+      </if>
    </select>
     
    <select id="Hot" resultType="hashmap">
-	  select *, 
-	  		 case when b.type = 'if' then 'INFO' when b.type = 'md' then 'VIDEO' else '몰라' end as viewType, 
-	  		 DATE_FORMAT(b.time, '%X-%m-%d') as datetime
-	  from board as b 
-	  where exists (select 1 from (
-					 (select no from board where type = 'if' and del_yn = 'N' group by no order by hit desc limit 0, 5)
-					union all
-					 (select no from board where type = 'md' and del_yn = 'N' group by no order by hit desc limit 0, 5)) as s 
-				    where b.`no` = s.no)
-	  order by hit desc
+     select *, 
+            case when b.type = 'if' then 'INFO' when b.type = 'md' then 'VIDEO' else '몰라' end as viewType, 
+            DATE_FORMAT(b.time, '%X-%m-%d') as datetime
+     from board as b 
+     where exists (select 1 from (
+                (select no from board where type = 'if' and del_yn = 'N' group by no order by hit desc limit 0, 5)
+               union all
+                (select no from board where type = 'md' and del_yn = 'N' group by no order by hit desc limit 0, 5)) as s 
+                where b.`no` = s.no)
+     order by hit desc
    </select>
    
    <select id="HotCnt" resultType="hashmap">
-	  select count(*) as cnt 
-	  from board as b 
-	  where exists (select 1 from (
-					 (select no from board where type = 'if' and del_yn = 'N' group by no order by hit desc limit 0, 5)
-					union all
-					 (select no from board where type = 'md' and del_yn = 'N' group by no order by hit desc limit 0, 5)) as s 
-				    where b.`no` = s.no)
+     select count(*) as cnt 
+     from board as b 
+     where exists (select 1 from (
+                (select no from board where type = 'if' and del_yn = 'N' group by no order by hit desc limit 0, 5)
+               union all
+                (select no from board where type = 'md' and del_yn = 'N' group by no order by hit desc limit 0, 5)) as s 
+                where b.`no` = s.no)
    </select>
-	
-	
+   
+   
 </mapper>

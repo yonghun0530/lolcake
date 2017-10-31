@@ -10,24 +10,25 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class BoardDao implements BoardDaoInterface {
-	   
-	   @Resource(name="sqlSession")
-	   SqlSession session;
-	   
-	   @Override
-	   public List<HashMap<String, Object>> all(HashMap<String, Object> param) {
-	      return session.selectList("sql.bbsall");
-	   }
-	   
-	   @Override
-	   public HashMap<String, Object> totCntall() {
-	      return session.selectOne("sql.totCntall");
-	   }
+      
+      @Resource(name="sqlSession")
+      SqlSession session;
+      
+      @Override
+      public List<HashMap<String, Object>> all(HashMap<String, Object> param) {
+         return session.selectList("sql.bbsall", param);
+      }
+      
+      @Override
+      public HashMap<String, Object> totCntall(HashMap<String, Object> param) {
+         return session.selectOne("sql.totCntall", param);
+      }
+      //param값 추가
 
-/*	   @Override
-	   public List<HashMap<String, Object>> totCnt() { // 그룹바이
-	      return session.selectList("sql.totCnt");
-	   }*/
+/*      @Override
+      public List<HashMap<String, Object>> totCnt() { // 그룹바이
+         return session.selectList("sql.totCnt");
+      }*/
 
-	
+   
 }
