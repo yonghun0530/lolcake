@@ -78,7 +78,7 @@
               } else {
                 	$('.table tbody tr').css('display', 'none').show();
               }
-                $('.table-responsive h1').text($target);
+                $('.table-responsive h1').text ($target);
                 initData();
             }
             
@@ -105,7 +105,7 @@
             
             function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
 // 				            	console.log(data);
-				$("#tbody").empty();
+				$("tbody").empty();
 
 				for (var i = 0; i < data.length; i++) {
 					var tag = "";
@@ -119,7 +119,7 @@
 					tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].hit +'</i><img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</td>';
 					//tag += '<i>' '</i>';
 					tag += '</tr>';
-					$("#tbody").append(tag);
+					$("tbody").append(tag);
 				}
 			}
             function createPaging() {

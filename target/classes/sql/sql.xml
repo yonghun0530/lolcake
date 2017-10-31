@@ -11,6 +11,7 @@
 			and type = #{type}
 		</if>
 		limit #{start}, #{viewRow};
+		<!-- 서버 다시시작해야함 -->
 	</select>
 	<!-- 쿼리 수정 -->
 	
