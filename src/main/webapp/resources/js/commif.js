@@ -36,7 +36,7 @@
 							}
 						} 
 
-						function createPaging() {
+						function createPagingif() {
 							var paging = totCnt / viewRow;
 							// 전체의 행의 수에서 보여줄 행을 나누면 페이지의 갯수를 알 수 있다.
 							$("#paging").empty(); // 초기화
@@ -57,7 +57,7 @@
 
 						}
 
-						function initData() { // 디비에서 데이터 가져오기 위한 함수
+						function initDataif() { // 디비에서 데이터 가져오기 위한 함수
 							var hash = location.hash;
 
 							if (hash != "") {
@@ -83,17 +83,11 @@
 								console.log(data);
 								totCnt = dataJson.totCntif.tot;
 								console.log(totCnt);
-								createHtml(); // 화면에 표현하기 위하여 함수 호출
-								createPaging();
+								commCreateHTML(); // 화면에 표현하기 위하여 함수 호출
+								createPagingif();
 							});
 						}
 
-						// 						$("#paging a").off().on("click", function() {
-						// // 							hash = $(this).attr("href");
-						// // 							page = hash.substr(1, hash.length);
-						// // 							console.log(page);
-
-						// 						});
 
 						initData();
 					});

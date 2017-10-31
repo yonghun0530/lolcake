@@ -8,7 +8,7 @@ public interface BoardDaoInterface {
 //	public List<HashMap<String, Object>> bbshot();
 	
 	
-	public HashMap<String, Object> totCntall();
+	public HashMap<String, Object> totCntall(HashMap<String, Object> param);
 	public List<HashMap<String, Object>> all(HashMap<String, Object> param);
 	
 }

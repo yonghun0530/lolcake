@@ -13,31 +13,44 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
     <script type="text/javascript">
+    var hash = location.hash;
     var data = []; // 데이터 담을 배열 변수 선언
 	var page = 1; // 현재 페이지 값
 	var viewRow = 10; // 화면에 보여질 행 갯수
 	var totCnt = 0; // 데이터 전체 객수
+	var $target = "ALL";
         $(document).ready(function () {
-            var $target;
-            var hash = location.hash;
-            if(hash == ""){
-                hash = "#ALL";
-            }
-            $target = hash.substr(1,hash.length);
-            pageload();
+            if (location.hash != "") {
+            	var 성진이짱 = 성진이();
+                $target = 성진이짱[0];
+                page = 성진이짱[1];
+			}else{
+				page = 1;
+				hash = "ALL/1";
+				location.hash = hash;
+				$target = "ALL";
+			}
+//             var hash = location.hash;
+//             if(hash == ""){
+//                 hash = "#ALL";
+//             }
+//             $target = hash.substr(1,hash.length);
+//             pageload();
             
-            if(location.hash == "#FR-W" | location.hash == "#IN-W" | location.hash == "#MO-W"){
-                $target = "ALL";
-                location.hash = $target;
-                pageload();
-            }else{
-                pageload();
-            }
+//             if(location.hash == "#FR-W" | location.hash == "#IN-W" | location.hash == "#MO-W"){
+//                 $target = "ALL";
+//                 location.hash = $target;
+//                 pageload();
+//             }else{
+//                 pageload();
+//             }
             
             $('.btn-filter').on('click', function () {
                 $target = $(this).data('target');
-                location.hash = $target;
-                pageload();
+//                 console.log('.btn-filter', $target);
+                location.hash = $target + "/1";
+//                 console.log('.btn-filter', $target, location.hash);
+//                 pageload();
             
             });
             
@@ -60,26 +73,38 @@
             
             function pageload(){
                 if ($target != 'ALL') {
-                $('.table tbody tr').css('display', 'none');
+                	$('.table tbody tr').css('display', 'none');
                     $('.table tr[data-status="' + $target + '"]').show();
               } else {
-                $('.table tbody tr').css('display', 'none').show();
+                	$('.table tbody tr').css('display', 'none').show();
               }
                 $('.table-responsive h1').text($target);
+                initData();
             }
             
             function popstateEvent(event) {
-                hash = location.hash;
-                $target = hash.substr(1,hash.length);
+            	var 성진이짱 = 성진이();
+                $target = 성진이짱[0];
+                page = 성진이짱[1];
+//                	console.log("popstateEvent", $target, page);
                 pageload();
             }
             
+            function 성진이(){
+            	hash = location.hash;
+//             	console.log(hash);
+            	var 데이터 = hash.substr(1, hash.length);
+//             	console.log(데이터);
+            	var 배열 = 데이터.split("/");
+//             	console.log(배열);
+            	return 배열;
+            }
             
             $(window).on('popstate', popstateEvent);
             
             function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
-				//             	console.log(data);
-				//$("#tbody").empty();
+// 				            	console.log(data);
+				$("#tbody").empty();
 
 				for (var i = 0; i < data.length; i++) {
 					var tag = "";
@@ -99,44 +124,45 @@
             function createPaging() {
 				var paging = totCnt / viewRow;
 				// 전체의 행의 수에서 보여줄 행을 나누면 페이지의 갯수를 알 수 있다.
-				//$("#tbody").empty(); // 초기화
+				$(".pagination").empty(); // 초기화
+				for (var i = 0; i < paging; i++){
+					$(".pagination").append(
+							"<li> <a href='#" + $target + "/" + (i + 1) + "'>" + (i + 1) + "</a></li>")
+				}
 
-				$("#pagination a").off().on("click", function() {
-					
+/* 				$(".pagination li a").off().on("click", function() {
 					page = $(this).text();
-					console.log(page);
+ 					console.log(page);
 					setTimeout(function() {
 						initData(); // 디비에서 데이터 다시 가져 오기 위하여 함수 호출
 					}, 100); // 0.1초 후에 실행 하기 위하여 setTimeout() 함수를 실행한다.
-				});
+				}); */
 
 			}
             function initData() { // 디비에서 데이터 가져오기 위한 함수
-				var hash = location.hash;
-
-				if (hash != "") {
-					page = hash.substr(1, hash.length);
-				}
-
 				var end = (viewRow * page);
 				var start = (end - viewRow);
-
+				
+				
+				var d = {
+						"start" : start,
+						"viewRow" : viewRow,
+						"type" : $target
+					};
+				console.log(d, start, viewRow, $target, end, viewRow, page);
+				
 				$.ajax({
 					type : "post", // post 방식으로 통신 요청
 					url : "allData", // Spring에서 만든 URL 호출
 					typedata : "json",
-					data : {
-						"start" : start,
-						"viewRow" : viewRow,
-						"type" : hash
-					}
+					data : d 
 				}).done(function(result) { // 비동기식 데이터 가져오기
 					console.log(JSON.parse(result));
 					dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
 					data = dataJson.list;
-					console.log(data);
+// 					console.log(data);
 					totCnt = dataJson.totCntall.tot;
-					console.log(totCnt);
+// 					console.log(totCnt);
 					createHtml(); // 화면에 표현하기 위하여 함수 호출
 					createPaging();
 				});
@@ -266,12 +292,12 @@
                             <div class="col-sm-6 col-sm-offset-3 text-center">
                              <ul class="pagination">
                                   <li class="disabled"><a href="#">«</a></li>
-                                  <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                  <!-- <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
                                   <li><a href="#">2</a></li>
                                   <li><a href="#">3</a></li>
                                   <li><a href="#">4</a></li>
                                   <li><a href="#">5</a></li>
-                                  <li><a href="#">»</a></li>
+                                  <li><a href="#">»</a></li> -->
                             </ul>
 						</div>
 					</div>

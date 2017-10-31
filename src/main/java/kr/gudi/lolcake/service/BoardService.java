@@ -39,7 +39,7 @@ public class BoardService implements BoardServiceInterface {
 	      HashMap<String, Object> map = new HashMap<String, Object>();
 	      map.put("list", list);
 	      
-	      HashMap<String, Object> totCnt = bdi.totCntall();
+	      HashMap<String, Object> totCnt = bdi.totCntall(param);
 	      map.put("totCntall", totCnt);
 	      
 	      return map;

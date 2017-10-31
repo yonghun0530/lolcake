@@ -35,7 +35,7 @@ var data = []; // 데이터 담을 배열 변수 선언
 							}
 						} 
 
-						function createPaging() {
+						function createPagingmd() {
 							var paging = totCnt / viewRow;
 							// 전체의 행의 수에서 보여줄 행을 나누면 페이지의 갯수를 알 수 있다.
 							$("#paging").empty(); // 초기화
@@ -56,7 +56,7 @@ var data = []; // 데이터 담을 배열 변수 선언
 
 						}
 
-						function initData() { // 디비에서 데이터 가져오기 위한 함수
+						function initDatamd() { // 디비에서 데이터 가져오기 위한 함수
 							var hash = location.hash;
 
 							if (hash != "") {
@@ -82,8 +82,8 @@ var data = []; // 데이터 담을 배열 변수 선언
 								console.log(data);
 								totCnt = dataJson.totCntmd.tot;
 								console.log(totCnt);
-								createHtml(); // 화면에 표현하기 위하여 함수 호출
-								createPaging();
+								commCreateHTML(); // 화면에 표현하기 위하여 함수 호출
+								createPagingmd();
 							});
 						}
 

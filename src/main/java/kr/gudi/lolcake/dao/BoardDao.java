@@ -16,12 +16,12 @@ public class BoardDao implements BoardDaoInterface {
 	   
 	   @Override
 	   public List<HashMap<String, Object>> all(HashMap<String, Object> param) {
-	      return session.selectList("sql.bbsall");
+	      return session.selectList("sql.bbsall", param);
 	   }
 	   
 	   @Override
-	   public HashMap<String, Object> totCntall() {
-	      return session.selectOne("sql.totCntall");
+	   public HashMap<String, Object> totCntall(HashMap<String, Object> param) {
+	      return session.selectOne("sql.totCntall", param);
 	   }
 
 /*	   @Override

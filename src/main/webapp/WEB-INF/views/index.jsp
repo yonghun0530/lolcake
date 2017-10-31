@@ -27,12 +27,17 @@
 </style>
 <link rel="stylesheet" href="/lolcake/resources/css/main2.css">
 <script>
+var data = [];
+var page = 1; // 현재 페이지 값
+var viewRow = 10; // 화면에 보여질 행 갯수
+var totCnt = 0; // 데이터 전체 객수
 	$(document).ready(function(){
 		$("header a").on("click", function(){
 			var hash = $(this).attr("href");
 			initHashCheck(hash, "", true);
 		});
 		initHashCheck(location.hash, "");
+		initDataif();
 	});
 	function initHashCheck(hash, select, click){
 		if(hash == ""){
@@ -133,12 +138,71 @@
 		
 		commClickBG(click);
 	}
+	
+	function createPagingif() {
+		var paging = totCnt / viewRow;
+		// 전체의 행의 수에서 보여줄 행을 나누면 페이지의 갯수를 알 수 있다.
+		$("#paging").empty(); // 초기화
+		for (var i = 0; i < paging; i++) {
+			$("#paging").append(
+					"<a href='#" + (i + 1) + "'>" + (i + 1)
+							+ "</a>")
+		}
+
+		$("#paging a").off().on("click", function() {
+			
+			page = $(this).text();
+			console.log(page);
+			setTimeout(function() {
+				initData(); // 디비에서 데이터 다시 가져 오기 위하여 함수 호출
+			}, 100); // 0.1초 후에 실행 하기 위하여 setTimeout() 함수를 실행한다.
+		});
+
+	}
+
+	function initDataif() { // 디비에서 데이터 가져오기 위한 함수
+		var hash = location.hash;
+
+		if (hash != "") {
+			page = hash.substr(1, hash.length);
+		}
+
+		var end = (viewRow * page);
+		var start = (end - viewRow);
+
+		$.ajax({
+			type : "post", // post 방식으로 통신 요청
+			url : "listData", // Spring에서 만든 URL 호출
+			typedata : "json",
+			data : {
+				"start" : start,
+				"viewRow" : viewRow,
+				"type" : hash
+			}
+		}).done(function(result) { // 비동기식 데이터 가져오기
+			console.log(JSON.parse(result));
+			dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
+			data = dataJson.list;
+			console.log(data);
+			totCnt = dataJson.totCntif.tot;
+			console.log(totCnt);
+			commCreateHTML(); // 화면에 표현하기 위하여 함수 호출
+			createPagingif();
+		});
+	}
+	
+
+	
+	
+	
 	function commClickBG(index){
 		$('.commenu ul li a').removeClass("on");
         $('.commenu ul li a').eq(index).addClass("on");
         $('.commenu ul li').css("background-color", "white");
         $('.commenu ul li').eq(index).css("background-color", "#36161c");
 	}
+	
+	
 </script>
 </head>
 <body>
@@ -174,13 +238,13 @@
         <div class="sub">
             <ul>
                 <li>
-                    <a class="fb" href="http://www.facebook.com/1lolcake2/"><img src="../img/002-facebook-logo-button.png"></a>
+                    <a class="fb" href="http://www.facebook.com/1lolcake2/"><img src="resources/img/002-facebook-logo-button.png"></a>
                 </li>
                 <li>
-                    <a class="gram" href="https://www.instagram.com/lolcake.yum/"><img src="../img/001-instagram-logo.png"></a>
+                    <a class="gram" href="https://www.instagram.com/lolcake.yum/"><img src="resources/img/001-instagram-logo.png"></a>
                 </li>
                 <li>
-                    <a href="https://kr.leagueoflegends.com/"><img class="lol" src="../img/lol.png"></a>
+                    <a href="https://kr.leagueoflegends.com/"><img class="lol" src="resources/img/lol.png"></a>
                 </li>
             </ul>
         </div>
