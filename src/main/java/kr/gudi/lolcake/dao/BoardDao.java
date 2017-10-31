@@ -23,6 +23,7 @@ public class BoardDao implements BoardDaoInterface {
 	   public HashMap<String, Object> totCntall(HashMap<String, Object> param) {
 	      return session.selectOne("sql.totCntall", param);
 	   }
+	   //param값
 
 /*	   @Override
 	   public List<HashMap<String, Object>> totCnt() { // 그룹바이

@@ -82,6 +82,7 @@
                 initData();
             }
             
+            // a태그 클릭시 이벤트 필요없어짐.
             function popstateEvent(event) {
             	var 성진이짱 = 성진이();
                 $target = 성진이짱[0];

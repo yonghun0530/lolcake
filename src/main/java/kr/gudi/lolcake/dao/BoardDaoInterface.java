@@ -10,5 +10,6 @@ public interface BoardDaoInterface {
 	
 	public HashMap<String, Object> totCntall(HashMap<String, Object> param);
 	public List<HashMap<String, Object>> all(HashMap<String, Object> param);
+	//param값 
 	
 }
