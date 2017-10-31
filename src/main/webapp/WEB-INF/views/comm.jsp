@@ -24,7 +24,7 @@
             	var 성진이짱 = 성진이();
                 $target = 성진이짱[0];
                 page = 성진이짱[1];
-			}else{
+			}else{ // 해쉬 없을때 무조건 ALL
 				page = 1;
 				hash = "ALL/1";
 				location.hash = hash;

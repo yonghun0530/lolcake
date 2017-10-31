@@ -12,6 +12,7 @@
 		</if>
 		limit #{start}, #{viewRow};
 	</select>
+	<!-- 쿼리 수정 -->
 	
 	<!-- 게시판 목록 -->
 	
