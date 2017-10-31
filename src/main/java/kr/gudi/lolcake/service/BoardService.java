@@ -41,7 +41,7 @@ public class BoardService implements BoardServiceInterface {
 	      
 	      HashMap<String, Object> totCnt = bdi.totCntall(param);
 	      map.put("totCntall", totCnt);
-	      //param값 추가 추가
+	      //param값 추가 추가 추가
 	      return map;
 	   }
 

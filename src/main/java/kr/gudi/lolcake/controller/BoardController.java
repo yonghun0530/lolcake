@@ -50,7 +50,7 @@ public class BoardController {
 	      param.put("start", Integer.parseInt(req.getParameter("start")));
 	      param.put("viewRow", Integer.parseInt(req.getParameter("viewRow")));
 	      param.put("type", req.getParameter("type"));
-	      //type 추가 추가
+	      //type 추가 추가 추가
 	      
 	      JSONObject jsonObject = new JSONObject();
 	      jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(bsi.all(param)));
