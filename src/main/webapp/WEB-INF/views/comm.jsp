@@ -17,22 +17,25 @@
 	var page = 1; // 현재 페이지 값
 	var viewRow = 10; // 화면에 보여질 행 갯수
 	var totCnt = 0; // 데이터 전체 객수
+	
         $(document).ready(function () {
+        	
             var $target;
             var hash = location.hash;
             if(hash == ""){
                 hash = "#ALL";
             }
             $target = hash.substr(1,hash.length);
-            pageload();
             
-            if(location.hash == "#FR-W" | location.hash == "#IN-W" | location.hash == "#MO-W"){
+            initData();
+            
+/*             if(location.hash == "#FR-W" | location.hash == "#IN-W" | location.hash == "#MO-W"){
                 $target = "ALL";
                 location.hash = $target;
                 pageload();
             }else{
                 pageload();
-            }
+            } */
             
             $('.btn-filter').on('click', function () {
                 $target = $(this).data('target');
@@ -40,12 +43,7 @@
                 pageload();
             
             });
-            
-            $('tbody tr').on('click', function () {
-                location.hash = $(this).find('td').eq(0).text();
-                $('.container').load('resources/bootjsp/commD.html');
-            });
-            
+         
             $('tbody td p').on('click', function () {
                 $target = $(this).data('target');
                 location.hash = $target;
@@ -58,43 +56,45 @@
                 location.hash = "#FR-W";
             });
             
+            //타겟에 맞춰서 내용보여주기
             function pageload(){
-                if ($target != 'ALL') {
+              if ($target != 'ALL') {
                 $('.table tbody tr').css('display', 'none');
                     $('.table tr[data-status="' + $target + '"]').show();
+                    $('.divide').show();
+                    $('.no').hide();
               } else {
                 $('.table tbody tr').css('display', 'none').show();
+                $('.no').show();
+                $('.divide').hide();
               }
+              //제목 부분 바꾸기 
                 $('.table-responsive h1').text($target);
             }
             
+            //뒤로가기 버튼눌렀을 시 
             function popstateEvent(event) {
                 hash = location.hash;
                 $target = hash.substr(1,hash.length);
                 pageload();
             }
             
-            
             $(window).on('popstate', popstateEvent);
             
             function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
-				//             	console.log(data);
-				//$("#tbody").empty();
-
 				for (var i = 0; i < data.length; i++) {
 					var tag = "";
 					tag += '<tr data-status="' + data[i].type + '">';
-					tag += '<td>' + data[i].no + '</td>';
-					tag += '<td><p class="'+data[i].type+'" data-target="'+data[i].type+'">' + data[i].type + '</p></td>';
-					//tag += '<td><p class="' + data[i].type + '" data-target="' + data[i].type + '">' + '('+data[i].type+ ')</p></td>';
+					tag += '<td class="no">' + data[i].no + '</td>';
+					tag += '<td class="divide">' + data[i].divide + '</td>';
+					tag += '<td><p class="' + data[i].type + '" data-target="' + data[i].type + '">(' + data[i].type + ')</p></td>';
 					tag += '<td>' + data[i].title + '</td>';
 					tag += '<td>'+data[i].nickname+'</li>';
-					//tag += '<td>' + data[i].url + '</td>';
-					tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].hit +'</i><img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</td>';
-					//tag += '<i>' '</i>';
+					tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].hit +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
 					tag += '</tr>';
-					$("#tbody").append(tag);
+					$("tbody").append(tag);
 				}
+            	
 			}
             function createPaging() {
 				var paging = totCnt / viewRow;
@@ -109,12 +109,13 @@
 						initData(); // 디비에서 데이터 다시 가져 오기 위하여 함수 호출
 					}, 100); // 0.1초 후에 실행 하기 위하여 setTimeout() 함수를 실행한다.
 				});
-
 			}
+            
             function initData() { // 디비에서 데이터 가져오기 위한 함수
-				var hash = location.hash;
-
-				if (hash != "") {
+				hash = location.hash;
+	            if(hash == ""){
+	                hash = "#ALL";
+	            }else{
 					page = hash.substr(1, hash.length);
 				}
 
@@ -139,9 +140,9 @@
 					console.log(totCnt);
 					createHtml(); // 화면에 표현하기 위하여 함수 호출
 					createPaging();
+					pageload();
 				});
 			}
-			initData();
 		});
     </script>
 </head>
@@ -203,62 +204,7 @@
                             </div>
 						    <h1>ALL</h1>
 							<table class="table table-filter table-comm">
-								<tbody id="tbody">
-									<tr data-status="INFO">
-                                        <td>
-                                            35
-                                        </td>
-										<td>
-								            <p class="info" data-target="INFO">(INFO)</p>
-										</td>
-                                        <td>
-											제목입니다1
-                                        </td>
-                                        <td>
-                                            임채영
-                                        </td>
-                                        <td>
-                                            <p>2017/03/1</p>
-                                            <i><img src="resources/bootjsp/img/like.png">255<img src="resources/bootjsp/img/click.png">365</i>
-                                        </td>
-									</tr>
-                                    <tr data-status="MOVIE">
-                                        <td>
-                                            75
-                                        </td>
-										<td>
-													<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScPyG0_I6eKBwQBe54Lruefp6QodA9H3-md_VjWycwKzsjL_0D" class="media-photo">
-													<p class="movie" data-target="MOVIE">(MOVIE)</p>
-										</td>
-                                        <td>
-											제목입니다2
-                                        </td>
-                                        <td>
-                                            최혁
-                                        </td>
-                                        <td>
-                                            <p>2017/03/1</p>
-                                            <i><img src="resources/bootjsp/img/like.png">255<img src="resources/bootjsp/img/click.png">365</i>
-                                        </td>
-									</tr>
-                                    <tr data-status="FREE">
-                                        <td>
-                                            90
-                                        </td>
-										<td>
-												<p class="free" data-target="FREE">(FREE)</p>
-										</td>
-                                        <td>
-											제목입니다3
-                                        </td>
-                                        <td>
-                                            주용훈
-                                        </td>
-                                        <td>
-                                            <p>2017/03/1</p>
-                                            <i><img src="resources/bootjsp/img/like.png">255<img src="resources/bootjsp/img/click.png">365</i>
-                                        </td>
-									</tr>
+								<tbody>
 								</tbody>
 							</table>
                             <button type="button" class="btn btn-danger pull-right" style="background-color: #b1b1b1;

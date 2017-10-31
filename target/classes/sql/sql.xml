@@ -4,27 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sql">
 <select id="bbsall" resultType="hashmap"> <!-- 게시판 정보 목록 -->
-		select no, type, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit 
+		select no, type, title, divide, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit 
 		from board 
-		where del_yn = 'N';
-	</select>
-	
-	<select id="bbsif" resultType="hashmap"> <!-- 게시판 정보 목록 -->
-		select divide, '인포' as viewType, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit 
-		from board 
-		where del_yn = 'N' and type = 'if';
-	</select>
-	
-	<select id="bbsmd" resultType="hashmap"> <!-- 게시판 영상 목록 -->
-		select divide, '무비' as viewType, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit
-		from board 
-		where del_yn = 'N' and type = 'md';
-	</select>
-	
-	<select id="bbsfr" resultType="hashmap"> <!-- 게시판 자유 목록 -->
-		select divide, '몰라' as viewType, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit 
-		from board 
-		where del_yn = 'N' and type = 'fr';
+		where del_yn = 'N'
+		order by no desc;
 	</select>
 	
 	<!-- 게시판 목록 -->
