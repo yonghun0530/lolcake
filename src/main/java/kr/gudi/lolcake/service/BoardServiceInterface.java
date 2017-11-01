@@ -12,6 +12,6 @@ public interface BoardServiceInterface {
 	   
 //	   public HashMap<String, Object> totCntall();
 	   public HashMap<String, Object> all(HashMap<String, Object> param);
-	   // 서비스 인터페이스스
+	   // 서비스 인터페이스
 	   
 }
