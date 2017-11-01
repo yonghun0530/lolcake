@@ -168,6 +168,7 @@ body {
     width: 100%;
     margin: 0;
 }
+
 .table-filter {
     background-color: #fff;
     border-bottom: 1px solid #eee;
@@ -194,49 +195,46 @@ body {
 .table-comm tbody tr td:nth-child(1) {
     width: 70px;
 }
-.table-comm tbody tr td:nth-child(2) {
-    width: 70px;
-}
 
-.table-comm tbody tr td:nth-child(3),
+.table-comm tbody tr td:nth-child(2),
 .table-filter .media-photo {
     width: 50px;
 }
 
-.table-comm tbody tr td:nth-child(3) p {
+.table-comm tbody tr td:nth-child(2) p {
     padding: 5px;
     margin: 0 0;
 }
 
-.table-comm tbody tr td:nth-child(4) {
+.table-comm tbody tr td:nth-child(3) {
     color: #4b4b4b;
     font-size: 16px;
     font-weight: bold;
     text-align: left;
 }
 
-.table-comm tbody tr td:nth-child(5) {
+.table-comm tbody tr td:nth-child(4) {
     font-size: 13px;
     color: #0d6290;
     width: 100px;
 }
 
-.table-comm tbody tr td:nth-child(6) {
+.table-comm tbody tr td:nth-child(5) {
     width: 100px;
 }
 
-.table-comm tbody tr td:nth-child(6) p {
+.table-comm tbody tr td:nth-child(5) p {
     font-size: 11px;
     color: #999;
     margin-bottom: 0
 }
 
-.table-comm tbody tr td:nth-child(6) img {
+.table-comm tbody tr td:nth-child(5) img {
     width: 15px;
     padding: 1px;
 }
 
-.table-comm tbody tr td:nth-child(6) i {
+.table-comm tbody tr td:nth-child(5) i {
     color: #c75959;
 }
 
