@@ -43,9 +43,6 @@
 		update board set del_yn = 'Y' where no = #{no};
 	</update> 
 	
-
-
-	
 	<update id="hitclick" parameterType="hashmap">
 		update board set hit = (hit + 1) where no = #{no};
 	</update>
@@ -85,6 +82,16 @@
 					union all
 					 (select no from board where type = 'md' and del_yn = 'N' group by no order by hit desc limit 0, 5)) as s 
 				    where b.`no` = s.no)
+   </select>
+   
+   
+   <select id="champ" resultType="hashmap"> <!-- 챔피언 조회 -->
+	  select * from champions 
+   </select>
+   
+   
+   <select id="champDetail" parameterType="hashmap" resultType="hashmap"> <!-- 챔피언 조회 -->
+	  select c.*, s.* from champions as c inner join skills as s on (c.`no` = s.`champname_no`) where c.`no` = #{no}
    </select>
 	
 	

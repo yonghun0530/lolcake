@@ -148,7 +148,7 @@ var totCnt = 0; // 데이터 전체 객수
 					"<a href='#" + (i + 1) + "'>" + (i + 1)
 							+ "</a>")
 		}
-
+ 
 		$("#paging a").off().on("click", function() {
 			
 			page = $(this).text();
@@ -157,19 +157,19 @@ var totCnt = 0; // 데이터 전체 객수
 				initData(); // 디비에서 데이터 다시 가져 오기 위하여 함수 호출
 			}, 100); // 0.1초 후에 실행 하기 위하여 setTimeout() 함수를 실행한다.
 		});
-
+ 
 	}
-
+ 
 	function initDataif() { // 디비에서 데이터 가져오기 위한 함수
 		var hash = location.hash;
-
+ 
 		if (hash != "") {
 			page = hash.substr(1, hash.length);
 		}
-
+ 
 		var end = (viewRow * page);
 		var start = (end - viewRow);
-
+ 
 		$.ajax({
 			type : "post", // post 방식으로 통신 요청
 			url : "listData", // Spring에서 만든 URL 호출
@@ -191,7 +191,7 @@ var totCnt = 0; // 데이터 전체 객수
 		});
 	}
 	
-
+ 
 	
 	
 	

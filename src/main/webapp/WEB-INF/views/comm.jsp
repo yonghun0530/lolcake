@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
+ 
 <head>
     <title>LOLCAKE</title>
     <meta charset="UTF-8">
@@ -15,113 +15,182 @@
     <script type="text/javascript">
     var hash = location.hash;
     var data = []; // 데이터 담을 배열 변수 선언
+    var bbsD = [];
 	var page = 1; // 현재 페이지 값
 	var viewRow = 10; // 화면에 보여질 행 갯수
 	var totCnt = 0; // 데이터 전체 객수
+	var no;
+	var id;
+	var pwd;
+	
 	var $target = "ALL";
         $(document).ready(function () {
+        	$('.divide').hide();
+        	
             if (location.hash != "") {
             	var 성진이짱 = 성진이();
                 $target = 성진이짱[0];
                 page = 성진이짱[1];
-			}else{ // 해쉬 없을때 무조건 ALL
+			}else{
 				page = 1;
 				hash = "ALL/1";
 				location.hash = hash;
 				$target = "ALL";
 			}
-//             var hash = location.hash;
-//             if(hash == ""){
-//                 hash = "#ALL";
-//             }
-//             $target = hash.substr(1,hash.length);
-//             pageload();
-            
-//             if(location.hash == "#FR-W" | location.hash == "#IN-W" | location.hash == "#MO-W"){
-//                 $target = "ALL";
-//                 location.hash = $target;
-//                 pageload();
-//             }else{
-//                 pageload();
-//             }
-            
+ 
             $('.btn-filter').on('click', function () {
                 $target = $(this).data('target');
-//                 console.log('.btn-filter', $target);
                 location.hash = $target + "/1";
-//                 console.log('.btn-filter', $target, location.hash);
-//                 pageload();
-            
-            });
-            
-            $('tbody tr').on('click', function () {
-                location.hash = $(this).find('td').eq(0).text();
-                $('.container').load('resources/bootjsp/commD.html');
-            });
-            
-            $('tbody td p').on('click', function () {
-                $target = $(this).data('target');
-                location.hash = $target;
-                pageload();
             
             });
             
             $('#write').on('click', function () {
-                $('.container').load('resources/bootjsp/write.html');
-                location.hash = "#FR-W";
+            	$('.container').load('resources/bootjsp/write.html');
+            	
+            	
             });
+            
             
             function pageload(){
                 if ($target != 'ALL') {
-                	$('.table tbody tr').css('display', 'none');
-                    $('.table tr[data-status="' + $target + '"]').show();
+                	$('.table-comm tbody tr').css('display', 'none');
+                    $('.table-comm tr[data-status="' + $target + '"]').show();
+                    
               } else {
-                	$('.table tbody tr').css('display', 'none').show();
+                	$('.table-comm tbody tr').css('display', 'none').show();
+                	
               }
-                $('.table-responsive h1').text ($target);
+                $('.table-responsive h1').text($target);
                 initData();
-            }
-            
-            // a태그 클릭시 이벤트 필요없어짐.
+            }"C:/Users/GD/AppData/Local/Temp/egit-patch3824950eb7ebdc8a8319fb05690b4d5ba13a2fbe/좀-와라.patch"
+           
+            //뒤로갈경우 데이터 유지 
             function popstateEvent(event) {
             	var 성진이짱 = 성진이();
                 $target = 성진이짱[0];
                 page = 성진이짱[1];
-//                	console.log("popstateEvent", $target, page);
                 pageload();
             }
             
+    		
             function 성진이(){
             	hash = location.hash;
-//             	console.log(hash);
             	var 데이터 = hash.substr(1, hash.length);
-//             	console.log(데이터);
             	var 배열 = 데이터.split("/");
-//             	console.log(배열);
             	return 배열;
             }
             
             $(window).on('popstate', popstateEvent);
             
+            //리스트 html
             function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
-// 				            	console.log(data);
-				$("tbody").empty();
-
+				$(".table-comm tbody").empty();
+ 
 				for (var i = 0; i < data.length; i++) {
 					var tag = "";
 					tag += '<tr data-status="' + data[i].type + '">';
-					tag += '<td>' + data[i].no + '</td>';
-					tag += '<td><p class="'+data[i].type+'" data-target="'+data[i].type+'">' + data[i].type + '</p></td>';
-					//tag += '<td><p class="' + data[i].type + '" data-target="' + data[i].type + '">' + '('+data[i].type+ ')</p></td>';
+					tag += '<td class="no">' + data[i].no + '</td>';
+					tag += '<td class="divide">' + data[i].divide + '</td>';
+					tag += '<td>';
+					if(data[i].type == "MOVIE"){
+						var movie = data[i].url.split("/");
+						if(movie[2] == "www.youtube.com" || movie[2] == "youtu.be"){
+							tag += '<img class="media-photo" src="' + 'http://img.youtube.com/vi/' + movie[movie.length - 1] + '/0.jpg' + '">';
+						}else{
+							tag += '<img class="media-photo" src="' + 'https://odenseofficial.com/web/img/news/img_video_over.png' + '">';
+						}
+						
+					}
+					tag += '<p class="'+data[i].type+'" data-target="'+data[i].type+'">(' + data[i].type + ')</p></td>';
 					tag += '<td>' + data[i].title + '</td>';
 					tag += '<td>'+data[i].nickname+'</li>';
-					//tag += '<td>' + data[i].url + '</td>';
-					tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].hit +'</i><img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</td>';
-					//tag += '<i>' '</i>';
+					tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].hit +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
 					tag += '</tr>';
-					$("tbody").append(tag);
+					$(".table-comm tbody").append(tag);
 				}
+	            
+				if($target !="ALL"){
+					$('.divide').show();
+                    $('.no').hide();
+				}else{
+					$('.divide').hide();
+                    $('.no').show();
+				}
+				
+	            $('.table-comm tbody tr').on('click', function () {
+	            	no = $(this).find('td').eq(0).text();
+	                $('.container').load('resources/bootjsp/commD.html');
+	                bbsData();
+	            });
 			}
+            
+            //편집 아이디 검사
+    		function editError(button){
+    			id = $('#myModal').find('input').eq(0).val();
+    			pwd = $('#myModal').find('input').eq(1).val();
+    			
+    			if(id == null | pwd == null){
+    				alert("아이디 또는 비번을 입력해야합니다.");
+    			}else if(bbsD.nickname != id && bbsD.passwd != pwd){
+    				alert("아이디 또는 비번이 잘못되었습니다.");
+    			}else{
+    				if(button == "#bbsEdit"){
+    					 $('.modal-backdrop.fade').css('opacity','0');
+    					 $('.container').load('resources/bootjsp/write.html');
+    					 
+    				}else{
+    					var d = {
+    						"no" : no
+    					};
+    					console.log(d);
+    					$.ajax({
+    						type : "post", // post 방식으로 통신 요청
+    						url : "Delete", // Spring에서 만든 URL 호출
+    						typedata : "json",
+    						data : d
+    					}).done(function(result) { // 비동기식 데이터 가져오기
+    						dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
+    						alert("삭제되었습니다.");
+    						location.href = '/lolcake/comm';
+    					});
+    				}
+    			}
+    		}
+            
+            //상세보기 html 
+            function createBbs(){
+                $(".table-commD tbody").empty();
+				var tag = "";
+				tag += '<tr><td><p>' + bbsD.datetime + '<span>'
+						+ bbsD.nickname + '</span></p></td></tr>';
+				tag += '<tr><td>' + bbsD.title + '</td></tr>';
+				tag += '<tr><td><i> 조회수 : ' + bbsD.hit
+						+ '</i> <i> 추천수 : ' + bbsD.hit
+						+ '</i></td></tr>';
+				tag += '<tr><td class="comm-body">';
+				if(bbsD.type == "MOVIE"){
+					var movie = bbsD.url.split("/");
+					if(movie[2] == "www.youtube.com" || movie[2] == "youtu.be"){
+						tag += '<iframe src="https://www.youtube.com/embed/' + movie[movie.length - 1] + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
+					}else{
+						tag += '<iframe src="' + bbsD.url + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
+					} 		
+				}		
+				tag += bbsD.dept+ '</td></tr>';
+				
+				$(".table-commD tbody").append(tag);
+ 
+				
+				$('#bbsEdit').on('click',function(){
+					editError('#bbsEdit');
+				});
+				
+				$('#bbsDelete').on('click',function(){
+					editError('#bbsDelete');
+				});
+            }
+            
+            //페이징 
             function createPaging() {
 				var paging = totCnt / viewRow;
 				// 전체의 행의 수에서 보여줄 행을 나누면 페이지의 갯수를 알 수 있다.
@@ -130,16 +199,11 @@
 					$(".pagination").append(
 							"<li> <a href='#" + $target + "/" + (i + 1) + "'>" + (i + 1) + "</a></li>")
 				}
-
-/* 				$(".pagination li a").off().on("click", function() {
-					page = $(this).text();
- 					console.log(page);
-					setTimeout(function() {
-						initData(); // 디비에서 데이터 다시 가져 오기 위하여 함수 호출
-					}, 100); // 0.1초 후에 실행 하기 위하여 setTimeout() 함수를 실행한다.
-				}); */
-
+ 
+ 
 			}
+            
+            //리스트 데이터 불러오기
             function initData() { // 디비에서 데이터 가져오기 위한 함수
 				var end = (viewRow * page);
 				var start = (end - viewRow);
@@ -150,7 +214,6 @@
 						"viewRow" : viewRow,
 						"type" : $target
 					};
-				console.log(d, start, viewRow, $target, end, viewRow, page);
 				
 				$.ajax({
 					type : "post", // post 방식으로 통신 요청
@@ -158,21 +221,38 @@
 					typedata : "json",
 					data : d 
 				}).done(function(result) { // 비동기식 데이터 가져오기
-					console.log(JSON.parse(result));
 					dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
 					data = dataJson.list;
-// 					console.log(data);
 					totCnt = dataJson.totCntall.tot;
-// 					console.log(totCnt);
-					createHtml(); // 화면에 표현하기 위하여 함수 호출
 					createPaging();
+					createHtml(); // 화면에 표현하기 위하여 함수 호출
 				});
 			}
+            
+            //게시판 상세보기 데이터 불러오기
+            function bbsData() { // 디비에서 데이터 가져오기 위한 함수
+				var d = {
+						"no" : no
+					};
+				
+				$.ajax({
+					type : "post", // post 방식으로 통신 요청
+					url : "bbsData", // Spring에서 만든 URL 호출
+					typedata : "json",
+					data : d 
+				}).done(function(result) { // 비동기식 데이터 가져오기
+					dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
+					bbsD = dataJson.bbsD;
+					console.log(bbsD);
+					createBbs();
+				});
+			}
+            
 			initData();
 		});
     </script>
 </head>
-
+ 
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
@@ -186,22 +266,22 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-center">
                     <li>
-                        <a href="resources/bootjsp/home.html">
+                        <a href="/lolcake/">
                             <h4>HOME</h4>
                         </a>
                     </li>
                     <li>
-                        <a href="resources/bootjsp/ranking.html">
+                        <a href="/lolcake/ranking">
                             <h4>랭킹</h4>
                         </a>
                     </li>
                     <li>
-                        <a href="resources/bootjsp/comm.html" class="active">
+                        <a href="/lolcake/comm" class="active">
                             <h4>커뮤니티</h4>
                         </a>
                     </li>
                     <li>
-                        <a href="resources/bootjsp/champ.html">
+                        <a href="/lolcake/champ">
                             <h4>챔피언</h4>
                         </a>
                     </li>
@@ -230,62 +310,8 @@
                             </div>
 						    <h1>ALL</h1>
 							<table class="table table-filter table-comm">
-								<tbody id="tbody">
-									<tr data-status="INFO">
-                                        <td>
-                                            35
-                                        </td>
-										<td>
-								            <p class="info" data-target="INFO">(INFO)</p>
-										</td>
-                                        <td>
-											제목입니다1
-                                        </td>
-                                        <td>
-                                            임채영
-                                        </td>
-                                        <td>
-                                            <p>2017/03/1</p>
-                                            <i><img src="resources/bootjsp/img/like.png">255<img src="resources/bootjsp/img/click.png">365</i>
-                                        </td>
-									</tr>
-                                    <tr data-status="MOVIE">
-                                        <td>
-                                            75
-                                        </td>
-										<td>
-													<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScPyG0_I6eKBwQBe54Lruefp6QodA9H3-md_VjWycwKzsjL_0D" class="media-photo">
-													<p class="movie" data-target="MOVIE">(MOVIE)</p>
-										</td>
-                                        <td>
-											제목입니다2
-                                        </td>
-                                        <td>
-                                            최혁
-                                        </td>
-                                        <td>
-                                            <p>2017/03/1</p>
-                                            <i><img src="resources/bootjsp/img/like.png">255<img src="resources/bootjsp/img/click.png">365</i>
-                                        </td>
-									</tr>
-                                    <tr data-status="FREE">
-                                        <td>
-                                            90
-                                        </td>
-										<td>
-												<p class="free" data-target="FREE">(FREE)</p>
-										</td>
-                                        <td>
-											제목입니다3
-                                        </td>
-                                        <td>
-                                            주용훈
-                                        </td>
-                                        <td>
-                                            <p>2017/03/1</p>
-                                            <i><img src="resources/bootjsp/img/like.png">255<img src="resources/bootjsp/img/click.png">365</i>
-                                        </td>
-									</tr>
+								<tbody>
+									
 								</tbody>
 							</table>
                             <button type="button" class="btn btn-danger pull-right" style="background-color: #b1b1b1;
@@ -293,12 +319,6 @@
                             <div class="col-sm-6 col-sm-offset-3 text-center">
                              <ul class="pagination">
                                   <li class="disabled"><a href="#">«</a></li>
-                                  <!-- <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                  <li><a href="#">2</a></li>
-                                  <li><a href="#">3</a></li>
-                                  <li><a href="#">4</a></li>
-                                  <li><a href="#">5</a></li>
-                                  <li><a href="#">»</a></li> -->
                             </ul>
 						</div>
 					</div>
@@ -325,5 +345,5 @@
         </div>
     </footer>
 </body>
-
+ 
 </html>

@@ -23,7 +23,7 @@ public class BoardController {
 	  @Autowired
 	   BoardServiceInterface bsi;
 	  
-	  @RequestMapping(value = "/bbsall", method = RequestMethod.GET)
+	  @RequestMapping(value = "/comm", method = RequestMethod.GET)
 	  public ModelAndView bbsall(ModelAndView mav){
 		  mav.setViewName("comm");
 		  return mav;
