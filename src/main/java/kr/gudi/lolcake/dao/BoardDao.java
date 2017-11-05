@@ -23,12 +23,34 @@ public class BoardDao implements BoardDaoInterface {
 	   public HashMap<String, Object> totCntall(HashMap<String, Object> param) {
 	      return session.selectOne("sql.totCntall", param);
 	   }
-	   //param값 추가 추가
-
-/*	   @Override
-	   public List<HashMap<String, Object>> totCnt() { // 그룹바이
-	      return session.selectList("sql.totCnt");
-	   }*/
+	   
+	   @Override
+		public HashMap<String, Object> bbsD(HashMap<String, Object> param) {
+			return session.selectOne("sql.bbsD", param);
+		}
+	 
+		@Override
+		public int delete(HashMap<String, Object> param) {
+			return session.update("sql.bbsremove", param);
+		}
+	   
+	   
+	   /*************************게시판 글쓰기************************************/
+	      @Override
+	      public int bbsWrite(HashMap<String, Object> param) {
+	         return session.insert("sql.bbswrite", param);
+	      }
+	      
+	      /*************************게시글 수정***************************************/
+	      @Override
+	      public int bbsEdit(HashMap<String, Object> param) {
+	         System.out.println(param);
+	         return session.update("sql.bbsedit", param);
+	      }
+	      @Override
+	         public List<HashMap<String, Object>> editdata(HashMap<String, Object> param) {
+	            return session.selectList("sql.bbsread", param);
+	         }
 
 	
 }

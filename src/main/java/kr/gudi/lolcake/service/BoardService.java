@@ -10,46 +10,85 @@ import kr.gudi.lolcake.dao.BoardDaoInterface;
 
 @Service
 public class BoardService implements BoardServiceInterface {
-	   
-	   @Autowired
-	   BoardDaoInterface bdi;
-	   
-	   public HashMap<String, Object> map;
-/*	   
-	   @Override
-	   public HashMap<String, Object> bbshot() {
-	      map = new HashMap<String, Object>();
-	      map.put("list", bdi.bbshot());
-	      map.put("cnt", bdi.bbshotCnt());
-	      return map;
-	   }
-	   
+      
+      @Autowired
+      BoardDaoInterface bdi;
+      
+      public HashMap<String, Object> map;
+/*      
+      @Override
+      public HashMap<String, Object> bbshot() {
+         map = new HashMap<String, Object>();
+         map.put("list", bdi.bbshot());
+         map.put("cnt", bdi.bbshotCnt());
+         return map;
+      }
+      
 
+      @Override
+      public HashMap<String, Object> TotCnt() {
+         HashMap<String, Object> map = new HashMap<String, Object>();
+         map.put("list", bdi.totCnt());
+         return map;
+      }*/
+      
+      @Override
+      public HashMap<String, Object> all(HashMap<String, Object> param) {
+         
+         List<HashMap<String, Object>> list = bdi.all(param);
+         HashMap<String, Object> map = new HashMap<String, Object>();
+         map.put("list", list);
+         
+         HashMap<String, Object> totCnt = bdi.totCntall(param);
+         map.put("totCntall", totCnt);
+         //param값 추가
+         return map;
+      }
+      
+      /*************************게시판글쓰기************************************/
 	   @Override
-	   public HashMap<String, Object> TotCnt() {
-	      HashMap<String, Object> map = new HashMap<String, Object>();
-	      map.put("list", bdi.totCnt());
-	      return map;
-	   }*/
-	   
-	   @Override
-	   public HashMap<String, Object> all(HashMap<String, Object> param) {
-	      
-	      List<HashMap<String, Object>> list = bdi.all(param);
+	   public HashMap<String, Object> bbsWrite(HashMap<String, Object> param) {
+	      int list = bdi.bbsWrite(param);
 	      HashMap<String, Object> map = new HashMap<String, Object>();
 	      map.put("list", list);
-	      
-	      HashMap<String, Object> totCnt = bdi.totCntall(param);
-	      map.put("totCntall", totCnt);
-	      //param값 추가 추가
 	      return map;
 	   }
-
-//	@Override
-//	public HashMap<String, Object> totCntall() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 	   
-
+	   /*************************게시글수정************************************/
+	   @Override
+	   public HashMap<String, Object> bbsEdit(HashMap<String, Object> param) {
+	      int list = bdi.bbsEdit(param);
+	      HashMap<String, Object> map = new HashMap<String, Object>();
+	      map.put("list", list);
+	      return map;
+	   }
+	   @Override
+	      public HashMap<String, Object> editdata(HashMap<String, Object> param) {
+	         List<HashMap<String, Object>> list = bdi.editdata(param);
+	         HashMap<String, Object> map = new HashMap<String, Object>();
+	         map.put("list", list);
+	         return map;
+	   }
+	   /***********************게시판상세보기 *********/
+	      
+	   @Override
+		public HashMap<String, Object> bbsD(HashMap<String, Object> param) {
+	 
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			HashMap<String, Object> bbsD = bdi.bbsD(param);
+			map.put("bbsD", bbsD);
+	 
+			return map;
+		}
+	 
+		@Override
+		public HashMap<String, Object> delete(HashMap<String, Object> param) {
+	 
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			int delete = bdi.delete(param);
+			map.put("delete", delete);
+	 
+			return map;
+		}
+	      
 }
