@@ -15,22 +15,6 @@ public class BoardService implements BoardServiceInterface {
       BoardDaoInterface bdi;
       
       public HashMap<String, Object> map;
-/*      
-      @Override
-      public HashMap<String, Object> bbshot() {
-         map = new HashMap<String, Object>();
-         map.put("list", bdi.bbshot());
-         map.put("cnt", bdi.bbshotCnt());
-         return map;
-      }
-      
-
-      @Override
-      public HashMap<String, Object> TotCnt() {
-         HashMap<String, Object> map = new HashMap<String, Object>();
-         map.put("list", bdi.totCnt());
-         return map;
-      }*/
       
       @Override
       public HashMap<String, Object> all(HashMap<String, Object> param) {
@@ -62,14 +46,8 @@ public class BoardService implements BoardServiceInterface {
 	      map.put("list", list);
 	      return map;
 	   }
-	   @Override
-	      public HashMap<String, Object> editdata(HashMap<String, Object> param) {
-	         List<HashMap<String, Object>> list = bdi.editdata(param);
-	         HashMap<String, Object> map = new HashMap<String, Object>();
-	         map.put("list", list);
-	         return map;
-	   }
-	   /***********************게시판상세보기 *********/
+	   
+	   /***********************게시판상세보기 ****************************/
 	      
 	   @Override
 		public HashMap<String, Object> bbsD(HashMap<String, Object> param) {
@@ -80,7 +58,8 @@ public class BoardService implements BoardServiceInterface {
 	 
 			return map;
 		}
-	 
+	   
+	   /***********************게시물지우기 ****************************/
 		@Override
 		public HashMap<String, Object> delete(HashMap<String, Object> param) {
 	 

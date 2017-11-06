@@ -42,15 +42,9 @@ public class BoardController {
 			
 	      mav.setViewName("json");
 	      return mav;
-//	      return HttpUtil.makeHashToJsonModelAndView(bsi.totCntif(param));
 	  }
 	  
 	  /*************************게시글쓰기************************************/
-	     @RequestMapping(value = "/bbsWrite", method = RequestMethod.GET)
-	     public ModelAndView bbsD(ModelAndView mav){
-	        mav.setViewName("write");
-	        return mav;
-	     }
 	     @RequestMapping("/writeData")
 	      public ModelAndView bbsData(ModelAndView mav, HttpServletRequest req, HttpSession session){
 	         HashMap<String, Object> param = HttpUtil.getParameterMap(req);
@@ -63,21 +57,6 @@ public class BoardController {
 	         return mav;
 	     }
 	     /********************************게시글 수정***************************************/
-	     @RequestMapping(value = "/bbsEdit", method = RequestMethod.GET)
-	     public ModelAndView bbsE(ModelAndView mav){
-	        mav.setViewName("edit");
-	        return mav;
-	     }
-	     @RequestMapping("/readData")
-	      public ModelAndView readData(ModelAndView mav, HttpServletRequest req, HttpSession session){
-	         HashMap<String, Object> param = HttpUtil.getParameterMap(req);
-	         param.put("no", Integer.parseInt(req.getParameter("no")));
-	         JSONObject jsonObject = new JSONObject();
-	         jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(bsi.editdata(param)));
-	         mav.addObject("message", jsonObject.toString());
-	         mav.setViewName("json");
-	         return mav;
-	     }
 	     @RequestMapping("/editData")
 	      public ModelAndView editData(ModelAndView mav, HttpServletRequest req, HttpSession session){
 	         HashMap<String, Object> param = HttpUtil.getParameterMap(req);

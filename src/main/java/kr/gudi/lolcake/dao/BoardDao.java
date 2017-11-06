@@ -44,13 +44,7 @@ public class BoardDao implements BoardDaoInterface {
 	      /*************************게시글 수정***************************************/
 	      @Override
 	      public int bbsEdit(HashMap<String, Object> param) {
-	         System.out.println(param);
 	         return session.update("sql.bbsedit", param);
 	      }
-	      @Override
-	         public List<HashMap<String, Object>> editdata(HashMap<String, Object> param) {
-	            return session.selectList("sql.bbsread", param);
-	         }
-
 	
 }

@@ -4,27 +4,23 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sql">	<!-- 게시판 목록 -->
 <select id="bbsall" resultType="hashmap" parameterType="hashmap"> <!-- 게시판 정보 목록 -->
-		select no, type, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit 
+		select no, type, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit, url, divide
 		from board 
 		where del_yn = 'N' 
 		<if test="type != 'ALL'">
 			and type = #{type}
 		</if>
+		order by no desc
 		limit #{start}, #{viewRow};
 		<!-- 서버 다시시작해야함 -->
 	</select>
 	<!-- 쿼리 수정 -->
 	<!-- 채영이꺼 -->
 	<select id="bbsD" resultType="hashmap" parameterType="hashmap"> <!-- 게시판 정보 목록 -->
-		select no, type, title, divide, url, nickname, DATE_FORMAT(time,
-		'%X-%m-%d') as datetime, hit, dept, passwd
+		select no, type, title, divide, url, nickname, DATE_FORMAT(time,'%X-%m-%d') as datetime, hit, dept, passwd
 		from board
 		where board.no = #{no};
 	</select>
-	
-	<select id="bbsread" resultType="hashmap"> <!-- 수정시 글출력 -->
-   select * from board where no = #{no};
-   </select>
 
   <update id="bbsedit" parameterType="hashmap"> <!-- 게시글 수정 -->
       update board set type = #{type}, title = #{title}, dept = #{contents},passwd = #{passwd}, time = now(), url = #{url} where no = #{no}
@@ -35,9 +31,7 @@
       values(#{type},(select ifnull(count(*),0)+1 from board ALIAS_FOR_SUBQUERY where type = #{type}), #{title}, #{contents}, #{nickname}, now(), #{passwd}, 0, 0, 'N', #{url})
       <!-- insert into board(type, divide, title, dept, nickname, time, passwd, hit, like,del_yn,url)
       values(#{type},(select ifnull(count(*),0)+1 from board ALIAS_FOR_SUBQUERY where type =#{$type}), #{title}, #{contents}, #{name}, now(), #{passwd}, 0,0, 'N',#{url}) --> 
-       </insert>
-	
-
+    </insert>
 	
 	<update id="bbsremove" parameterType="hashmap">	<!-- 게시글 삭제 -->
 		update board set del_yn = 'Y' where no = #{no};

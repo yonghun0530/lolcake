@@ -18,8 +18,6 @@ public interface BoardServiceInterface {
 
 	   public HashMap<String, Object> bbsEdit(HashMap<String, Object> param);
 
-	   public HashMap<String, Object> editdata(HashMap<String, Object> param);
-
 	   public HashMap<String, Object> bbsD(HashMap<String, Object> param);
 
 	   public HashMap<String, Object> delete(HashMap<String, Object> param);
