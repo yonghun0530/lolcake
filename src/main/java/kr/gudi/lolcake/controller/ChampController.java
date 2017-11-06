@@ -29,11 +29,6 @@ public class ChampController {
 		  mav.setViewName("champ");
 		  return mav;
 	  }
-	  @RequestMapping(value = "/champD", method = RequestMethod.GET)
-	  public ModelAndView champD(ModelAndView mav){
-		  mav.setViewName("champD");
-		  return mav;
-	  }
 	  @RequestMapping(value = "/champData", method = RequestMethod.POST)
       public void readData(HttpServletRequest req, HttpServletResponse resp){
          HttpUtil.sendResponceToJson(resp, csi.champ());

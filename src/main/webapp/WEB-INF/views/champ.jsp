@@ -14,11 +14,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
 			var data = [];
-            $('.champ img').on('click', function() {
-                var index = $('.champ img').index(this);
-                location.hash = $('.portfolio-item').eq(index).find('p').text();
-                $('.panel-body').load('resources/bootjsp/champD.html');
-            });
+            
             $.ajax({
 				type : "post", // post 방식으로 통신 요청
 				url : "champData", // Spring에서 만든 URL 호출
@@ -29,7 +25,7 @@
 				createHtml();
 			});
             
-            function createHtml() { 
+            function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
 				$(".champ").empty();
 				for (var i = 0; i < data.length; i++) {
 					var tag = "";
@@ -43,7 +39,38 @@
 				$(".champ div.portfolio-item").on("click", function(){
 					var index = $(".champ div.portfolio-item").index($(this));
 					console.log(index, $(this), data[index].no);
-					location.href = "champD?no=" + data[index].no;
+					/* location.href = "champD?no=" + data[index].no; */
+					$('.panel-body').load('resources/bootjsp/champD.html',function(){
+						var no = data[index].no;
+						var detail = [];
+						$.ajax({
+							type : "post", // post 방식으로 통신 요청
+							url : "champDetailData", // Spring에서 만든 URL 호출
+							typedata : "json",
+							data : {no : no}
+						}).done(function(result) { // 비동기식 데이터 가져오기
+							data = result.data;
+							$("#champImg").attr("src",  data[0].path + "/" + data[0].img);
+							$("tbody").empty();
+							for(var i = 0; i < result.data.length; i++){
+								console.log(result.data[i]);
+								$("#skills img").eq(i).attr("src",  data[i].skill_path + "/" + data[i].skill_img);
+								$("tbody").append("<tr><td>" + data[i].skillname + "</td><td>" + data[i].dept + "</td></tr>");
+							}
+						});
+						
+						$("#skills img").on("click", function(){
+			                var i = $("#skills img").index($(this));
+			                var html = '<div style="text-align: center;"><img src="resources/bootjsp/img/LOL.jpg" style="width:80%;"></div>';
+			                if(data[i].media_url != undefined ){
+			                   html = '<video class="skill-video" controls autoplay loop><source src="'+data[i].media_path + data[i].media_url+'" type="video/mp4">Your browser does not support HTML5 video.</video>';
+			                }
+			                $(".modal-dialog").empty().html(html);
+			                $("#myModal").modal("show");
+			             });
+					});
+					
+		        	
 				});
             }
         });
@@ -100,69 +127,8 @@
                     <div class="panel-body panel-champ">
                         <h1>CHAMPION</h1>
                         <div class="champ">
-                            <div class="col-md-2 col-sm-2 portfolio-item">
-                                <img src="resources/character/Garen.png" alt="">
-                                <p>가렌</p>
-                            </div>
-                            <div class="col-md-2 col-sm-2 portfolio-item">
-                                <img src="http://placehold.it/400x400" alt="">
-                                <p>ChampName</p>
-                            </div>
-                            <div class="col-md-2 col-sm-2 portfolio-item">
-                                <img src="http://placehold.it/400x400" alt="">
-                                <p>ChampName</p>
-                            </div>
-                            <div class="col-md-2 col-sm-2 portfolio-item">
-                                <img src="http://placehold.it/400x400" alt="">
-                                <p>ChampName</p>
-                            </div>
-                            <div class="col-md-2 col-sm-2 portfolio-item">
-                                <img src="http://placehold.it/400x400" alt="">
-                                <p>ChampName</p>
-                            </div>
-                            <div class="col-md-2 col-sm-2 portfolio-item">
-                                <img src="http://placehold.it/400x400" alt="">
-                                <p>ChampName</p>
-                            </div>
-                            <div class="col-md-2 col-sm-2 portfolio-item">
-                                <img src="http://placehold.it/400x400" alt="">
-                                <p>ChampName</p>
-                            </div>
-                            <div class="col-md-2 col-sm-2 portfolio-item">
-                                <img src="http://placehold.it/400x400" alt="">
-                                <p>ChampName</p>
-                            </div>
-                            <div class="col-md-2 col-sm-2 portfolio-item">
-                                <img src="http://placehold.it/400x400" alt="">
-                                <p>ChampName</p>
-                            </div>
-                            <div class="col-md-2 col-sm-2 portfolio-item">
-                                <img src="http://placehold.it/400x400" alt="">
-                                <p>ChampName</p>
-                            </div>
-                            <div class="col-md-2 col-sm-2 portfolio-item">
-                                <img src="http://placehold.it/400x400" alt="">
-                                <p>ChampName</p>
-                            </div>
-                            <div class="col-md-2 col-sm-2 portfolio-item">
-                                <img src="http://placehold.it/400x400" alt="">
-                                <p>ChampName</p>
-                            </div>
-                            <div class="col-md-2 col-sm-2 portfolio-item">
-                                <img src="http://placehold.it/400x400" alt="">
-                                <p>ChampName</p>
-                            </div>
-                            <div class="col-md-2 col-sm-2 portfolio-item">
-                                <img src="http://placehold.it/400x400" alt="">
-                                <p>ChampName</p>
-                            </div>
-
-
-
-
+                            
                         </div>
-
-
                     </div>
                 </div>
             </div>
