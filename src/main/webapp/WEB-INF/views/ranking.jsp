@@ -38,7 +38,7 @@
 					tag += '<td class="nickname">' + data[i].nickname + '</td>';
 					tag += '<td class="LP">' + data[i].LP + '</td>';
 					if(data[i].teamname == null){
-						tag += '<td class="teamname">' + "No Team" + '</td>';
+						tag += '<td class="teamname">' + "" + '</td>';
 					}else {
 						tag += '<td class="teamname">' + data[i].teamname + '</td>';
 					}
