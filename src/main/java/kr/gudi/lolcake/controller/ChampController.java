@@ -34,24 +34,6 @@ public class ChampController {
 		  mav.setViewName("champD");
 		  return mav;
 	  }
-	  /*@RequestMapping("/champData")
-	   public ModelAndView listData(ModelAndView mav, HttpServletRequest req){
-	      HashMap<String, Object> map = new HashMap<String, Object>();
-	      map.put("no", Integer.parseInt(req.getParameter("no")));
-	      map.put("champname", req.getParameter("champname"));
-	      map.put("path", req.getParameter("path"));
-	      map.put("img", req.getParameter("img"));
-	      System.out.println(req.getParameter("champname"));
-	      //type 추가 추가
-	      
-	      JSONObject jsonObject = new JSONObject();
-	      jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(csi.champ()));
-	      mav.addObject("message", jsonObject.toString());
-			
-	      mav.setViewName("json");
-	      return mav;
-//	      return HttpUtil.makeHashToJsonModelAndView(bsi.totCntif(param));
-	  }*/
 	  @RequestMapping(value = "/champData", method = RequestMethod.POST)
       public void readData(HttpServletRequest req, HttpServletResponse resp){
          HttpUtil.sendResponceToJson(resp, csi.champ());
