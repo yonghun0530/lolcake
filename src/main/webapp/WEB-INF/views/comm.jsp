@@ -173,7 +173,11 @@
             
                $('.table-comm tbody tr').on('click', function () {
                   no = $(this).find('td').eq(0).text();
-                   $('.container').load('resources/bootjsp/commD.html');
+                   $('.container').load('resources/bootjsp/commD.html', function(){
+                		 $('#list').on('click', function () {
+                			 location.href = '/lolcake/comm';
+                	     });
+                   });
                    bbsData();
                });
          }
@@ -275,7 +279,7 @@
             
             //상세보기 html 
             function createBbs(){
-                $(".table-commD tbody").empty();
+            $(".table-commD tbody").empty();
             var tag = "";
             tag += '<tr><td><p>' + bbsD.datetime + '<span>'
                   + bbsD.nickname + '</span></p></td></tr>';

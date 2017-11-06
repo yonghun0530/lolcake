@@ -2,133 +2,124 @@
 <html>
 
 <head>
-    <title>LOLCAKE</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../bootjsp/css/main.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-
-
-    </script>
+<title>LOLCAKE</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="../bootjsp/css/main.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+</script>
 </head>
 
 <body>
-        <section class="content">
-            <div class="col-md-12">
-                <form action="" class="search-form">
-                    <div class="form-group has-feedback">
-                        <label for="search" class="sr-only">Search</label>
-                        <input type="text" class="form-control" name="search" id="search" placeholder="search">
-                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                    </div>
-                </form>
-                <div class="panel panel-default">
-                    <div class="panel-body table-responsive">
-                        <table class="table-commD">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <p>2017/03/1
-                                            <span>임채영</span>
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        제목입니다1
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <i>
-                                            조회수 : 254
-                                        </i>
-                                        <i>
-                                            추천수 : 254
-                                        </i>
-                                        <i>
-                                            댓글수 : 3
-                                        </i>
-                                    </td>
+	<section class="content">
+		<div class="col-md-12">
+			<form action="" class="search-form">
+				<div class="form-group has-feedback">
+					<label for="search" class="sr-only">Search</label> <input
+						type="text" class="form-control" name="search" id="search"
+						placeholder="search"> <span
+						class="glyphicon glyphicon-search form-control-feedback"></span>
+				</div>
+			</form>
+			<div class="panel panel-default">
+				<div class="panel-body table-responsive">
+					<table class="table-commD">
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="like">
+				<a href="#" class="btn btn-default stat-item"> <img
+					src="../bootjsp/img/like.png" class="icon">254
+					<button type="button" class="btn btn-danger"
+						style="background-color: #b1b1b1; border: none;" id="list">목록</button>
+					<button type="button" class="btn btn-danger"
+						style="background-color: #b1b1b1; border: none;"
+						data-toggle="modal" data-target="#myModal">편집</button>
+					<div id="myModal" class="modal fade text-center" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h3>글 편집</h3>
+								</div>
+								<div class="modal-body">
+									<input class="input-info" placeholder="닉네임" type="text">
+									<input class="input-info" placeholder="비번" type="password">
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-danger"
+										style="background-color: #b1b1b1; border: none;" id="bbsEdit">수정</button>
+									<button type="button" class="btn btn-danger"
+										style="background-color: #b1b1b1; border: none;"
+										id="bbsDelete">삭제</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
 
-                                </tr>
-                                <tr>
-                                    <td class="comm-body">
-                                        <p>프리시즌 업데이트의 일환으로 리그 오브 레전드의 체력 바를 업데이트합니다. 하지만 걱정하지 마세요. 다시 배워야 하는 건 없으니까요. 단지, 새로운 도구가 생긴다고 생각하시면 됩니다. 체력 바를 업데이트하는 이유 체력 바는 플레이어가 전술적인 결정을 내리는 데 필요한 정보를 주어야 합니다. 가령, 누가 처치할 만한 상대이고 누가 도망쳐야 할 상대인지 말이죠. 이번 업데이트를 통해 저희는 팀이 더욱 손발을 맞추어 싸우고 중요한 타이밍을 놓치지 않게 도움이 될 요소를 추가하고자 합니다. 보통 영향력이 큰 효과일수록 시각적으로도 더 눈에 띄어야 합니다. 그렇지만 능력치 감소나 방어, 오오라 효과 등, 그 위력이 어마어마해도 눈으로는 전혀 느낄 수 없는 효과가 몇 가지 있죠. 그리고 추가 체력 같은 요소는 표준화하고 더 확실히 인식할 수 있게 하면 좋을 겁니다. 플레이어가 체력 바 시스템을 참고해 더 흥미로운 전술적 선택을 내릴 수 있으려면 지금보다 정보를 효과적으로 전달해야 합니다. 리그 오브 레전드 플레이의 목표는 정확한 의사 결정을 내려 이기는 것이지, 게임 인터페이스와 싸우는 게 아니니까요. 체력 바 업데이트는 이제 막 첫발을 디딘 상태이며 앞으로 시간에 따른 회복량이나 피해량 같은 정보를 더 도입할 계획입니다. 현재의 체력 바가 이미 익숙해져서 편한 것 같지만, 사실 꼭 필요한 정보가 표시되지 않는 때가 많습니다. 그래서 보조 애니메이션을 새로 도입해 폭발적인 공격이나 포탑 파괴 같은 중요한 순간을 표현해 이 문제를 해결하고자 합니다. 표시될 정보</p>
-                                        <p>• 챔피언의 폭발적인 공격
-                                            <img src="https://media.lolusercontent.com/api/embedly/1/image/resize?url=http%3A%2F%2Fimgur.com%2Fp1ErowC.gif&key=a45e967db0914c7fb472fd4381e6c85b&width=425"></p>
-                                        <p>• 회복
-                                            <img src="https://media.lolusercontent.com/api/embedly/1/image/resize?url=http%3A%2F%2Fimgur.com%2FipfNDzT.gif&key=a45e967db0914c7fb472fd4381e6c85b&width=425"></p>
+			<div class="post-footer">
+				<input class="input-info" placeholder="닉네임" type="text"> <input
+					class="input-info" placeholder="비번" type="password">
 
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="like">
-                    <a href="#" class="btn btn-default stat-item">
-                        <img src="../bootjsp/img/like.png" class="icon">254
-                    </a>
-                </div>
+				<div class="input-group">
+					<input class="form-control" placeholder="댓글을 입력하세요" type="text">
+					<span class="input-group-addon"> <a href="#">글쓰기</a>
+					</span>
+				</div>
+				<ul class="comments-list">
+					<li class="comment">
+						<div class="comment-body">
+							<div class="comment-heading">
+								<h4 class="user">임채영</h4>
+								<h5 class="time">5 minutes ago</h5>
+							</div>
+							<p>졸리다</p>
+						</div>
+						<ul class="comments-list">
+							<li class="comment">
+								<div class="comment-body">
+									<div class="comment-heading">
+										<h4 class="user">최혁</h4>
+										<h5 class="time">3 minutes ago</h5>
+									</div>
+									<p>동의 ~~~ 어보감 ~~~</p>
+								</div>
+							</li>
+							<li class="comment">
+								<div class="comment-body">
+									<div class="comment-heading">
+										<h4 class="user">주용훈</h4>
+										<h5 class="time">3 minutes ago</h5>
+									</div>
+									<p>ㄷㄷ</p>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li class="comment">
+						<div class="comment-body">
+							<div class="comment-heading">
+								<h4 class="user">임채영</h4>
+								<h5 class="time">5 minutes ago</h5>
+							</div>
+							<p>졸리다</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
 
-                <div class="post-footer">
-                    <input class="input-info" placeholder="닉네임" type="text">
-                    <input class="input-info" placeholder="비번" type="password">
-
-                    <div class="input-group">
-                        <input class="form-control" placeholder="댓글을 입력하세요" type="text">
-                        <span class="input-group-addon">
-                            <a href="#">글쓰기</a>  
-                        </span>
-                    </div>
-                    <ul class="comments-list">
-                        <li class="comment">
-                            <div class="comment-body">
-                                <div class="comment-heading">
-                                    <h4 class="user">임채영</h4>
-                                    <h5 class="time">5 minutes ago</h5>
-                                </div>
-                                <p>졸리다</p>
-                            </div>
-                            <ul class="comments-list">
-                                <li class="comment">
-                                    <div class="comment-body">
-                                        <div class="comment-heading">
-                                            <h4 class="user">최혁</h4>
-                                            <h5 class="time">3 minutes ago</h5>
-                                        </div>
-                                        <p>동의 ~~~ 어보감 ~~~</p>
-                                    </div>
-                                </li>
-                                <li class="comment">
-                                    <div class="comment-body">
-                                        <div class="comment-heading">
-                                            <h4 class="user">주용훈</h4>
-                                            <h5 class="time">3 minutes ago</h5>
-                                        </div>
-                                        <p>ㄷㄷ</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="comment">
-                            <div class="comment-body">
-                                <div class="comment-heading">
-                                    <h4 class="user">임채영</h4>
-                                    <h5 class="time">5 minutes ago</h5>
-                                </div>
-                                <p>졸리다</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </section>
+	</section>
 </body>
 
 </html>
