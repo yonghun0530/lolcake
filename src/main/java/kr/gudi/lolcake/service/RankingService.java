@@ -17,8 +17,8 @@ public class RankingService implements RankingServiceInterface {
 	public HashMap<String, Object> map;
 	
 	@Override
-	public HashMap<String, Object> ranking() {
-		List<HashMap<String, Object>> list = rdi.ranking();
+	public HashMap<String, Object> ranking(HashMap<String, Object> param) {
+		List<HashMap<String, Object>> list = rdi.ranking(param);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		return map;

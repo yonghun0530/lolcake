@@ -45,62 +45,7 @@
             });
             
             $('#write').on('click', function () {
-               $('.container').load('resources/bootjsp/write.html',function(){
-                  
-                  $.getScript("https://cdn.ckeditor.com/4.7.3/full-all/ckeditor.js").done(function() {
-                        if (CKEDITOR.instances['contents']) {
-                            CKEDITOR.instances['contents'].destroy();
-                        }
-                        CKEDITOR.replace('contents', {
-                            customConfig: '/lolcake/resources/js/config.js'
-                        });
-                    });
-                  
-/*                   $("#write").off().on("click",function(){
-                        var type = $target;
-                        var title = $("#title").val(); 
-                        var contents = CKEDITOR.instances['contents'].getData();
-                        var nickname = $("#nickname").val();
-                        var passwd = $("#passwd").val();
-                        var url = $("#url").val();
-                        
-                        console.log(type,title,contents,nickname,passwd,url);
-                        
-                        var param = {
-                              "type": $target,
-                              "title" : title,
-                              "contents":contents,
-                              "nickname" : nickname,
-                              "passwd":passwd,
-                              "url":url
-                        };
-                        
-                        console.log(param);
-                        
-                        if(title==""){
-                           alert("제목을 입력하세요");
-                        }else if(contents==""){
-                           alert("내용을 입력하세요");
-                        }else if(nickname==""){
-                           alert("이름을 입력하세요");
-                        }else if(passwd==""){
-                           alert("비밀번호를 입력하세요");
-                        }else if($target=="MOVIE" && url=="http://"){
-                           alert("url을 입력하세요");
-                        }else{
-                           $.ajax({
-                               type : "post", // post 방식으로 통신 요청
-                               url : "writeData", // Spring에서 만든 URL 호출
-                               typedata : "json",
-                               data : param
-                            }).done(function(result) { // 비동기식 데이터 가져오기
-                               alert("작성이 완료되었습니다.");
-                               location.href = '/lolcake/comm';
-                            });
-                        }
-                        
-                    }); */
-               });
+            	writeBbs("write");
                            
             });
             
@@ -116,7 +61,7 @@
               }
                 $('.table-responsive h1').text($target);
                 initData();
-            }"C:/Users/GD/AppData/Local/Temp/egit-patch3824950eb7ebdc8a8319fb05690b4d5ba13a2fbe/좀-와라.patch"
+            }
            
             //뒤로갈경우 데이터 유지 
             function popstateEvent(event) {
@@ -139,7 +84,9 @@
             //리스트 html
             function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
             $(".table-comm tbody").empty();
-
+			
+            
+            
             for (var i = 0; i < data.length; i++) {
                var tag = "";
                tag += '<tr data-status="' + data[i].type + '">';
@@ -158,7 +105,7 @@
                tag += '<p class="'+data[i].type+'" data-target="'+data[i].type+'">(' + data[i].type + ')</p></td>';
                tag += '<td>' + data[i].title + '</td>';
                tag += '<td>'+data[i].nickname+'</li>';
-               tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].like +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
+               tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].hit +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
                tag += '</tr>';
                $(".table-comm tbody").append(tag);
             }
@@ -194,70 +141,9 @@
              }else{
                 if(button == "#bbsEdit"){
                     $('.modal-backdrop.fade').css('display','none');
-                    $('.container').load('resources/bootjsp/write.html',function(){
-                       $.getScript("https://cdn.ckeditor.com/4.7.3/full-all/ckeditor.js").done(function() {
-                                  if (CKEDITOR.instances['contents']) {
-                                      CKEDITOR.instances['contents'].destroy();
-                                  }
-                                  CKEDITOR.replace('contents', {
-                                      customConfig: '/lolcake/resources/js/config.js'
-                                  });
-                                  
-                                  CKEDITOR.instances['contents'].setData(bbsD.dept);
-                              });
-                       
-                          $("#title").val(bbsD.title);                          
-                                $("#nickname").val(bbsD.nickname);
-                                if(bbsD.type =="MOVIE"){
-                                   $("#url").val(bbsD.url);
-                                }
-                                
-                       
-                    });
+                    writeBbs("edit");
                     
-                    $("#write").off().on("click",function() {
-                           var type = $target;
-                           var title = $("#title").val(); 
-                           var contents = CKEDITOR.instances['contents'].getData();
-                           var nickname = $("#nickname").val();
-                           var passwd = $("#passwd").val();
-                           var url = $("#url").val();
-                           console.log(type);
-                          
-                         var param = {
-                               "type":$target,
-                               "title" : title,
-                               "contents":contents,
-                               "nickname" : nickname,
-                               "passwd":passwd,
-                               "url":url,
-                               "no": no
-                            };
-                         
-                         
-                         if(title==""){
-                            alert("제목을 입력하세요");
-                         }else if(contents==""){
-                            alert("내용을 입력하세요");
-                         }else if(nickname==""){
-                            alert("이름을 입력하세요");
-                         }else if(passwd==""){
-                            alert("비밀번호를 입력하세요");
-                         }else if(type==""){
-                            alert("게시판을 선택하세요");
-                         }else{
-                            $.ajax({
-                                  type : "post", // post 방식으로 통신 요청
-                                  url : "editData", // Spring에서 만든 URL 호출
-                                  typedata : "json",
-                                  data : param
-                               }).done(function(result) { // 비동기식 데이터 가져오기
-                                  console.log(param);
-                               alert("수정하였습니다")
-                                  location.href = 'lolcake/comm';
-                               });
-                         }
-                      });
+                    
                 }else{
                    var d = {
                       "no" : no
@@ -277,6 +163,113 @@
              }
           }
             
+            function writeBbs(write){
+                $('.container').load('resources/bootjsp/write.html',function(){
+                	$('.bbswrite input').eq(1).hide();
+                    
+                    var $target = "FREE";
+                    var hash = location.hash;
+                    
+
+                    $('.btn-filter').on('click', function() {
+                        $target = $(this).data('target');
+                        pageload();
+                    });
+                    
+                    $('#list').on('click', function() {
+                        location.href = '/lolcake/comm';
+                    });
+
+                    function pageload() {              
+                        if ($target == 'MOVIE') {
+                             $('.bbswrite input').eq(1).show();
+                            //버튼을 연달아 누르면 문제발생 -> 질문
+                        }else{
+                            $('.bbswrite input').eq(1).hide();
+                            $("#url").val("http://");
+                        }
+                        $('.panel-body h1').text($target + " WRITE");
+                    }
+                    
+                    $.getScript("https://cdn.ckeditor.com/4.7.3/full-all/ckeditor.js").done(function() {
+                          if (CKEDITOR.instances['contents']) {
+                              CKEDITOR.instances['contents'].destroy();
+                          }
+                          CKEDITOR.replace('contents', {
+                              customConfig: 'resources/js/config.js'
+                          });
+                          
+                          if(write != "write"){
+                        	  CKEDITOR.instances['contents'].setData(bbsD.dept);
+                          }
+                      });
+                    	
+                    if(write != "write"){
+                    	$("#title").val(bbsD.title);                          
+                        $("#nickname").val(bbsD.nickname);
+                        if(bbsD.type =="MOVIE"){
+                           $("#url").val(bbsD.url);
+                        }
+                    }
+                    $("#write").on("click",function() {
+                    	
+                        var type = $target;
+                        var title = $("#title").val(); 
+                        var contents = CKEDITOR.instances['contents'].getData();
+                        var nickname = $("#nickname").val();
+                        var passwd = $("#passwd").val();
+                        var url = $("#url").val();
+                        console.log(type);
+                       
+                      var param = {
+                            "type":$target,
+                            "title" : title,
+                            "contents":contents,
+                            "nickname" : nickname,
+                            "passwd":passwd,
+                            "url":url,
+                            "no": no
+                         };
+                      
+                      
+                      if(title==""){
+                         alert("제목을 입력하세요");
+                      }else if(contents==""){
+                         alert("내용을 입력하세요");
+                      }else if(nickname==""){
+                         alert("이름을 입력하세요");
+                      }else if(passwd==""){
+                         alert("비밀번호를 입력하세요");
+                      }else if(type==""){
+                         alert("게시판을 선택하세요");
+                      }else{
+                         if(write != "write"){
+                        	 $.ajax({
+                                 type : "post", // post 방식으로 통신 요청
+                                 url : "editData", // Spring에서 만든 URL 호출
+                                 typedata : "json",
+                                 data : param
+                              }).done(function(result) { // 비동기식 데이터 가져오기
+                                 console.log(param);
+                              alert("수정하였습니다")
+                                 location.href = '/lolcake/comm';
+                              });
+                         }else{
+                             $.ajax({
+                                 type : "post", // post 방식으로 통신 요청
+                                 url : "writeData", // Spring에서 만든 URL 호출
+                                 typedata : "json",
+                                 data : param
+                              }).done(function(result) { // 비동기식 데이터 가져오기
+                                 alert("작성이 완료되었습니다.");
+                                 location.href = '/lolcake/comm';
+                              });
+                         }
+                      }
+                   });
+                 });
+            	
+            }
             //상세보기 html 
             function createBbs(){
             $(".table-commD tbody").empty();
@@ -312,14 +305,14 @@
             
             //페이징 
             function createPaging() {
-            var paging = totCnt / viewRow;
-            // 전체의 행의 수에서 보여줄 행을 나누면 페이지의 갯수를 알 수 있다.
-            $(".pagination").empty(); // 초기화
-            for (var i = 0; i < paging; i++){
-               $(".pagination").append(
-                     "<li> <a href='#" + $target + "/" + (i + 1) + "'>" + (i + 1) + "</a></li>")
-            }
-
+	            var paging = totCnt / viewRow;
+	            // 전체의 행의 수에서 보여줄 행을 나누면 페이지의 갯수를 알 수 있다.
+	            $(".pagination").empty(); // 초기화
+	            for (var i = 0; i < paging; i++){
+	               $(".pagination").append(
+	                     "<li> <a href='#" + $target + "/" + (i + 1) + "'>" + (i + 1) + "</a></li>")
+	            }
+	
 
          }
             

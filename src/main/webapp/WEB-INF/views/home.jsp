@@ -50,7 +50,7 @@
 
     for (var i = 0; i < data.length; i++) {
        var tag = "";
-       tag += '<tr>' + '<td class="divide">' + data[i].divide + '</td>';
+       tag += '<tr>' + '<td class="no"></td>' + '<td class="divide">' + data[i].divide + '</td>';
        tag += '<td>';
        tag += '<p class="'+data[i].type+'" data-target="'+data[i].type+'">(' + data[i].type + ')</p></td>';
        tag += '<td>' + data[i].title + '</td>';
@@ -59,6 +59,7 @@
        tag += '</tr>';
        $(".table-comm .if").append(tag);
     }
+    $('.no').css("display","none");
     //initDataif();
   }
   
@@ -67,7 +68,7 @@
 
         for (var i = 0; i < data.length; i++) {
            var tag = "";
-           tag += '<tr>' + '<td class="divide">' + data[i].divide + '</td>';
+           tag += '<tr>' + '<td class="no"></td>' + '<td class="divide">' + data[i].divide + '</td>';
            tag += '<td>';
            if(data[i].type == "MOVIE"){
                var movie = data[i].url.split("/");
@@ -86,6 +87,7 @@
            $(".table-comm .mv").append(tag);
         }
         //initDataif();
+        $('.no').css("display","none");
       }
     
 

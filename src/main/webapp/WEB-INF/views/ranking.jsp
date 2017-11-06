@@ -14,24 +14,43 @@
     <script>
         $(document).ready(function() {
 			var data = [];
-			var page = 7;
-			
-			$.ajax({
-				type : "post", // post 방식으로 통신 요청
-				url : "rankingData",
-				typedata : "json"
-			}).done(function(result) {
-				console.log(result)
-				data = result.list;
-				createHtml();
-			});
+			var page = 1; // 현재 페이지 값
+			var viewRow = 10; // 화면에 보여질 행 갯수
+			initData();
+            function initData(){
+            	var end = (viewRow * page);
+                var start = (end - viewRow);
+                
+            	var d = {
+                        "start" : start,
+                        "viewRow" : viewRow
+                     };
+            	
+    			$.ajax({
+    				type : "post", // post 방식으로 통신 요청
+    				url : "rankingData",
+    				typedata : "json",
+    				data : d
+    			}).done(function(result) {
+    				dataJson = JSON.parse(result);
+    	            data = dataJson.list;
+    	            console.log(data);
+    				createHtml();
+    			});
+            }
+            
+	            $(window).scroll(function() {
+	                if ($(window).scrollTop() >= $(document).height() - $(window).height() - 60) {
+	                    console.log(page);
+	                    page++;
+	                    initData();
+	                }
+	            }); 
+            
 			
 			function createHtml() {
-				$(".table-ranking tbody").empty();
-				
-				
+				var tag = "";
 				for (var i = 0; i < data.length; i++){
-					var tag = "";
 					tag += '<tr> ';
 					tag += '<td class="id">' + data[i].id + '</td>';
 					tag += '<td class="tier">' + '<img src="resources/tier/challenger_1.png">' + data[i].tier + '</td>';
@@ -50,11 +69,12 @@
                     '</div>' +
                     '</div>' +
                     ' </td>' + '</tr>'
-                    
-                    $(".table-ranking tbody").append(tag);
 				}
+				$(".table-ranking tbody").append(tag);
+
 				progress();
 			}
+			
             function progress() {
                 $('.progress .progress-bar').css("width",
                     function() {
@@ -71,42 +91,7 @@
                 $('.panel-body').load('resources/bootjsp/userD.html');
 
             });
-/*             var page = 7;
-            $(window).scroll(function() {
-                if ($(window).scrollTop() >= $(document).height() - $(window).height() - 60) {
-                    console.log(page); */
-                    //for (var i = 0; i < 7; i++) {
-                        //$("tbody").append(
-                          //  "<tr>" +
-                            /*게시물번호*/
-                          //  "<td >" + page + "</td>" +
-                            /*티어이미지*/
-                          //  "<td>" +
-                          //  "<img src='http://opgg-static.akamaized.net/images/medals/silver_4.png' class='media-photo'>" +
-                          //  "<a href='#'>" +
-                          //  "<p>(Silver 4)</p>" +
-                          //  "</a>" +
-                          //  "</td>" +
-                          //  "<td >임채영" +
-                          //  "</td>" +
-                          //  "<td >5 LP" +
-                          //  "</td>" +
-                          //  "<td >" +
-                          //  "</td>" +
-                          //  "<td>" +
-                          //  "<div class='progress skill-bar'>" +
-                          //  "<div class='progress-bar progress-bar-info' role='progressbar' aria-valuenow='"+data[i].rate+"' aria-valuemin='0' aria-valuemax='100'>" +
-                          //  "<i class='val'>" + data[i].rate + 
-                          //  "</i>" +
-                          //  "</div>" +
-                         //   "</div>" +
-                         //   " </td>" +
-                         //   "</tr>");
-                       // progress();
-                      //  page++
-                   // }
-                //}
-            //});
+
         });
     </script>
     <style>
@@ -190,214 +175,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            <img src="http://opgg-static.akamaized.net/images/medals/silver_4.png" class="media-photo">
-                                            <p>(Silver 4)</p>
-                                        </td>
-                                        <td>
-                                            임채영
-                                        </td>
-                                        <td>
-                                            5 LP
-                                        </td>
-                                        <td>
-
-                                        </td>
-                                        <td>
-
-                                            <div class="progress skill-bar">
-                                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                                    <i class="val"></i>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            <img src="http://opgg-static.akamaized.net/images/medals/silver_4.png" class="media-photo">
-                                            <p>(Silver 4)</p>
-                                        </td>
-                                        <td>
-                                            임채영
-                                        </td>
-                                        <td>
-                                            5 LP
-                                        </td>
-                                        <td>
-
-                                        </td>
-                                        <td>
-
-                                            <div class="progress skill-bar">
-                                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                                    <i class="val"></i>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            <img src="http://opgg-static.akamaized.net/images/medals/silver_4.png" class="media-photo">
-                                            <p>(Silver 4)</p>
-                                        </td>
-                                        <td>
-                                            임채영
-                                        </td>
-                                        <td>
-                                            5 LP
-                                        </td>
-                                        <td>
-
-                                        </td>
-                                        <td>
-
-                                            <div class="progress skill-bar">
-                                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                                    <i class="val"></i>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            <img src="http://opgg-static.akamaized.net/images/medals/silver_4.png" class="media-photo">
-                                            <p>(Silver 4)</p>
-                                        </td>
-                                        <td>
-                                            임채영
-                                        </td>
-                                        <td>
-                                            5 LP
-                                        </td>
-                                        <td>
-
-                                        </td>
-                                        <td>
-
-                                            <div class="progress skill-bar">
-                                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                                    <i class="val"></i>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            <img src="http://opgg-static.akamaized.net/images/medals/silver_4.png" class="media-photo">
-                                            <p>(Silver 4)</p>
-                                        </td>
-                                        <td>
-                                            임채영
-                                        </td>
-                                        <td>
-                                            5 LP
-                                        </td>
-                                        <td>
-
-                                        </td>
-                                        <td>
-
-                                            <div class="progress skill-bar">
-                                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                                    <i class="val"></i>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            <img src="http://opgg-static.akamaized.net/images/medals/silver_4.png" class="media-photo">
-                                            <p>(Silver 4)</p>
-                                        </td>
-                                        <td>
-                                            임채영
-                                        </td>
-                                        <td>
-                                            5 LP
-                                        </td>
-                                        <td>
-
-                                        </td>
-                                        <td>
-
-                                            <div class="progress skill-bar">
-                                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                                    <i class="val"></i>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            <img src="http://opgg-static.akamaized.net/images/medals/silver_4.png" class="media-photo">
-                                            <p>(Silver 4)</p>
-                                        </td>
-                                        <td>
-                                            임채영
-                                        </td>
-                                        <td>
-                                            5 LP
-                                        </td>
-                                        <td>
-
-                                        </td>
-                                        <td>
-
-                                            <div class="progress skill-bar">
-                                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                                    <i class="val"></i>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            <img src="http://opgg-static.akamaized.net/images/medals/silver_4.png" class="media-photo">
-                                            <p>(Silver 4)</p>
-                                        </td>
-                                        <td>
-                                            임채영
-                                        </td>
-                                        <td>
-                                            5 LP
-                                        </td>
-                                        <td>
-
-                                        </td>
-                                        <td>
-
-                                            <div class="progress skill-bar">
-                                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                                    <i class="val"></i>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                   
                                 </tbody>
                             </table>
                         </div>
