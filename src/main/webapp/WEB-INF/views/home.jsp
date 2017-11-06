@@ -33,7 +33,7 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-center">
                     <li>
-                        <a href="/lolcake/home" class="active">
+                        <a href="/lolcake/" class="active">
                             <h4>HOME</h4>
                         </a>
                     </li>
