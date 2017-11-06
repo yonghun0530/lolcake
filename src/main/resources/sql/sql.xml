@@ -2,8 +2,10 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="sql">	<!-- 게시판 목록 -->
-<select id="bbsall" resultType="hashmap" parameterType="hashmap"> <!-- 게시판 정보 목록 -->
+<mapper namespace="sql">	
+	<!-- comm 게시판 부분 쿼리문 -->
+	<!-- 게시판 전체보기 -->
+	<select id="bbsall" resultType="hashmap" parameterType="hashmap"> <!-- 게시판 정보 목록 -->
 		select no, type, title, nickname, DATE_FORMAT(time, '%X-%m-%d') as datetime, hit, url, divide
 		from board 
 		where del_yn = 'N' 
@@ -14,54 +16,51 @@
 		limit #{start}, #{viewRow};
 		<!-- 서버 다시시작해야함 -->
 	</select>
-	<!-- 쿼리 수정 -->
-	<!-- 채영이꺼 -->
+	<!-- 게시판 상세보기 -->
 	<select id="bbsD" resultType="hashmap" parameterType="hashmap"> <!-- 게시판 정보 목록 -->
 		select no, type, title, divide, url, nickname, DATE_FORMAT(time,'%X-%m-%d') as datetime, hit, dept, passwd
 		from board
 		where board.no = #{no};
 	</select>
-
+	<!-- 게시글 수정  -->
   <update id="bbsedit" parameterType="hashmap"> <!-- 게시글 수정 -->
       update board set type = #{type}, title = #{title}, dept = #{contents},passwd = #{passwd}, time = now(), url = #{url} where no = #{no}
    </update>
-   
+   <!-- 게시글 쓰기 -->
    <insert id="bbswrite" parameterType="hashmap"> <!-- 글쓰기 작성 -->
     insert into board(type, divide, title, dept, nickname, `time`, passwd, hit, `like`, del_yn, url)
       values(#{type},(select ifnull(count(*),0)+1 from board ALIAS_FOR_SUBQUERY where type = #{type}), #{title}, #{contents}, #{nickname}, now(), #{passwd}, 0, 0, 'N', #{url})
       <!-- insert into board(type, divide, title, dept, nickname, time, passwd, hit, like,del_yn,url)
       values(#{type},(select ifnull(count(*),0)+1 from board ALIAS_FOR_SUBQUERY where type =#{$type}), #{title}, #{contents}, #{name}, now(), #{passwd}, 0,0, 'N',#{url}) --> 
     </insert>
-	
-	<update id="bbsremove" parameterType="hashmap">	<!-- 게시글 삭제 -->
+	<!-- 게시글 삭제 -->
+	<update id="bbsremove" parameterType="hashmap">
 		update board set del_yn = 'Y' where no = #{no};
 	</update> 
-	
-	<update id="hitclick" parameterType="hashmap">
-		update board set hit = (hit + 1) where no = #{no};
-	</update>
-	
-	<!-- 추천(hit) 증가 -->
-	
-   <select id="totCnt" resultType="hashmap">
-      select upper(type) as type, count(*) as tot from board group by upper(type)
-   </select>
-   
-   <select id="totCntall" parameterType="hashmap" resultType="hashmap">  <!-- 전체 글개수 -->
+	 <!-- 전체 글개수 -->
+	 <select id="totCntall" parameterType="hashmap" resultType="hashmap"> 
    	  select count(*) as tot from board 
 		where del_yn = 'N' 
 		<if test="type != 'ALL'">
 			and type = #{type}
 		</if>
    </select>
-    
+   
+
+<!-- 추천 -->
+	<update id="hitclick" parameterType="hashmap">
+		update board set hit = (hit + 1) where no = #{no};
+	</update>
+	
+  <!-- home 부분 쿼리문 -->
+   
    <select id="Hot" resultType="hashmap">
 	  select *, 
 	  		 case when b.type = 'if' then 'INFO' when b.type = 'md' then 'VIDEO' else '몰라' end as viewType, 
 	  		 DATE_FORMAT(b.time, '%X-%m-%d') as datetime
 	  from board as b 
 	  where exists (select 1 from (
-					 (select no from board where type = 'if' and del_yn = 'N' group by no order by hit desc limit 0, 5)
+					 (select no from board where type = 'i' and del_yn = 'N' group by no order by hit desc limit 0, 5)
 					union all
 					 (select no from board where type = 'md' and del_yn = 'N' group by no order by hit desc limit 0, 5)) as s 
 				    where b.`no` = s.no)
@@ -78,7 +77,7 @@
 				    where b.`no` = s.no)
    </select>
    
-   
+  <!-- champ 부분 쿼리문  -->
    <select id="champ" resultType="hashmap"> <!-- 챔피언 조회 -->
 	  select * from champions 
    </select>

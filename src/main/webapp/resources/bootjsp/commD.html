@@ -13,6 +13,7 @@
 <script
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+   
 </script>
 </head>
 
@@ -38,34 +39,32 @@
          <div class="like">
             <a href="#" class="btn btn-default stat-item"> <img
                src="resources/bootjsp/img/like.png" class="icon">254
-               
             </a>
             <button type="button" class="btn btn-danger"
-                  style="background-color: #b1b1b1; border: none;" id="list">목록</button>
-               <button type="button" class="btn btn-danger"
-                  style="background-color: #b1b1b1; border: none;"
-                  data-toggle="modal" data-target="#myModal">편집</button>
-               <div id="myModal" class="modal fade text-center" role="dialog">
-                  <div class="modal-dialog">
-                     <div class="modal-content">
-                        <div class="modal-header">
-                           <button type="button" class="close" data-dismiss="modal">&times;</button>
-                           <h3>글 편집</h3>
-                        </div>
-                        <div class="modal-body">
-                           <input class="input-info" placeholder="닉네임" type="text">
-                           <input class="input-info" placeholder="비번" type="password">
-                        </div>
-                        <div class="modal-footer">
-                           <button type="button" class="btn btn-danger"
-                              style="background-color: #b1b1b1; border: none;" id="bbsEdit">수정</button>
-                           <button type="button" class="btn btn-danger"
-                              style="background-color: #b1b1b1; border: none;"
-                              id="bbsDelete">삭제</button>
-                        </div>
+               style="background-color: #b1b1b1; border: none;" id="list">목록</button>
+            <button type="button" class="btn btn-danger"
+               style="background-color: #b1b1b1; border: none;"
+               data-toggle="modal" data-target="#myModal">편집</button>
+            <div id="myModal" class="modal fade text-center" role="dialog">
+               <div class="modal-dialog">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3>글 편집</h3>
+                     </div>
+                     <div class="modal-body">
+                        <input class="input-info" placeholder="닉네임" type="text">
+                        <input class="input-info" placeholder="비번" type="password">
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-danger"
+                           style="background-color: #b1b1b1; border: none;" id="bbsEdit">수정</button>
+                        <button type="button" class="btn btn-danger"
+                           style="background-color: #b1b1b1; border: none;" id="bbsDelete">삭제</button>
                      </div>
                   </div>
                </div>
+            </div>
          </div>
 
          <div class="post-footer">
