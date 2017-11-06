@@ -654,7 +654,8 @@ body {
 }
 
 .modal {
-    top: 30%;
+/*     top: 30%; */
+	padding-top: 10%;
 }
 
 .skill-video {
