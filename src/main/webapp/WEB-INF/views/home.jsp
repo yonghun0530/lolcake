@@ -55,7 +55,7 @@
        tag += '<p class="'+data[i].type+'" data-target="'+data[i].type+'">(' + data[i].type + ')</p></td>';
        tag += '<td>' + data[i].title + '</td>';
        tag += '<td>'+data[i].nickname+'</li>';
-       tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].hit +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
+       tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].like +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
        tag += '</tr>';
        $(".table-comm .if").append(tag);
     }
@@ -81,7 +81,7 @@
            tag += '<p class="'+data[i].type+'" data-target="'+data[i].type+'">(' + data[i].type + ')</p></td>';
            tag += '<td>' + data[i].title + '</td>';
            tag += '<td>'+data[i].nickname+'</li>';
-           tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].hit +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
+           tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].like +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
            tag += '</tr>';
            $(".table-comm .mv").append(tag);
         }
