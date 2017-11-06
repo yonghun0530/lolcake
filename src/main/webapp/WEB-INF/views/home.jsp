@@ -12,10 +12,82 @@
     <link rel="stylesheet" href="resources/bootjsp/css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('')
+    <script type="text/javascript">
+        
+    var data = [];
+    
+    function initDataif() { // 디비에서 데이터 가져오기 위한 함수
+        $.ajax({
+           type : "post", // post 방식으로 통신 요청
+           url : "homeifdata", // Spring에서 만든 URL 호출
+           typedata : "json",
+        }).done(function(result) { // 비동기식 데이터 가져오기
+           dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
+           data = dataJson.list;
+           console.log(data);
+           createHtmlif();
         });
+     }
+    initDataif();
+    
+    function initDatamv() { // 디비에서 데이터 가져오기 위한 함수
+        $.ajax({
+           type : "post", // post 방식으로 통신 요청
+           url : "homemvdata", // Spring에서 만든 URL 호출
+           typedata : "json",
+        }).done(function(result) { // 비동기식 데이터 가져오기
+           dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
+           data = dataJson.list;
+           console.log(data);
+           createHtmlmv();
+        });
+     }
+    initDatamv();
+    
+  //리스트 html
+    function createHtmlif() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
+    $(".table-comm .if").empty();
+
+    for (var i = 0; i < data.length; i++) {
+       var tag = "";
+       tag += '<tr>' + '<td class="divide">' + data[i].divide + '</td>';
+       tag += '<td>';
+       tag += '<p class="'+data[i].type+'" data-target="'+data[i].type+'">(' + data[i].type + ')</p></td>';
+       tag += '<td>' + data[i].title + '</td>';
+       tag += '<td>'+data[i].nickname+'</li>';
+       tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].hit +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
+       tag += '</tr>';
+       $(".table-comm .if").append(tag);
+    }
+    //initDataif();
+  }
+  
+    function createHtmlmv() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
+        $(".table-comm .mv").empty();
+
+        for (var i = 0; i < data.length; i++) {
+           var tag = "";
+           tag += '<tr>' + '<td class="divide">' + data[i].divide + '</td>';
+           tag += '<td>';
+           if(data[i].type == "MOVIE"){
+               var movie = data[i].url.split("/");
+               if(movie[2] == "www.youtube.com" || movie[2] == "youtu.be"){
+                  tag += '<img class="media-photo" src="' + 'http://img.youtube.com/vi/' + movie[movie.length - 1] + '/0.jpg' + '">';
+               }else{
+                  tag += '<img class="media-photo" src="' + 'https://odenseofficial.com/web/img/news/img_video_over.png' + '">';
+               }
+               
+            }
+           tag += '<p class="'+data[i].type+'" data-target="'+data[i].type+'">(' + data[i].type + ')</p></td>';
+           tag += '<td>' + data[i].title + '</td>';
+           tag += '<td>'+data[i].nickname+'</li>';
+           tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].hit +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
+           tag += '</tr>';
+           $(".table-comm .mv").append(tag);
+        }
+        //initDataif();
+      }
+    
 
     </script>
 </head>
@@ -77,7 +149,7 @@
                         <div class="table-responsive">
                             <h1>BEST BOARD</h1>
                             <table class="table table-filter table-comm">
-                                <tbody>
+                                <tbody class="if">
                                     <tr data-status="INFO">
                                         <td>
                                             35
@@ -108,7 +180,7 @@
                         <div class="table-responsive">
                             <h1>BEST MOVIE</h1>
                             <table class="table table-filter table-comm">
-                                <tbody>
+                                <tbody class="mv">
                                     <tr data-status="MOVIE">
                                         <td>
                                             755555

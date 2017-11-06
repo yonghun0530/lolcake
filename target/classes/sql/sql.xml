@@ -93,11 +93,11 @@
 	</select>
 	
 	<select id="bestINFO" resultType="hashMap" parameterType="hashmap">
-SELECT * from board where type ='INFO' order by `like` desc limit 5;
-</select>
+		SELECT *,DATE_FORMAT(time,'%X-%m-%d') as datetime from board where type ='INFO' order by `like` desc limit 5;
+	</select>
 
-<select id="bestMOVIE" resultType="hashMap" parameterType="hashmap">
-SELECT * from board where type ='MOVIE' order by `like` desc limit 5;
-</select>
+	<select id="bestMOVIE" resultType="hashMap" parameterType="hashmap">
+		SELECT *,DATE_FORMAT(time,'%X-%m-%d') as datetime from board where type ='MOVIE' order by `like` desc limit 5;
+	</select>
 
 </mapper>

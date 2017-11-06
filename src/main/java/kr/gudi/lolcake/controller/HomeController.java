@@ -37,7 +37,6 @@ public class HomeController {
 	     @RequestMapping("/homeifdata")
 	      public ModelAndView IFData(ModelAndView mav, HttpServletRequest req){
 	         HashMap<String, Object> param = new HashMap<String, Object>();
-	         param.put("no", Integer.parseInt(req.getParameter("no")));
 	         
 	         JSONObject jsonObject = new JSONObject();
 	         jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(hsi.homeif(param)));
@@ -49,7 +48,6 @@ public class HomeController {
 	     @RequestMapping("/homemvdata")
 	      public ModelAndView MVData(ModelAndView mav, HttpServletRequest req){
 	         HashMap<String, Object> param = new HashMap<String, Object>();
-	         param.put("no", Integer.parseInt(req.getParameter("no")));
 	         
 	         JSONObject jsonObject = new JSONObject();
 	         jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(hsi.homemv(param)));
