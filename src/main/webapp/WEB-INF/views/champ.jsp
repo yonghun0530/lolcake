@@ -90,22 +90,22 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-center">
                     <li>
-                        <a href="resources/bootjsp/home.html">
+                        <a href="/lolcake/">
                             <h4>HOME</h4>
                         </a>
                     </li>
                     <li>
-                        <a href="resources/bootjsp/ranking.html">
+                        <a href="/lolcake/ranking">
                             <h4>랭킹</h4>
                         </a>
                     </li>
                     <li>
-                        <a href="resources/bootjsp/comm.html">
+                        <a href="/lolcake/comm">
                             <h4>커뮤니티</h4>
                         </a>
                     </li>
                     <li>
-                        <a href="resources/bootjsp/champ.html" class="active">
+                        <a href="/lolcake/champ" class="active">
                             <h4>챔피언</h4>
                         </a>
                     </li>

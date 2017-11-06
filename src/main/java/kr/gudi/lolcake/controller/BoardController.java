@@ -31,7 +31,8 @@ public class BoardController {
 	  @RequestMapping("/allData")
 	   public ModelAndView listData(ModelAndView mav, HttpServletRequest req){
 	      HashMap<String, Object> param = new HashMap<String, Object>();
-	      param.put("start", Integer.parseInt(req.getParameter("start")));
+	      param.put("s"
+	      		+ "tart", Integer.parseInt(req.getParameter("start")));
 	      param.put("viewRow", Integer.parseInt(req.getParameter("viewRow")));
 	      param.put("type", req.getParameter("type"));
 	      //type 추가 추가
