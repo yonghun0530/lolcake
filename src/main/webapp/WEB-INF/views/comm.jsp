@@ -168,7 +168,6 @@
 	                      data : {"no" : no}
 	                   }).done(function(result) { 
 	                	   bbsData();
-	                	   
 	                   });
             }
               
@@ -429,7 +428,7 @@
             </form>
             <div class="panel panel-default">
                <div class="panel-body">
-                  <div class="table-responsive">
+                  <div>
                             <div class="btn-group pull-right">
                                     <button type="button" class="btn btn-default btn-filter" data-target="ALL">ALL</button>
                                     <button type="button" class="btn btn-success btn-filter" data-target="FREE">FREE</button>
@@ -443,8 +442,8 @@
                         </tbody>
                      </table>
                             <button type="button" class="btn btn-danger pull-right" style="background-color: #b1b1b1;
-    border: none;" id="write">글쓰기</button>
-                            <div class="col-sm-6 col-sm-offset-3 text-center">
+    border: none; margin-bottom: 18px;" id="write">글쓰기</button>
+                            <div class="col-sm-6 col-sm-offset-3 text-center" style="position:static">
                              <ul class="pagination">
                                   <li class="disabled"><a href="#">«</a></li>
                             </ul>

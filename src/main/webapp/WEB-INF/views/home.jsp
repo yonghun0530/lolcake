@@ -135,7 +135,7 @@
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <div class="table-responsive">
+                        <div>
                             <h1>BEST BOARD</h1>
                             <table class="table table-filter table-comm">
                                 <tbody class="if">
@@ -149,7 +149,7 @@
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <div class="table-responsive">
+                        <div>
                             <h1>BEST MOVIE</h1>
                             <table class="table table-filter table-comm">
                                 <tbody class="mv">
