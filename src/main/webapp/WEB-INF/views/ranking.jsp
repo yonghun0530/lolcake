@@ -150,7 +150,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h1>RANKING</h1>
-                        <div class="table-responsive">
+                        <div>
                             <table class="table table-filter table-ranking">
                                 <thead>
                                     <tr>

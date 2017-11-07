@@ -87,7 +87,7 @@
             $(".table-comm tbody").empty();
 			
             
-            
+            //상세보기 html
             for (var i = 0; i < data.length; i++) {
                var tag = "";
                tag += '<tr data-status="' + data[i].type + '">';
@@ -110,7 +110,7 @@
                tag += '</tr>';
                $(".table-comm tbody").append(tag);
             }
-               
+            
             if($target !="ALL"){
                $('.divide').show();
                     $('.no').hide();
@@ -120,13 +120,13 @@
             }
             
                $('.table-comm tbody tr').on('click', function () {
-                  no = $(this).find('td').eq(0).text();
+                   no = $(this).find('td').eq(0).text();
                    $('.container').load('resources/bootjsp/commD.html', function(){
                 		 $('#list').on('click', function () {
                 			 location.href = '/lolcake/comm';
                 	     });
                    });
-                   bbsData();
+                   hitandlike("hit");
                });
          }
             
@@ -154,14 +154,24 @@
 	                      typedata : "json",
 	                      data : d
 	                   }).done(function(result) { // 비동기식 데이터 가져오기
-	                      dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
 	                      alert("삭제되었습니다.");
 	                      location.href = '/lolcake/comm';
 	                   });
 	                }
 	             }
 	          }
-            
+            function hitandlike(url){
+	                   $.ajax({
+	                      type : "post",
+	                      url : url,
+	                      typedata : "json",
+	                      data : {"no" : no}
+	                   }).done(function(result) { 
+	                	   bbsData();
+	                	   
+	                   });
+            }
+              
             // 글쓰기 부분 두가지로 구성. 쓰기 OR 수정 
             function writeBbs(write){
                 $('.container').load('resources/bootjsp/write.html',function(){
@@ -294,7 +304,12 @@
             tag += bbsD.dept+ '</td></tr>';
             
             $(".table-commD tbody").append(tag);
-
+			
+            $(".like b").text(bbsD.like);
+            $("#like").off().on("click",function(){
+            	hitandlike("like");
+            });
+            
             //편집버튼클릭시 
             $('#bbsEdit').on('click',function(){
                editError('#bbsEdit');
@@ -328,7 +343,6 @@
                   "viewRow" : viewRow,
                   "type" : $target
                };
-            
             $.ajax({
                type : "post", // post 방식으로 통신 요청
                url : "allData", // Spring에서 만든 URL 호출

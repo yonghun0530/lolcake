@@ -2,6 +2,7 @@ package kr.gudi.lolcake.controller;
 
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -76,7 +77,7 @@ public class BoardController {
 	         mav.setViewName("json");
 	         return mav;
 	     }
-	     /***************************채영이 삭제인듯 **************************/
+	     /***************************게시물 삭제 **************************/
 	     @RequestMapping("/Delete")
 		   public ModelAndView delete(ModelAndView mav, HttpServletRequest req){
 		      HashMap<String, Object> param = new HashMap<String, Object>();
@@ -89,4 +90,16 @@ public class BoardController {
 		      mav.setViewName("json");
 		      return mav;
 		  }
+	     /***************************게시물 추천 **************************/
+		  @RequestMapping(value = "/like", method = RequestMethod.POST)
+	      public void like(HttpServletRequest req, HttpServletResponse resp){
+			 HashMap<String, Object> param = HttpUtil.getParameterMap(req);
+	         HttpUtil.sendResponceToJson(resp, bsi.bbslike(param));
+	     }
+	     /***************************게시물 방문 **************************/
+		  @RequestMapping(value = "/hit", method = RequestMethod.POST)
+	      public void hit(HttpServletRequest req, HttpServletResponse resp){
+			 HashMap<String, Object> param = HttpUtil.getParameterMap(req);
+	         HttpUtil.sendResponceToJson(resp, bsi.bbshit(param));
+	     }
 }

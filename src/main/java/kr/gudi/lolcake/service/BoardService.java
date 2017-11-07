@@ -69,5 +69,25 @@ public class BoardService implements BoardServiceInterface {
 	 
 			return map;
 		}
-	      
+		
+		@Override
+		public HashMap<String, Object> bbshit(HashMap<String, Object> param) {
+	 
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			int bbshit = bdi.bbshit(param);
+			map.put("bbshit", bbshit);
+	 
+			return map;
+		}
+		
+		@Override
+		public HashMap<String, Object> bbslike(HashMap<String, Object> param) {
+	 
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			int bbslike = bdi.bbslike(param);
+			map.put("bbslike", bbslike);
+	 
+			return map;
+		}
+	    
 }

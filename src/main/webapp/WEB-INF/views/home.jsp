@@ -25,7 +25,7 @@
            dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
            data = dataJson.list;
            console.log(data);
-           createHtmlif();
+           createHtml("if");
         });
      }
     initDataif();
@@ -39,57 +39,44 @@
            dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
            data = dataJson.list;
            console.log(data);
-           createHtmlmv();
+           createHtml("mv");
         });
      }
     initDatamv();
     
   //리스트 html
-    function createHtmlif() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
-    $(".table-comm .if").empty();
+    function createHtml(menu) { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
+    $(".table-comm ." + menu).empty();
 
     for (var i = 0; i < data.length; i++) {
-       var tag = "";
-       tag += '<tr>' + '<td class="no"></td>' + '<td class="divide">' + data[i].divide + '</td>';
-       tag += '<td>';
-       tag += '<p class="'+data[i].type+'" data-target="'+data[i].type+'">(' + data[i].type + ')</p></td>';
-       tag += '<td>' + data[i].title + '</td>';
-       tag += '<td>'+data[i].nickname+'</li>';
-       tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].like +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
-       tag += '</tr>';
-       $(".table-comm .if").append(tag);
-    }
+        var tag = "";
+        tag += '<tr>' + '<td class="no">'+ data[i].no +'</td>' + '<td class="divide">' + data[i].divide + '</td>';
+        tag += '<td>';
+        if(data[i].type == "MOVIE"){
+            var movie = data[i].url.split("/");
+            if(movie[2] == "www.youtube.com" || movie[2] == "youtu.be"){
+               tag += '<img class="media-photo" src="' + 'http://img.youtube.com/vi/' + movie[movie.length - 1] + '/0.jpg' + '">';
+            }else{
+               tag += '<img class="media-photo" src="' + 'https://odenseofficial.com/web/img/news/img_video_over.png' + '">';
+            }
+            
+         }
+        tag += '<p class="'+data[i].type+'" data-target="'+data[i].type+'">(' + data[i].type + ')</p></td>';
+        tag += '<td>' + data[i].title + '</td>';
+        tag += '<td>'+data[i].nickname+'</li>';
+        tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].like +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
+        tag += '</tr>';
+        $(".table-comm ." + menu).append(tag);
+     }
+    
     $('.no').css("display","none");
+    
+    $(".table-comm ." + menu + " tr").off().on("click",function(){
+    	 location.href = "/lolcake/comm";
+    	
+    });
     //initDataif();
   }
-  
-    function createHtmlmv() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
-        $(".table-comm .mv").empty();
-
-        for (var i = 0; i < data.length; i++) {
-           var tag = "";
-           tag += '<tr>' + '<td class="no"></td>' + '<td class="divide">' + data[i].divide + '</td>';
-           tag += '<td>';
-           if(data[i].type == "MOVIE"){
-               var movie = data[i].url.split("/");
-               if(movie[2] == "www.youtube.com" || movie[2] == "youtu.be"){
-                  tag += '<img class="media-photo" src="' + 'http://img.youtube.com/vi/' + movie[movie.length - 1] + '/0.jpg' + '">';
-               }else{
-                  tag += '<img class="media-photo" src="' + 'https://odenseofficial.com/web/img/news/img_video_over.png' + '">';
-               }
-               
-            }
-           tag += '<p class="'+data[i].type+'" data-target="'+data[i].type+'">(' + data[i].type + ')</p></td>';
-           tag += '<td>' + data[i].title + '</td>';
-           tag += '<td>'+data[i].nickname+'</li>';
-           tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].like +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
-           tag += '</tr>';
-           $(".table-comm .mv").append(tag);
-        }
-        //initDataif();
-        $('.no').css("display","none");
-      }
-    
 
     </script>
 </head>
@@ -152,24 +139,7 @@
                             <h1>BEST BOARD</h1>
                             <table class="table table-filter table-comm">
                                 <tbody class="if">
-                                    <tr data-status="INFO">
-                                        <td>
-                                            35
-                                        </td>
-                                        <td>
-                                            <p class="info" data-target="INFO">(INFO)</p>
-                                        </td>
-                                        <td>
-                                            제목입니다1
-                                        </td>
-                                        <td>
-                                            임채영
-                                        </td>
-                                        <td>
-                                            <p>2017/03/1</p>
-                                            <i><img src="resources/bootjsp/img/like.png">255<img src="resources/bootjsp/img/click.png">365</i>
-                                        </td>
-                                    </tr>
+                                  
                                 </tbody>
                             </table>
                         </div>
@@ -183,25 +153,7 @@
                             <h1>BEST MOVIE</h1>
                             <table class="table table-filter table-comm">
                                 <tbody class="mv">
-                                    <tr data-status="MOVIE">
-                                        <td>
-                                            755555
-                                        </td>
-                                        <td>
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScPyG0_I6eKBwQBe54Lruefp6QodA9H3-md_VjWycwKzsjL_0D" class="media-photo">
-                                            <p class="movie" data-target="MOVIE">(MOVIE)</p>
-                                        </td>
-                                        <td>
-                                            제목입니다2
-                                        </td>
-                                        <td>
-                                            최혁
-                                        </td>
-                                        <td>
-                                            <p>2017/03/1</p>
-                                            <i><img src="resources/bootjsp/img/like.png">255<img src="resources/bootjsp/img/click.png">365</i>
-                                        </td>
-                                    </tr>
+                                  
                                 </tbody>
                             </table>
                         </div>

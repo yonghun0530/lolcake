@@ -11,9 +11,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('tbody td p').on('click', function() {
-                location.href = "../bootjsp/comm.html#" + $(this).data('target');
-            });
             var maxHeight = 1;
 
             $('.BOARD').each(function() {
@@ -86,24 +83,7 @@
                             <h1>BEST BOARD</h1>
                             <table class="table table-filter table-comm">
                                 <tbody>
-                                    <tr data-status="INFO">
-                                        <td>
-                                            35
-                                        </td>
-                                        <td>
-                                            <p class="info" data-target="INFO">(INFO)</p>
-                                        </td>
-                                        <td>
-                                            제목입니다1
-                                        </td>
-                                        <td>
-                                            임채영
-                                        </td>
-                                        <td>
-                                            <p>2017/03/1</p>
-                                            <i><img src="img/like.png">255<img src="img/click.png">365</i>
-                                        </td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -117,25 +97,7 @@
                             <h1>BEST MOVIE</h1>
                             <table class="table table-filter table-comm">
                                 <tbody>
-                                    <tr data-status="MOVIE">
-                                        <td>
-                                            755555
-                                        </td>
-                                        <td>
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScPyG0_I6eKBwQBe54Lruefp6QodA9H3-md_VjWycwKzsjL_0D" class="media-photo">
-                                            <p class="movie" data-target="MOVIE">(MOVIE)</p>
-                                        </td>
-                                        <td>
-                                            제목입니다2
-                                        </td>
-                                        <td>
-                                            최혁
-                                        </td>
-                                        <td>
-                                            <p>2017/03/1</p>
-                                            <i><img src="img/like.png">255<img src="img/click.png">365</i>
-                                        </td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>

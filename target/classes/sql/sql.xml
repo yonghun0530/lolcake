@@ -52,11 +52,11 @@
    </select>
    <!-- 방문 -->
      <update id="bbshit" parameterType="hashmap">
-      update board set hit = (hit + 1) where no = #{no}
+      update board set `hit`=`hit`+1 where `no`=#{no};
    </update>
    <!-- 추천 -->
     <update id="bbslike" parameterType="hashmap">
-      update board set like = (like + 1) where no = #{no}
+      update board set `like`=`like`+1 where `no`=#{no};
    </update>
 
 	
