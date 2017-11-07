@@ -28,10 +28,21 @@ public class BoardDao implements BoardDaoInterface {
 		public HashMap<String, Object> bbsD(HashMap<String, Object> param) {
 			return session.selectOne("sql.bbsD", param);
 		}
-	 
+	   /****삭제***/
 		@Override
 		public int delete(HashMap<String, Object> param) {
 			return session.update("sql.bbsremove", param);
+		}
+		
+		/****방문수 ***/
+		@Override
+		public int bbshit(HashMap<String, Object> param) {
+			return session.update("sql.bbshit", param);
+		}
+		/****추천수 ***/
+		@Override
+		public int bbslike(HashMap<String, Object> param) {
+			return session.update("sql.bbslike", param);
 		}
 	   
 	   

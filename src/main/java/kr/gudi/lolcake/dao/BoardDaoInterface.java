@@ -15,6 +15,7 @@ public interface BoardDaoInterface {
 	public int bbsEdit(HashMap<String, Object> param);
 	public int bbsWrite(HashMap<String, Object> param);
 	public int delete(HashMap<String, Object> param);
-	
+	public int bbshit(HashMap<String, Object> param);
+	public int bbslike(HashMap<String, Object> param);
 	
 }

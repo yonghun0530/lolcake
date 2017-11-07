@@ -22,21 +22,22 @@
     var no;
     var id;
     var pwd;
-   
+
     var $target = "ALL";
-        $(document).ready(function () {
+    
+      $(document).ready(function () {
            $('.divide').hide();
            
             if (location.hash != "") {
                var 성진이짱 = 성진이();
                 $target = 성진이짱[0];
                 page = 성진이짱[1];
-         }else{
-            page = 1;
-            hash = "ALL/1";
-            location.hash = hash;
-            $target = "ALL";
-         }
+	         }else{
+	            page = 1;
+	            hash = "ALL/1";
+	            location.hash = hash;
+	            $target = "ALL";
+	         }
 
             $('.btn-filter').on('click', function () {
                 $target = $(this).data('target');
@@ -81,7 +82,7 @@
             
             $(window).on('popstate', popstateEvent);
             
-            //리스트 html
+            //게시판 리스트 html 구현
             function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
             $(".table-comm tbody").empty();
 			
@@ -105,7 +106,7 @@
                tag += '<p class="'+data[i].type+'" data-target="'+data[i].type+'">(' + data[i].type + ')</p></td>';
                tag += '<td>' + data[i].title + '</td>';
                tag += '<td>'+data[i].nickname+'</li>';
-               tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].hit +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
+               tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].like +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
                tag += '</tr>';
                $(".table-comm tbody").append(tag);
             }
@@ -129,40 +130,39 @@
                });
          }
             
-            //편집 아이디 검사
-          function editError(button){
-             id = $('#myModal').find('input').eq(0).val();
-             pwd = $('#myModal').find('input').eq(1).val();
-             
-             if(id == null | pwd == null){
-                alert("아이디 또는 비번을 입력해야합니다.");
-             }else if(bbsD.nickname != id && bbsD.passwd != pwd){
-                alert("아이디 또는 비번이 잘못되었습니다.");
-             }else{
-                if(button == "#bbsEdit"){
-                    $('.modal-backdrop.fade').css('display','none');
-                    writeBbs("edit");
-                    
-                    
-                }else{
-                   var d = {
-                      "no" : no
-                   };
-                   console.log(d);
-                   $.ajax({
-                      type : "post", // post 방식으로 통신 요청
-                      url : "Delete", // Spring에서 만든 URL 호출
-                      typedata : "json",
-                      data : d
-                   }).done(function(result) { // 비동기식 데이터 가져오기
-                      dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
-                      alert("삭제되었습니다.");
-                      location.href = '/lolcake/comm';
-                   });
-                }
-             }
-          }
+              //편집시 아이디와 패스워드 검사 후 버튼별 이벤트 지정
+	          function editError(button){
+	             id = $('#myModal').find('input').eq(0).val();
+	             pwd = $('#myModal').find('input').eq(1).val();
+	             
+	             if(id == null | pwd == null){
+	                alert("아이디 또는 비번을 입력해야합니다.");
+	             }else if(bbsD.nickname != id && bbsD.passwd != pwd){
+	                alert("아이디 또는 비번이 잘못되었습니다.");
+	             }else{
+	                if(button == "#bbsEdit"){
+	                    $('.modal-backdrop.fade').css('display','none');
+	                    writeBbs("edit");                 
+	                }else{
+	                   var d = {
+	                      "no" : no
+	                   };
+	                   console.log(d);
+	                   $.ajax({
+	                      type : "post", // post 방식으로 통신 요청
+	                      url : "Delete", // Spring에서 만든 URL 호출
+	                      typedata : "json",
+	                      data : d
+	                   }).done(function(result) { // 비동기식 데이터 가져오기
+	                      dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
+	                      alert("삭제되었습니다.");
+	                      location.href = '/lolcake/comm';
+	                   });
+	                }
+	             }
+	          }
             
+            // 글쓰기 부분 두가지로 구성. 쓰기 OR 수정 
             function writeBbs(write){
                 $('.container').load('resources/bootjsp/write.html',function(){
                 	$('.bbswrite input').eq(1).hide();
@@ -270,7 +270,8 @@
                  });
             	
             }
-            //상세보기 html 
+            
+            //상세보기 html 부분구현
             function createBbs(){
             $(".table-commD tbody").empty();
             var tag = "";
@@ -278,9 +279,10 @@
                   + bbsD.nickname + '</span></p></td></tr>';
             tag += '<tr><td>' + bbsD.title + '</td></tr>';
             tag += '<tr><td><i> 조회수 : ' + bbsD.hit
-                  + '</i> <i> 추천수 : ' + bbsD.hit
+                  + '</i> <i> 추천수 : ' + bbsD.like
                   + '</i></td></tr>';
             tag += '<tr><td class="comm-body">';
+            //영상일 경우 영상 경로를 눠서 표현. 영상이 아닐경우는 노필요
             if(bbsD.type == "MOVIE"){
                var movie = bbsD.url.split("/");
                if(movie[2] == "www.youtube.com" || movie[2] == "youtu.be"){
@@ -293,11 +295,12 @@
             
             $(".table-commD tbody").append(tag);
 
-            
+            //편집버튼클릭시 
             $('#bbsEdit').on('click',function(){
                editError('#bbsEdit');
             });
             
+            //삭제버튼클릭시
             $('#bbsDelete').on('click',function(){
                editError('#bbsDelete');
             });
@@ -312,11 +315,9 @@
 	               $(".pagination").append(
 	                     "<li> <a href='#" + $target + "/" + (i + 1) + "'>" + (i + 1) + "</a></li>")
 	            }
-	
-
-         }
+         	}
             
-            //리스트 데이터 불러오기
+            //게시판 리스트 데이터 불러오기
             function initData() { // 디비에서 데이터 가져오기 위한 함수
             var end = (viewRow * page);
             var start = (end - viewRow);
