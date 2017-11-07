@@ -22,7 +22,6 @@
             url : "champData", // Spring에서 만든 URL 호출
             typedata : "json"
          }).done(function(result) { // 비동기식 데이터 가져오기
-//             console.log(result)
             data = result.list;
             createHtml();
          });
@@ -48,7 +47,7 @@
             function champD(){
                $('.panel-body').load('resources/bootjsp/champD.html',function(){
                var detail = [];
-               location.href = "#C-" + no;
+               location.hash = "#C-" + no;
                $.ajax({
                   type : "post", // post 방식으로 통신 요청
                   url : "champDetailData", // Spring에서 만든 URL 호출

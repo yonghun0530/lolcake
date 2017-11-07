@@ -14,6 +14,7 @@
     <script>
         $(document).ready(function() {
          var data = [];
+         var id;
          var page = 1; // 현재 페이지 값
          var viewRow = 10; // 화면에 보여질 행 갯수
          initData();
@@ -35,7 +36,7 @@
                 dataJson = JSON.parse(result);
                    data = dataJson.list;
                    console.log(data);
-                createHtml();
+                	createHtml();
              });
             }
             
@@ -73,13 +74,58 @@
             $(".table-ranking tbody").append(tag);
 
             progress();
-            성진이_이벤트();
-         }
-         
-         function 성진이_이벤트(){
             $("tbody tr").off().on("click", function(){
-               location.href = "userD?id=" + $(this).find("td").eq(0).text();
-            });
+                id = $(this).find("td").eq(0).text();
+                userData();
+             });
+         }
+
+         function userData(){
+        	 $('.panel-body').load('resources/bootjsp/userD.html',function(){
+                 var data = [];
+                 location.hash = "#R-" + id;
+	             var d = {"id" : id}; 
+	            $.ajax({
+	               type : "post", //post 방식
+	               url : "userDData",
+	               typedata : "json",
+	               data : d 
+	            }).done(function(result) { 
+	               console.log(result);
+	               data = result.list;
+	               console.log(data);
+	               userHead();
+	               createUserD();
+	            });
+        	 });
+      	}
+         
+          function userHead(){
+             $(".user-name").html(data[0].nickname + '<span>'+ id +'등</span>');
+             $(".table-user tbody tr td b").html(data[0].LP);
+             $(".table-user tbody tr td p").html("승률" + data[0].rate + "%")
+             $(".tier").html('<img src = "resources/tier/challenger_1.png">' + '<br>' + "Challenger");
+          }
+          function createUserD() {
+            var tag = "";
+     
+            $(".table-userD tbody").empty();
+                for (var i = 0; i < data.length; i++){
+               if(data[i].result == "win"){
+                  tag += '<tr class="row win">';
+               }else{
+                  tag += '<tr class="row lose">';
+               }               
+               tag += '<td><img class="img-circle" src="' + data[i].url + '"></td>';
+               tag += '<td><p>랭크게임</p><p>' + data[i].result + '</p>'+'<p>' + data[i].kda + '</p><p>' + data[i].time + '</p></td>';
+               tag += '<td><img src="' + data[i].s1_url + '" class="spell"><img src="'+ data[i].s2_url + '" class="spell"><img src="' + data[i].s3_url + '" class="spell"></td>';
+               tag += '<td>아 군<div class="uChamp"><img src="' + data[i].Team1Url + '">' + data[i].Team1Champname + '</div><div class="uChamp"><img src="' + data[i].Team2Url + '">' + data[i].Team2Champname + '</div><div class="uChamp"><img src="' + data[i].Team3Url + '">' + data[i].Team3Champname + '</div><div class="uChamp"><img src="' + data[i].Team4Url + '">' + data[i].Team4Champname + '</div><div class="uChamp"><img src="' + data[i].Team5Url + '">' + data[i].Team5Champname + '</div></td>';
+               tag += '<td>적 군<div class="uChamp"><img src="' + data[i].Other1Url + '">' + data[i].Other1Champname + '</div><div class="uChamp"><img src="' + data[i].Other2Url + '">' + data[i].Other2Champname + '</div><div class="uChamp"><img src="' + data[i].Other3Url + '">' + data[i].Other3Champname + '</div><div class="uChamp"><img src="' + data[i].Other4Url + '">' + data[i].Other4Champname + '</div><div class="uChamp"><img src="' + data[i].Other5Url + '">' + data[i].Other5Champname + '</div></td>';
+               tag += '</tr>';
+
+            }
+             $(".table-userD tbody").append(tag);
+                
          }
          
             function progress() {
@@ -89,15 +135,9 @@
                         return $(this).attr("aria-valuenow") + "%";
                     }
                 )
-            };
+            }
+            
             progress();
-
-
-            $('tbody tr').on('click', function() {
-                location.hash = $(this).find('td').eq(2).text();
-                $('.panel-body').load('resources/bootjsp/userD.html');
-
-            });
 
         });
     </script>
@@ -157,7 +197,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h1>RANKING</h1>
-                        <div class="table-responsive">
+                        <div>
                             <table class="table table-filter table-ranking">
                                 <thead>
                                     <tr>
