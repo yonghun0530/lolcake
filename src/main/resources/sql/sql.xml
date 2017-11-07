@@ -88,5 +88,39 @@
    </select>
 	
 	
-
+<select id="userD" parameterType="hashmap" resultType="hashMap"> <!-- 유저상세보기 -->
+      select i.nickname, i.id,
+      (select LP from summoner where id = (select distinct id from ingame where id = #{id})) as LP, 
+      (select rate from summoner where id = (select distinct id from ingame where id = #{id})) as rate, 
+      i.result, date_format(now(), '%i분 %s초') as time,
+      (select champname from champions where `no` = i.userchamp) as champname,
+      (select concat(path, img) from champions where `no` = i.userchamp) as url,
+      (select concat(path, url) from spell where `no` = i.spell1) as s1_url,
+      (select concat(path, url) from spell where `no` = i.spell2) as s2_url,
+      (select concat(path, url) from spell where `no` = i.spell3) as s3_url,
+      i.kda,
+       (select champname from champions where `no`=i.team1) as Team1Champname,
+       (select concat(path,img) from champions where `no`=i.team1) as Team1Url,
+        (select champname from champions where `no`=i.team2) as Team2Champname,
+       (select concat(path,img) from champions where `no`=i.team2) as Team2Url,
+        (select champname from champions where `no`=i.team3) as Team3Champname,
+       (select concat(path,img) from champions where `no`=i.team3) as Team3Url,
+        (select champname from champions where `no`=i.team4) as Team4Champname,
+       (select concat(path,img) from champions where `no`=i.team4) as Team4Url,
+        (select champname from champions where `no`=i.userchamp) as Team5Champname,
+       (select concat(path,img) from champions where `no`=i.userchamp) as Team5Url,
+       
+        (select champname from champions where `no`=i.other1) as Other1Champname,
+       (select concat(path,img) from champions where `no`=i.other1) as Other1Url,
+         (select champname from champions where `no`=i.other2) as Other2Champname,
+       (select concat(path,img) from champions where `no`=i.other2) as Other2Url,
+         (select champname from champions where `no`=i.other3) as Other3Champname,
+       (select concat(path,img) from champions where `no`=i.other3) as Other3Url,
+         (select champname from champions where `no`=i.other4) as Other4Champname,
+       (select concat(path,img) from champions where `no`=i.other4) as Other4Url,
+         (select champname from champions where `no`=i.other5) as Other5Champname,
+       (select concat(path,img) from champions where `no`=i.other5) as Other5Url
+       
+       from ingame as i where id = #{id}
+   </select>
 </mapper>

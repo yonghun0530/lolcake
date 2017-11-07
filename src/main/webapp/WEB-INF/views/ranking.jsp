@@ -13,55 +13,55 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
-			var data = [];
-			var page = 1; // 현재 페이지 값
-			var viewRow = 10; // 화면에 보여질 행 갯수
-			initData();
+         var data = [];
+         var page = 1; // 현재 페이지 값
+         var viewRow = 10; // 화면에 보여질 행 갯수
+         initData();
             function initData(){
-            	var end = (viewRow * page);
+               var end = (viewRow * page);
                 var start = (end - viewRow);
                 
-            	var d = {
+               var d = {
                         "start" : start,
                         "viewRow" : viewRow
                      };
-            	
-    			$.ajax({
-    				type : "post", // post 방식으로 통신 요청
-    				url : "rankingData",
-    				typedata : "json",
-    				data : d
-    			}).done(function(result) {
-    				dataJson = JSON.parse(result);
-    	            data = dataJson.list;
-    	            console.log(data);
-    				createHtml();
-    			});
+               
+             $.ajax({
+                type : "post", // post 방식으로 통신 요청
+                url : "rankingData",
+                typedata : "json",
+                data : d
+             }).done(function(result) {
+                dataJson = JSON.parse(result);
+                   data = dataJson.list;
+                   console.log(data);
+                createHtml();
+             });
             }
             
-	            $(window).scroll(function() {
-	                if ($(window).scrollTop() >= $(document).height() - $(window).height() - 60) {
-	                    console.log(page);
-	                    page++;
-	                    initData();
-	                }
-	            }); 
+               $(window).scroll(function() {
+                   if ($(window).scrollTop() >= $(document).height() - $(window).height() - 60) {
+                       console.log(page);
+                       page++;
+                       initData();
+                   }
+               }); 
             
-			
-			function createHtml() {
-				var tag = "";
-				for (var i = 0; i < data.length; i++){
-					tag += '<tr> ';
-					tag += '<td class="id">' + data[i].id + '</td>';
-					tag += '<td class="tier">' + '<img src="resources/tier/challenger_1.png">' + data[i].tier + '</td>';
-					tag += '<td class="nickname">' + data[i].nickname + '</td>';
-					tag += '<td class="LP">' + data[i].LP + '</td>';
-					if(data[i].teamname == null){
-						tag += '<td class="teamname">' + "" + '</td>';
-					}else {
-						tag += '<td class="teamname">' + data[i].teamname + '</td>';
-					}
-					tag += '<td class="rate">' +
+         
+         function createHtml() {
+            var tag = "";
+            for (var i = 0; i < data.length; i++){
+               tag += '<tr> ';
+               tag += '<td class="id">' + data[i].id + '</td>';
+               tag += '<td class="tier">' + '<img src="resources/tier/challenger_1.png">' + data[i].tier + '</td>';
+               tag += '<td class="nickname">' + data[i].nickname + '</td>';
+               tag += '<td class="LP">' + data[i].LP + '</td>';
+               if(data[i].teamname == null){
+                  tag += '<td class="teamname">' + "" + '</td>';
+               }else {
+                  tag += '<td class="teamname">' + data[i].teamname + '</td>';
+               }
+               tag += '<td class="rate">' +
                     '<div class="progress skill-bar">' +
                     '<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="' + data[i].rate + '" aria-valuemin="0" aria-valuemax="100">' +
                     '<i class="val">' + data[i].rate + "%"
@@ -69,12 +69,20 @@
                     '</div>' +
                     '</div>' +
                     ' </td>' + '</tr>'
-				}
-				$(".table-ranking tbody").append(tag);
+            }
+            $(".table-ranking tbody").append(tag);
 
-				progress();
-			}
-			
+            progress();
+            성진이_이벤트();
+         }
+         
+         function 성진이_이벤트(){
+            $("tbody tr").off().on("click", function(){
+//                alert($(this).find("td").eq(0).text());
+               location.href = "userD?id=" + $(this).find("td").eq(0).text();
+            });
+         }
+         
             function progress() {
                 $('.progress .progress-bar').css("width",
                     function() {
@@ -95,9 +103,9 @@
         });
     </script>
     <style>
-    	img {
-    	height : 100px;
-    	}
+       img {
+       height : 100px;
+       }
     </style>
 </head>
 
@@ -150,7 +158,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h1>RANKING</h1>
-                        <div>
+                        <div class="table-responsive">
                             <table class="table table-filter table-ranking">
                                 <thead>
                                     <tr>

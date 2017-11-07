@@ -24,7 +24,6 @@
 				data = result.list;
 				createHtml();
 			});
-            
             function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
 				$(".champ").empty();
 				for (var i = 0; i < data.length; i++) {
