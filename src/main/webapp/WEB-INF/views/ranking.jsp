@@ -78,7 +78,6 @@
          
          function 성진이_이벤트(){
             $("tbody tr").off().on("click", function(){
-//                alert($(this).find("td").eq(0).text());
                location.href = "userD?id=" + $(this).find("td").eq(0).text();
             });
          }

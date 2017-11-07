@@ -50,49 +50,19 @@
                   for (var i = 0; i < data.length; i++){
                  if(data[i].result == "win"){
                     tag += '<div class="row 성진">';
-//                     tag += '<tr id="color" class="성진" >'; 
                  }else{
                     tag += '<div class="row 용훈">';
-//                     tag += '<tr id="color"class="용훈" >';
                  }
                  
                  tag += '<div class="col-xs-7 col-sm-3"><img src="' + data[i].url + '" + style="width: 100%;"></div>';
                  tag += '<div class="col-xs-5 col-sm-2 성훈"><p>랭크게임</p><p>' + data[i].result + '</p><p>' + data[i].kda + '</p><p>' + data[i].time + '</p></div>';
-                 tag += '<div class="col-xs-12 col-sm-3"><img src="' + data[i].s1_url + '" class="spell"><img src="' + data[i].s2_url + '" class="spell"><img src="' + data[i].s3_url + '" class="spell"></div>';
+                 tag += '<div class="col-xs-12 col-sm-3"><img src="' + data[i].s1_url + '" class="spell"><img src="'
+						+ data[i].s2_url + '" class="spell"><img src="' + data[i].s3_url + '" class="spell"></div>';
                  tag += '<div class="col-xs-6 col-sm-2">아 군<div class="uChamp"><img src="' + data[i].Team1Url + '">' + data[i].Team1Champname + '</div><div class="uChamp"><img src="' + data[i].Team2Url + '">' + data[i].Team2Champname + '</div><div class="uChamp"><img src="' + data[i].Team3Url + '">' + data[i].Team3Champname + '</div><div class="uChamp"><img src="' + data[i].Team4Url + '">' + data[i].Team4Champname + '</div><div class="uChamp"><img src="' + data[i].Team5Url + '">' + data[i].Team5Champname + '</div></div>';
                  tag += '<div class="col-xs-6 col-sm-2">적 군<div class="uChamp"><img src="' + data[i].Other1Url + '">' + data[i].Other1Champname + '</div><div class="uChamp"><img src="' + data[i].Other2Url + '">' + data[i].Other2Champname + '</div><div class="uChamp"><img src="' + data[i].Other3Url + '">' + data[i].Other3Champname + '</div><div class="uChamp"><img src="' + data[i].Other4Url + '">' + data[i].Other4Champname + '</div><div class="uChamp"><img src="' + data[i].Other5Url + '">' + data[i].Other5Champname + '</div></div>';
                  tag += '</div>';
-                 
-//                  tag += '<td class="result">' + data[i].result + '</td>';
-//                  tag += '<td>' + '<img src ="' + data[i].url + '">' + '</td>'
-//                  tag += '<td>' + "랭크게임" + '</td>'
-//                  tag += '<td>' + data[i].time + '</td>'
-//                  tag += '<td>' + '<img src ="' + data[i].s1_url + '" class="spell">' +
-//                              '<img src ="' + data[i].s2_url + '" class="spell">' +
-//                              '<img src ="' + data[i].s3_url + '" class="spell">' + '</td>'
-//                  tag += '<td>' + '<div class="userfont">' + data[i].kda + '</div>' + '</td>'
-//                  tag += '<td>' + "아 군" + '<div class="uChamp">' + '<img src ="' + data[i].Team1Url + '">' + data[i].Team1Champname  
-//                 + '</div>' + 
-//                  '<div class="uChamp">' + '<img src ="' + data[i].Team2Url + '">' + data[i].Team2Champname + '
-//                   '</div>' + 
-//                  '<div class="uChamp">' + '<img src ="' + data[i].Team3Url + '">' + data[i].Team3Champname + 
-//                   '</div>' + 
-//                  '<div class="uChamp">' + '<img src ="' + data[i].Team4Url + '">' + data[i].Team4Champname + 
-//                   '</div>' + 
-//                  '<div class="uChamp">' + '<img src ="' + data[i].Team5Url + '">' + data[i].Team5Champname + 
-//                   '</div>' + '</td>'
-//                  tag += '<td>' + "적 군" + '<div class="uChamp">' + '<img src ="' + data[i].Other1Url + '">' + data[i].Other1Champname + 
-//                   '</div>' + 
-//                  '<div class="uChamp">' + '<img src ="' + data[i].Other2Url + '">' + data[i].Other2Champname + '
-//                   '</div>' + 
-//                  '<div class="uChamp">' + '<img src ="' + data[i].Other3Url + '">' + data[i].Other3Champname + 
-//                   '</div>' + 
-//                  '<div class="uChamp">' + '<img src ="' + data[i].Other4Url + '">' + data[i].Other4Champname + 
-//                   '</div>' + 
-//                  '<div class="uChamp">' + '<img src ="' + data[i].Other5Url + '">' + data[i].Other5Champname + 
-//                   '</div>' + '</td>'
+
               }
-//                   $(".table-userD tbody").append(tag);
                $("#성진이용").append(tag);
                   
            }

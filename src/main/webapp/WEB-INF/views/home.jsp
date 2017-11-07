@@ -50,7 +50,7 @@
 
     for (var i = 0; i < data.length; i++) {
         var tag = "";
-        tag += '<tr>' + '<td class="no">'+ data[i].no +'</td>' + '<td class="divide">' + data[i].divide + '</td>';
+        tag += '<tr data-status="'+ data[i].type +'">' + '<td class="no">'+ data[i].no +'</td>' + '<td class="divide">' + data[i].divide + '</td>';
         tag += '<td>';
         if(data[i].type == "MOVIE"){
             var movie = data[i].url.split("/");
@@ -72,8 +72,8 @@
     $('.no').css("display","none");
     
     $(".table-comm ." + menu + " tr").off().on("click",function(){
-    	 location.href = "/lolcake/comm";
-    	
+        location.href = "/lolcake/comm#"+ $(this).data('status') + "-" + $(this).find('td').eq(0).text();
+       
     });
     //initDataif();
   }

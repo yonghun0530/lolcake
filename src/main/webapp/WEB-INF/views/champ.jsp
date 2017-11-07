@@ -13,65 +13,92 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-			var data = [];
+         var data = [];
+            var hash;
+            var no;
             
             $.ajax({
-				type : "post", // post 방식으로 통신 요청
-				url : "champData", // Spring에서 만든 URL 호출
-				typedata : "json"
-			}).done(function(result) { // 비동기식 데이터 가져오기
-// 				console.log(result)
-				data = result.list;
-				createHtml();
-			});
+            type : "post", // post 방식으로 통신 요청
+            url : "champData", // Spring에서 만든 URL 호출
+            typedata : "json"
+         }).done(function(result) { // 비동기식 데이터 가져오기
+//             console.log(result)
+            data = result.list;
+            createHtml();
+         });
+            
             function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
-				$(".champ").empty();
-				for (var i = 0; i < data.length; i++) {
-					var tag = "";
-					tag += '<div class="col-md-2 col-sm-2 portfolio-item">';
-					tag += '<img src="'+data[i].path+''+data[i].img+'"alt="">';
-					tag += '<p>' + data[i].champname + '</p>';
-					tag += '</div>';
-					$(".champ").append(tag);
-				}
-				
-				$(".champ div.portfolio-item").on("click", function(){
-					var index = $(".champ div.portfolio-item").index($(this));
-					console.log(index, $(this), data[index].no);
-					/* location.href = "champD?no=" + data[index].no; */
-					$('.panel-body').load('resources/bootjsp/champD.html',function(){
-						var no = data[index].no;
-						var detail = [];
-						$.ajax({
-							type : "post", // post 방식으로 통신 요청
-							url : "champDetailData", // Spring에서 만든 URL 호출
-							typedata : "json",
-							data : {no : no}
-						}).done(function(result) { // 비동기식 데이터 가져오기
-							data = result.data;
-							$("#champImg").attr("src",  data[0].path + "/" + data[0].img);
-							$("tbody").empty();
-							for(var i = 0; i < result.data.length; i++){
-								console.log(result.data[i]);
-								$("#skills img").eq(i).attr("src",  data[i].skill_path + "/" + data[i].skill_img);
-								$("tbody").append("<tr><td>" + data[i].skillname + "</td><td>" + data[i].dept + "</td></tr>");
-							}
-						});
-						
-						$("#skills img").on("click", function(){
-			                var i = $("#skills img").index($(this));
-			                var html = '<div style="text-align: center;"><img src="resources/bootjsp/img/LOL.jpg" style="width:80%;"></div>';
-			                if(data[i].media_url != undefined ){
-			                   html = '<video class="skill-video" controls autoplay loop><source src="'+data[i].media_path + data[i].media_url+'" type="video/mp4">Your browser does not support HTML5 video.</video>';
-			                }
-			                $(".modal-dialog").empty().html(html);
-			                $("#myModal").modal("show");
-			             });
-					});
-					
-		        	
-				});
+            $(".champ").empty();
+            for (var i = 0; i < data.length; i++) {
+               var tag = "";
+               tag += '<div class="col-md-2 col-sm-2 portfolio-item">';
+               tag += '<img src="'+data[i].path+''+data[i].img+'"alt="">';
+               tag += '<p>' + data[i].champname + '</p>';
+               tag += '</div>';
+               $(".champ").append(tag);
             }
+            
+            $(".champ div.portfolio-item").on("click", function(){
+               var index = $(".champ div.portfolio-item").index($(this));
+               no = data[index].no;
+               champD();   
+            });
+            }
+            
+            function champD(){
+               $('.panel-body').load('resources/bootjsp/champD.html',function(){
+               var detail = [];
+               location.href = "#C-" + no;
+               $.ajax({
+                  type : "post", // post 방식으로 통신 요청
+                  url : "champDetailData", // Spring에서 만든 URL 호출
+                  typedata : "json",
+                  data : {no : no}
+               }).done(function(result) { // 비동기식 데이터 가져오기
+                  data = result.data;
+                  $("#champImg").attr("src",  data[0].path + "/" + data[0].img);
+                  $("tbody").empty();
+                  for(var i = 0; i < result.data.length; i++){
+                     console.log(result.data[i]);
+                     $("#skills img").eq(i).attr("src",  data[i].skill_path + "/" + data[i].skill_img);
+                     $("tbody").append("<tr><td>" + data[i].skillname + "</td><td>" + data[i].dept + "</td></tr>");
+                  }
+               });
+               
+               $("#skills img").on("click", function(){
+                      var i = $("#skills img").index($(this));
+                      var html = '<div style="text-align: center;"><img src="resources/bootjsp/img/LOL.jpg" style="width:80%;"></div>';
+                      if(data[i].media_url != undefined ){
+                         html = '<video class="skill-video" controls autoplay loop><source src="'+data[i].media_path + data[i].media_url+'" type="video/mp4">Your browser does not support HTML5 video.</video>';
+                      }
+                      $(".modal-dialog").empty().html(html);
+                      $("#myModal").modal("show");
+                   });
+               
+            });
+            }
+            Pageload();
+            
+            function Pageload(){
+               hash = location.hash;
+               if(hash != ""){
+                  no = hash.substr(3,hash.lengh);
+                  champD();
+               }
+            }
+            
+            function popstateEvent(event) {
+               hash = location.hash;
+               if(hash != ""){
+                  pageload();
+               }else{
+                  location.href = "/lolcake/champ";
+               }
+                
+            }
+
+
+            $(window).on('popstate', popstateEvent);
         });
     </script>
 </head>

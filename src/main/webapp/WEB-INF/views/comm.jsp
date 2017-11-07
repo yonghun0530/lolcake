@@ -28,25 +28,44 @@
       $(document).ready(function () {
            $('.divide').hide();
            
-            if (location.hash != "") {
-               var 성진이짱 = 성진이();
-                $target = 성진이짱[0];
-                page = 성진이짱[1];
-	         }else{
-	            page = 1;
-	            hash = "ALL/1";
-	            location.hash = hash;
-	            $target = "ALL";
-	         }
-
+           Load();
+           
+           function Load(){
+               hash = location.hash;
+               var data = hash.substr(1,hash.lengh);
+               var result = data.indexOf("/");
+               
+               if(location.hash == ""){
+                  page = 1;
+                    hash = "ALL/1";
+                    location.hash = hash;
+                    $target = "ALL";
+               }else if(result != '-1'){
+                  var 배열 = data.split('/');
+                  $target = 배열[0];
+                   page = 배열[1];
+                   pageload();
+               }else if(data == "WRITE" | data == "EDIT"){
+               
+               }else{
+                  var 배열 = data.split('-');
+                  no = 배열[1];
+                   $('.container').load('resources/bootjsp/commD.html', function(){
+                     $('#list').on('click', function () {
+                        location.href = '/lolcake/comm';
+                      });
+                 });
+                 hitandlike("hit");
+               }
+           }
+           
             $('.btn-filter').on('click', function () {
                 $target = $(this).data('target');
                 location.hash = $target + "/1";
-            
             });
             
             $('#write').on('click', function () {
-            	writeBbs("write");
+               writeBbs("WRITE");
                            
             });
             
@@ -56,28 +75,17 @@
                    $('.table-comm tbody tr').css('display', 'none');
                     $('.table-comm tr[data-status="' + $target + '"]').show();
                     
-              } else {
+                 } else {
                    $('.table-comm tbody tr').css('display', 'none').show();
                    
-              }
-                $('.table-responsive h1').text($target);
+                 }
+                $('.panel-body h1').text($target);
                 initData();
             }
            
             //뒤로갈경우 데이터 유지 
             function popstateEvent(event) {
-               var 성진이짱 = 성진이();
-                $target = 성진이짱[0];
-                page = 성진이짱[1];
-                pageload();
-            }
-            
-          
-            function 성진이(){
-               hash = location.hash;
-               var 데이터 = hash.substr(1, hash.length);
-               var 배열 = 데이터.split("/");
-               return 배열;
+            Load();
             }
             
             $(window).on('popstate', popstateEvent);
@@ -85,7 +93,7 @@
             //게시판 리스트 html 구현
             function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
             $(".table-comm tbody").empty();
-			
+         
             
             //상세보기 html
             for (var i = 0; i < data.length; i++) {
@@ -113,73 +121,76 @@
             
             if($target !="ALL"){
                $('.divide').show();
-                    $('.no').hide();
+               $('.no').hide();
             }else{
                $('.divide').hide();
-                    $('.no').show();
+               $('.no').show();
             }
             
                $('.table-comm tbody tr').on('click', function () {
                    no = $(this).find('td').eq(0).text();
+                   $target =  $(this).data('status');
+                   location.hash = $target + "-" + no;
                    $('.container').load('resources/bootjsp/commD.html', function(){
-                		 $('#list').on('click', function () {
-                			 location.href = '/lolcake/comm';
-                	     });
+                       $('#list').on('click', function () {
+                          location.href = '/lolcake/comm';
+                        });
                    });
                    hitandlike("hit");
                });
          }
             
               //편집시 아이디와 패스워드 검사 후 버튼별 이벤트 지정
-	          function editError(button){
-	             id = $('#myModal').find('input').eq(0).val();
-	             pwd = $('#myModal').find('input').eq(1).val();
-	             
-	             if(id == null | pwd == null){
-	                alert("아이디 또는 비번을 입력해야합니다.");
-	             }else if(bbsD.nickname != id && bbsD.passwd != pwd){
-	                alert("아이디 또는 비번이 잘못되었습니다.");
-	             }else{
-	                if(button == "#bbsEdit"){
-	                    $('.modal-backdrop.fade').css('display','none');
-	                    writeBbs("edit");                 
-	                }else{
-	                   var d = {
-	                      "no" : no
-	                   };
-	                   console.log(d);
-	                   $.ajax({
-	                      type : "post", // post 방식으로 통신 요청
-	                      url : "Delete", // Spring에서 만든 URL 호출
-	                      typedata : "json",
-	                      data : d
-	                   }).done(function(result) { // 비동기식 데이터 가져오기
-	                      alert("삭제되었습니다.");
-	                      location.href = '/lolcake/comm';
-	                   });
-	                }
-	             }
-	          }
+             function editError(button){
+                id = $('#myModal').find('input').eq(0).val();
+                pwd = $('#myModal').find('input').eq(1).val();
+                
+                if(id == null | pwd == null){
+                   alert("아이디 또는 비번을 입력해야합니다.");
+                }else if(bbsD.nickname != id && bbsD.passwd != pwd){
+                   alert("아이디 또는 비번이 잘못되었습니다.");
+                }else{
+                   if(button == "#bbsEdit"){
+                       $('.modal-backdrop.fade').css('display','none');
+                       writeBbs("EDIT");                 
+                   }else{
+                      var d = {
+                         "no" : no
+                      };
+                      console.log(d);
+                      $.ajax({
+                         type : "post", // post 방식으로 통신 요청
+                         url : "Delete", // Spring에서 만든 URL 호출
+                         typedata : "json",
+                         data : d
+                      }).done(function(result) { // 비동기식 데이터 가져오기
+                         alert("삭제되었습니다.");
+                         location.href = '/lolcake/comm';
+                      });
+                   }
+                }
+             }
             function hitandlike(url){
-	                   $.ajax({
-	                      type : "post",
-	                      url : url,
-	                      typedata : "json",
-	                      data : {"no" : no}
-	                   }).done(function(result) { 
-	                	   bbsData();
-	                   });
+                      $.ajax({
+                         type : "post",
+                         url : url,
+                         typedata : "json",
+                         data : {"no" : no}
+                      }).done(function(result) { 
+                         bbsData();
+                      });
             }
               
             // 글쓰기 부분 두가지로 구성. 쓰기 OR 수정 
             function writeBbs(write){
                 $('.container').load('resources/bootjsp/write.html',function(){
-                	$('.bbswrite input').eq(1).hide();
-                    
+                   $('.bbswrite input').eq(1).hide();
                     var $target = "FREE";
-                    var hash = location.hash;
-                    
-
+               location.hash = write; 
+               
+               window.onload = function(){
+                  location.hash = "";
+               }
                     $('.btn-filter').on('click', function() {
                         $target = $(this).data('target');
                         pageload();
@@ -189,7 +200,7 @@
                         location.href = '/lolcake/comm';
                     });
 
-                    function pageload() {              
+                    function pageload() {        
                         if ($target == 'MOVIE') {
                              $('.bbswrite input').eq(1).show();
                             //버튼을 연달아 누르면 문제발생 -> 질문
@@ -197,6 +208,7 @@
                             $('.bbswrite input').eq(1).hide();
                             $("#url").val("http://");
                         }
+                        location.hash = "WRITE";
                         $('.panel-body h1').text($target + " WRITE");
                     }
                     
@@ -209,19 +221,19 @@
                           });
                           
                           if(write != "write"){
-                        	  CKEDITOR.instances['contents'].setData(bbsD.dept);
+                             CKEDITOR.instances['contents'].setData(bbsD.dept);
                           }
                       });
-                    	
+                       
                     if(write != "write"){
-                    	$("#title").val(bbsD.title);                          
+                       $("#title").val(bbsD.title);                          
                         $("#nickname").val(bbsD.nickname);
                         if(bbsD.type =="MOVIE"){
                            $("#url").val(bbsD.url);
                         }
                     }
                     $("#write").on("click",function() {
-                    	
+                       
                         var type = $target;
                         var title = $("#title").val(); 
                         var contents = CKEDITOR.instances['contents'].getData();
@@ -253,7 +265,7 @@
                          alert("게시판을 선택하세요");
                       }else{
                          if(write != "write"){
-                        	 $.ajax({
+                            $.ajax({
                                  type : "post", // post 방식으로 통신 요청
                                  url : "editData", // Spring에서 만든 URL 호출
                                  typedata : "json",
@@ -277,59 +289,59 @@
                       }
                    });
                  });
-            	
+               
             }
             
             //상세보기 html 부분구현
             function createBbs(){
-            $(".table-commD tbody").empty();
-            var tag = "";
-            tag += '<tr><td><p>' + bbsD.datetime + '<span>'
-                  + bbsD.nickname + '</span></p></td></tr>';
-            tag += '<tr><td>' + bbsD.title + '</td></tr>';
-            tag += '<tr><td><i> 조회수 : ' + bbsD.hit
-                  + '</i> <i> 추천수 : ' + bbsD.like
-                  + '</i></td></tr>';
-            tag += '<tr><td class="comm-body">';
-            //영상일 경우 영상 경로를 눠서 표현. 영상이 아닐경우는 노필요
-            if(bbsD.type == "MOVIE"){
-               var movie = bbsD.url.split("/");
-               if(movie[2] == "www.youtube.com" || movie[2] == "youtu.be"){
-                  tag += '<iframe src="https://www.youtube.com/embed/' + movie[movie.length - 1] + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
-               }else{
-                  tag += '<iframe src="' + bbsD.url + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
-               }       
-            }      
-            tag += bbsD.dept+ '</td></tr>';
+               $(".table-commD tbody").empty();
+               var tag = "";
+               tag += '<tr><td><p>' + bbsD.datetime + '<span>'
+                     + bbsD.nickname + '</span></p></td></tr>';
+               tag += '<tr><td>' + bbsD.title + '</td></tr>';
+               tag += '<tr><td><i> 조회수 : ' + bbsD.hit
+                     + '</i> <i> 추천수 : ' + bbsD.like
+                     + '</i></td></tr>';
+               tag += '<tr><td class="comm-body">';
+               //영상일 경우 영상 경로를 눠서 표현. 영상이 아닐경우는 노필요
+               if(bbsD.type == "MOVIE"){
+                  var movie = bbsD.url.split("/");
+                  if(movie[2] == "www.youtube.com" || movie[2] == "youtu.be"){
+                     tag += '<iframe src="https://www.youtube.com/embed/' + movie[movie.length - 1] + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
+                  }else{
+                     tag += '<iframe src="' + bbsD.url + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
+                  }       
+               }      
+               tag += bbsD.dept+ '</td></tr>';
+               
+               $(".table-commD tbody").append(tag);
             
-            $(".table-commD tbody").append(tag);
-			
-            $(".like b").text(bbsD.like);
-            $("#like").off().on("click",function(){
-            	hitandlike("like");
-            });
-            
-            //편집버튼클릭시 
-            $('#bbsEdit').on('click',function(){
-               editError('#bbsEdit');
-            });
-            
-            //삭제버튼클릭시
-            $('#bbsDelete').on('click',function(){
-               editError('#bbsDelete');
-            });
+               $(".like b").text(bbsD.like);
+               $("#like").off().on("click",function(){
+                  hitandlike("like");
+               });
+               
+               //편집버튼클릭시 
+               $('#bbsEdit').on('click',function(){
+                  editError('#bbsEdit');
+               });
+               
+               //삭제버튼클릭시
+               $('#bbsDelete').on('click',function(){
+                  editError('#bbsDelete');
+               });
             }
             
             //페이징 
             function createPaging() {
-	            var paging = totCnt / viewRow;
-	            // 전체의 행의 수에서 보여줄 행을 나누면 페이지의 갯수를 알 수 있다.
-	            $(".pagination").empty(); // 초기화
-	            for (var i = 0; i < paging; i++){
-	               $(".pagination").append(
-	                     "<li> <a href='#" + $target + "/" + (i + 1) + "'>" + (i + 1) + "</a></li>")
-	            }
-         	}
+               var paging = totCnt / viewRow;
+               // 전체의 행의 수에서 보여줄 행을 나누면 페이지의 갯수를 알 수 있다.
+               $(".pagination").empty(); // 초기화
+               for (var i = 0; i < paging; i++){
+                  $(".pagination").append(
+                        "<li> <a href='#" + $target + "/" + (i + 1) + "'>" + (i + 1) + "</a></li>")
+               }
+            }
             
             //게시판 리스트 데이터 불러오기
             function initData() { // 디비에서 데이터 가져오기 위한 함수
@@ -357,7 +369,7 @@
          }
             
             //게시판 상세보기 데이터 불러오기
-            function bbsData() { // 디비에서 데이터 가져오기 위한 함수
+          function bbsData() { // 디비에서 데이터 가져오기 위한 함수
             var d = {
                   "no" : no
                };
@@ -376,6 +388,14 @@
          }
             
          initData();
+         
+         function popstateEvent(event) {
+            hash = location.hash;
+         Load();        
+         }
+
+
+         $(window).on('popstate', popstateEvent);
       });
     </script>
 </head>
