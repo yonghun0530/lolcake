@@ -43,10 +43,13 @@ public class SearchController {
 	      HashMap<String, Object> param = HttpUtil.getParameterMap(req);
 	      String viewName = "/";
 	      HashMap<String, Object> map = ssi.search(param);
+	      req.setCharacterEncoding("UTF-8");
+    	  resp.setContentType("text/html; charset=UTF-8");
 	      
 	      if(Integer.parseInt(map.get("status").toString()) == 1){
 	    	  viewName = "redirect:ranking#R-" + map.get("id");
 	      }else{
+	    	  req.setCharacterEncoding("UTF-8");
 	    	  resp.setContentType("text/html; charset=UTF-8");
 	    	  			PrintWriter out = resp.getWriter();
 						out.println("<script>alert('닉네임을 확인하세요'); history.go(-1);</script>");
