@@ -123,7 +123,13 @@
        from ingame as i where id = #{id}
    </select>
    
+   <!-- 랭킹에있는 목록조회 -->
    <select id="search" parameterType="hashmap" resultType="hashMap">
    		select * from summoner where nickname = #{nickname}
+   </select>
+   
+   <!-- 게시판 제목검색 -->
+   <select id="searchboard" parameterType="hashmap" resultType="hashMap">
+   	select * from board where title like '%#{title}%'
    </select>
 </mapper>

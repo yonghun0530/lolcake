@@ -27,37 +27,39 @@
     
       $(document).ready(function () {
            $('.divide').hide();
-           
+           var hash = location.hash;
            Load();
            
            function Load(){
-               hash = location.hash;
+              hash = location.hash;
                var data = hash.substr(1,hash.lengh);
                var result = data.indexOf("/");
                
                if(location.hash == ""){
-                  page = 1;
+                     page = 1;
                     hash = "ALL/1";
                     location.hash = hash;
                     $target = "ALL";
                }else if(result != '-1'){
                   var 배열 = data.split('/');
                   $target = 배열[0];
-                   page = 배열[1];
-                   pageload();
+                  page = 배열[1];
+                  pageload();
                }else if(data == "WRITE" | data == "EDIT"){
-               
+              writeBbs(data);
                }else{
                   var 배열 = data.split('-');
                   no = 배열[1];
-                   $('.container').load('resources/bootjsp/commD.html', function(){
-                     $('#list').on('click', function () {
-                        location.href = '/lolcake/comm';
-                      });
-                 });
-                 hitandlike("hit");
+                  hitandlike("hit");
                }
            }
+           
+           function popstateEvent(event) {
+              location.reload();
+            }
+
+
+            $(window).on('popstate', popstateEvent);
            
             $('.btn-filter').on('click', function () {
                 $target = $(this).data('target');
@@ -78,17 +80,11 @@
                  } else {
                    $('.table-comm tbody tr').css('display', 'none').show();
                    
-                 } 
+                 }
                 $('.panel-body h1').text($target);
                 initData();
             }
-           
-            //뒤로갈경우 데이터 유지 
-            function popstateEvent(event) {
-            	load();
-            }
             
-            $(window).on('popstate', popstateEvent);
             //게시판 리스트 html 구현
             function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
             $(".table-comm tbody").empty();
@@ -125,18 +121,15 @@
                $('.divide').hide();
                $('.no').show();
             }
+            
                $('.table-comm tbody tr').on('click', function () {
                    no = $(this).find('td').eq(0).text();
                    $target =  $(this).data('status');
                    location.hash = $target + "-" + no;
-                   $('.container').load('resources/bootjsp/commD.html', function(){
-                       $('#list').on('click', function () {
-                          location.href = '/lolcake/comm';
-                        });
-                   });
-                   hitandlike("hit");
+   /*                 hitandlike("hit"); */
                });
          }
+            
               //편집시 아이디와 패스워드 검사 후 버튼별 이벤트 지정
              function editError(button){
                 id = $('#myModal').find('input').eq(0).val();
@@ -154,7 +147,7 @@
                       var d = {
                          "no" : no
                       };
-//                      console.log(d);
+                      console.log(d);
                       $.ajax({
                          type : "post", // post 방식으로 통신 요청
                          url : "Delete", // Spring에서 만든 URL 호출
@@ -183,21 +176,17 @@
                 $('.container').load('resources/bootjsp/write.html',function(){
                    $('.bbswrite input').eq(1).hide();
                     var $target = "FREE";
-               location.hash = write; 
-               
-               window.onload = function(){
-                  location.hash = "";
-               }
+                     location.hash = write;
                     $('.btn-filter').on('click', function() {
                         $target = $(this).data('target');
-                        pageload();
+                        writeload();
                     });
                     
                     $('#list').on('click', function() {
                         location.href = '/lolcake/comm';
                     });
 
-                    function pageload() {        
+                    function writeload() {        
                         if ($target == 'MOVIE') {
                              $('.bbswrite input').eq(1).show();
                             //버튼을 연달아 누르면 문제발생 -> 질문
@@ -205,7 +194,6 @@
                             $('.bbswrite input').eq(1).hide();
                             $("#url").val("http://");
                         }
-                        location.hash = "WRITE";
                         $('.panel-body h1').text($target + " WRITE");
                     }
                     
@@ -237,7 +225,7 @@
                         var nickname = $("#nickname").val();
                         var passwd = $("#passwd").val();
                         var url = $("#url").val();
-//                        console.log(type);
+                        console.log(type);
                        
                       var param = {
                             "type":$target,
@@ -268,7 +256,7 @@
                                  typedata : "json",
                                  data : param
                               }).done(function(result) { // 비동기식 데이터 가져오기
-//                                 console.log(param);
+                                 console.log(param);
                               alert("수정하였습니다")
                                  location.href = '/lolcake/comm';
                               });
@@ -291,42 +279,51 @@
             
             //상세보기 html 부분구현
             function createBbs(){
-               $(".table-commD tbody").empty();
-               var tag = "";
-               tag += '<tr><td><p>' + bbsD.datetime + '<span>'
-                     + bbsD.nickname + '</span></p></td></tr>';
-               tag += '<tr><td>' + bbsD.title + '</td></tr>';
-               tag += '<tr><td><i> 조회수 : ' + bbsD.hit
-                     + '</i> <i> 추천수 : ' + bbsD.like
-                     + '</i></td></tr>';
-               tag += '<tr><td class="comm-body">';
-               //영상일 경우 영상 경로를 눠서 표현. 영상이 아닐경우는 노필요
-               if(bbsD.type == "MOVIE"){
-                  var movie = bbsD.url.split("/");
-                  if(movie[2] == "www.youtube.com" || movie[2] == "youtu.be"){
-                     tag += '<iframe src="https://www.youtube.com/embed/' + movie[movie.length - 1] + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
-                  }else{
-                     tag += '<iframe src="' + bbsD.url + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
-                  }       
-               }      
-               tag += bbsD.dept+ '</td></tr>';
+                $('.container').load('resources/bootjsp/commD.html', function(){
+                    $('#list').on('click', function () {
+                       location.href = '/lolcake/comm';
+                     });
+                    
+                    
+                    
+                    $(".table-commD tbody").empty();
+                    var tag = "";
+                    tag += '<tr><td><p>' + bbsD.datetime + '<span>'
+                          + bbsD.nickname + '</span></p></td></tr>';
+                    tag += '<tr><td>' + bbsD.title + '</td></tr>';
+                    tag += '<tr><td><i> 조회수 : ' + bbsD.hit
+                          + '</i> <i> 추천수 : ' + bbsD.like
+                          + '</i></td></tr>';
+                    tag += '<tr><td class="comm-body">';
+                    //영상일 경우 영상 경로를 눠서 표현. 영상이 아닐경우는 노필요
+                    if(bbsD.type == "MOVIE"){
+                       var movie = bbsD.url.split("/");
+                       if(movie[2] == "www.youtube.com" || movie[2] == "youtu.be"){
+                          tag += '<iframe src="https://www.youtube.com/embed/' + movie[movie.length - 1] + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
+                       }else{
+                          tag += '<iframe src="' + bbsD.url + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
+                       }       
+                    }      
+                    tag += bbsD.dept+ '</td></tr>';
+                    
+                    $(".table-commD tbody").append(tag);
+                 
+                    $(".like b").text(bbsD.like);
+                    $("#like").off().on("click",function(){
+                       hitandlike("like");
+                    });
+                    
+                    //편집버튼클릭시 
+                    $('#bbsEdit').on('click',function(){
+                       editError('#bbsEdit');
+                    });
+                    
+                    //삭제버튼클릭시
+                    $('#bbsDelete').on('click',function(){
+                       editError('#bbsDelete');
+                    });
+                });
                
-               $(".table-commD tbody").append(tag);
-            
-               $(".like b").text(bbsD.like);
-               $("#like").off().on("click",function(){
-                  hitandlike("like");
-               });
-               
-               //편집버튼클릭시 
-               $('#bbsEdit').on('click',function(){
-                  editError('#bbsEdit');
-               });
-               
-               //삭제버튼클릭시
-               $('#bbsDelete').on('click',function(){
-                  editError('#bbsDelete');
-               });
             }
             
             //페이징 
@@ -362,6 +359,7 @@
                totCnt = dataJson.totCntall.tot;
                createPaging();
                createHtml(); // 화면에 표현하기 위하여 함수 호출
+               console.log(data);
             });
          }
             
@@ -379,19 +377,14 @@
             }).done(function(result) { // 비동기식 데이터 가져오기
                dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
                bbsD = dataJson.bbsD;
-//               console.log(bbsD);
+               console.log(bbsD);
                createBbs();
             });
          }
             
          initData();
          
-         function popstateEvent(event) {
-         Load();        
-         }
 
-
-         $(window).on('popstate', popstateEvent);
       });
     </script>
 </head>
