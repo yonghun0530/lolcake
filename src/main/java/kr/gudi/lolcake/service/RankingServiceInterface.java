@@ -4,5 +4,5 @@ import java.util.HashMap;
 
 public interface RankingServiceInterface {
 
-	public HashMap<String, Object> ranking(HashMap<String, Object> param);
+	public HashMap<String, Object> ranking();
 }

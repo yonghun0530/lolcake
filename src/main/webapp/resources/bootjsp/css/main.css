@@ -84,14 +84,6 @@ body {
 	display: block;
 }
 
-	@media only screen and (max-width: 560px) {
-		 .table-userD tbody tr td{
-			display: block;
-			height:100%!important;
-			border: none!important;
-		} 
-	}
-	
 	@media only screen and (max-width: 768px) {
 		#myNavbar ul li h4 {
 			position: relative;

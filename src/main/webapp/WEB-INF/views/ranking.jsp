@@ -17,30 +17,17 @@
          var detail = [];
          var hash;
          var id;
-         var page = 1; // 현재 페이지 값
-         var viewRow = 10; // 화면에 보여질 행 갯수
          initData();
-            function initData(){
-               var end = (viewRow * page);
-                var start = (end - viewRow);
-                
-               var d = {
-                        "start" : start,
-                        "viewRow" : viewRow
-                     };
-               
+         function initData(){
              $.ajax({
                 type : "post", // post 방식으로 통신 요청
                 url : "rankingData",
-                typedata : "json",
-                data : d
+                typedata : "json"
              }).done(function(result) {
-                dataJson = JSON.parse(result);
-                   data = dataJson.list;
-                	createHtml();
-                	
+ 	            data = result.list;
+                   createHtml();
              });
-            }
+         }
             
 
             
@@ -75,22 +62,12 @@
                 userData();
              });
 
-/*             	$(window).off("scroll", scrollHandler); */
-           	$(window).scroll(scrollHandler);
 
          }
 
-         var scrollHandler = function() {
-        	 
-             if ($(window).scrollTop() >= $(document).height() - $(window).height() - 60) {
-                 page++;
-                 initData();
-          	}
-         }
          
          function userData(){
         	 $('.panel-body').load('resources/bootjsp/userD.html',function(){
-        		 $(window).off("scroll", scrollHandler);  
                  location.hash = "#R-" + id;
 	             var d = {"id" : id}; 
 	            $.ajax({
@@ -100,7 +77,6 @@
 	               data : d 
 	            }).done(function(result) {
 	               detail = result.list;
-	               console.log("detail[0]",detail[0].result);
 	               userHead();
 	               createUserD();
 	            });
@@ -108,17 +84,21 @@
       	}
          
           function userHead(){
-             $(".user-name").html(data[id-1].nickname + '<span>'+ id +'등</span>');
-             $(".table-user tbody tr td b").html(data[id-1].LP);
-             $(".table-user tbody tr td p").html("승률" + data[id-1].rate + "%")
-             $(".tier").html('<img src = "resources/tier/challenger_1.png">' + '<br>' + "Challenger");
+        	 var index = id % 10 - 1 ;
+        	 if(index < 0){
+        		 index = 10;
+        	 }
+        	 
+             $(".user-name").html(data[index].nickname + '<span>'+ id +'등</span>');
+             $(".table-user tbody tr td b").html(data[index].LP);
+             $(".table-user tbody tr td p").html("승률" + data[index].rate + "%")
+             $(".tier").html('<img src = "resources/tier/challenger_1.png">' + '<br>' + "Challenger"); 
           }
           
           function createUserD() {
             var tag = "";
      
             $(".table-userD tbody").empty();
-            console.log("detail",detail);
               for (var i = 0; i < detail.length; i++){
                if(detail[i].result == "win"){
                   tag += '<tr class="win">';
