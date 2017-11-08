@@ -127,8 +127,6 @@
                    no = $(this).find('td').eq(0).text();
                    $target =  $(this).data('status');
                    location.hash = $target + "-" + no;
-                   
-   /*                 hitandlike("hit"); */
                });
                
          }
@@ -286,6 +284,7 @@
                     $('#list').on('click', function () {
                        location.href = '/lolcake/comm';
                      });
+                    
                     Reply();
                     
                     
