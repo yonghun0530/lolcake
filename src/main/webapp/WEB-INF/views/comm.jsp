@@ -47,7 +47,7 @@
                   page = 배열[1];
                   pageload();
                }else if(data == "WRITE" | data == "EDIT"){
-              writeBbs(data);
+              		writeBbs(data);
                }else{
                   var 배열 = data.split('-');
                   no = 배열[1];
@@ -67,9 +67,8 @@
                 location.hash = $target + "/1";
             });
             
-            $('#write').on('click', function () {
-               writeBbs("WRITE");
-                           
+            $('#write').off().on('click', function () {
+                writeBbs("WRITE");           
             });
             
             
@@ -174,6 +173,7 @@
               
             // 글쓰기 부분 두가지로 구성. 쓰기 OR 수정 
             function writeBbs(write){
+                console.log(write);
                 $('.container').load('resources/bootjsp/write.html',function(){
                    $('.bbswrite input').eq(1).hide();
                     var $target = "FREE";
@@ -206,19 +206,19 @@
                               customConfig: 'resources/js/config.js'
                           });
                           
-                          if(write != "write"){
+                          if(write != "WRITE"){
                              CKEDITOR.instances['contents'].setData(bbsD.dept);
                           }
                       });
                        
-                    if(write != "write"){
+                    if(write != "WRITE"){
                        $("#title").val(bbsD.title);                          
                         $("#nickname").val(bbsD.nickname);
                         if(bbsD.type =="MOVIE"){
                            $("#url").val(bbsD.url);
                         }
                     }
-                    $("#write").on("click",function() {
+                    $("#write").off().on("click",function() {
                        
                         var type = $target;
                         var title = $("#title").val(); 
@@ -250,7 +250,7 @@
                       }else if(type==""){
                          alert("게시판을 선택하세요");
                       }else{
-                         if(write != "write"){
+                         if(write != "WRITE"){
                             $.ajax({
                                  type : "post", // post 방식으로 통신 요청
                                  url : "editData", // Spring에서 만든 URL 호출
