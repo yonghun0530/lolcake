@@ -15,8 +15,8 @@ public class RankingDao implements RankingDaoInterface {
 		SqlSession session;
 		
 		@Override
-		public List<HashMap<String, Object>> ranking(HashMap<String, Object> param) {
-			return session.selectList("sql.ranking",param);
+		public List<HashMap<String, Object>> ranking() {
+			return session.selectList("sql.ranking");
 		}
 		
 }

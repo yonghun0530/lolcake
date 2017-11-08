@@ -17,28 +17,15 @@
          var detail = [];
          var hash;
          var id;
-         var page = 1; // 현재 페이지 값
-         var viewRow = 10; // 화면에 보여질 행 갯수
          initData();
          function initData(){
-               var end = (viewRow * page);
-               var start = (end - viewRow);
-                
-               var d = {
-                        "start" : start,
-                        "viewRow" : viewRow
-                     };
-               
              $.ajax({
                 type : "post", // post 방식으로 통신 요청
                 url : "rankingData",
-                typedata : "json",
-                data : d
+                typedata : "json"
              }).done(function(result) {
-                dataJson = JSON.parse(result);
-                   data = dataJson.list;
-                	createHtml();
-                	
+ 	            data = result.list;
+                   createHtml();
              });
          }
             
@@ -75,22 +62,12 @@
                 userData();
              });
 
-/*             	$(window).off("scroll", scrollHandler); */
-           	$(window).scroll(scrollHandler);
 
          }
 
-         var scrollHandler = function() {
-        	 
-             if ($(window).scrollTop() >= $(document).height() - $(window).height() - 60) {
-                 page++;
-                 initData();
-          	}
-         }
          
          function userData(){
         	 $('.panel-body').load('resources/bootjsp/userD.html',function(){
-        		  $(window).off("scroll", scrollHandler);
                  location.hash = "#R-" + id;
 	             var d = {"id" : id}; 
 	            $.ajax({
