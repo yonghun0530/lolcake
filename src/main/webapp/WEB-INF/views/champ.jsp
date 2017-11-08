@@ -165,10 +165,10 @@
             <div class="col-sm-12 text-center ftImg">
                 <a href="http://www.facebook.com/1lolcake2/"><img src="resources/bootjsp/img/002-facebook-logo-button.png"></a>
                 <a href="https://www.instagram.com/lolcake.yum/">
-                         <img class="img-circle" src="resources/bootjsp/img/lol.png">
+                         <img class="img-circle" src="resources/bootjsp/img/001-instagram-logo.png">
                     </a>
                 <a href="https://kr.leagueoflegends.com/">
-                        <img src="resources/bootjsp/img/001-instagram-logo.png">
+                        <img src="resources/bootjsp/img/lol.png">
                     </a>
             </div>
             <div class="col-sm-12 text-center ftCopy">
