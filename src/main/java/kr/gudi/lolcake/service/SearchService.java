@@ -20,8 +20,7 @@ public class SearchService implements SearchServiceInterface{
    @Override
    public HashMap<String, Object> search(HashMap<String, Object> param) {
       HashMap<String, Object> map = sdi.search(param);
-      
-      if(map == null){
+      if(map == null || map==param){
     	  map = new HashMap<String, Object>();
     	  map.put("status", 0);
       }else {

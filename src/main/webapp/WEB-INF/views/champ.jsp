@@ -141,13 +141,13 @@
     <div class="container" style="margin-top:90px">
         <section class="content">
             <div class="col-md-12">
-                <form action="" class="search-form">
-                    <div class="form-group has-feedback">
-                        <label for="search" class="sr-only">Search</label>
-                        <input type="text" class="form-control" name="search" id="search" placeholder="search">
-                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                    </div>
-                </form>
+<!--                 <form action="" class="search-form"> -->
+<!--                     <div class="form-group has-feedback"> -->
+<!--                         <label for="search" class="sr-only">Search</label> -->
+<!--                         <input type="text" class="form-control" name="search" id="search" placeholder="search"> -->
+<!--                         <span class="glyphicon glyphicon-search form-control-feedback"></span> -->
+<!--                     </div> -->
+<!--                 </form> -->
                 <div class="panel panel-default">
                     <div class="panel-body panel-champ">
                         <h1>CHAMPION</h1>

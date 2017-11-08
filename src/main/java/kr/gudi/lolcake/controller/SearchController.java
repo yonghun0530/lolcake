@@ -1,5 +1,7 @@
 package kr.gudi.lolcake.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,15 +39,19 @@ public class SearchController {
 	   }
 	   
 	   @RequestMapping(value = "/searchView", method = RequestMethod.POST)
-	   public String searchView(HttpServletRequest req, ModelAndView mav){
+	   public String searchView(HttpServletRequest req, ModelAndView mav, HttpServletResponse resp) throws IOException{
 	      HashMap<String, Object> param = HttpUtil.getParameterMap(req);
-	      String viewName = "redirect:ranking";
+	      String viewName = "/";
 	      HashMap<String, Object> map = ssi.search(param);
 	      
 	      if(Integer.parseInt(map.get("status").toString()) == 1){
-	    	  viewName += "#R-" + map.get("id");
+	    	  viewName = "redirect:ranking#R-" + map.get("id");
+	      }else{
+	    	  resp.setContentType("text/html; charset=UTF-8");
+	    	  			PrintWriter out = resp.getWriter();
+						out.println("<script>alert('닉네임을 확인하세요'); history.go(-1);</script>");
+						out.flush(); 
 	      }
-	      
 	      return viewName;
 	   }
 }
