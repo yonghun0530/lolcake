@@ -123,4 +123,8 @@
        
        from ingame as i where id = #{id}
    </select>
+   
+   <select id="search" parameterType="hashmap" resultType="hashMap">
+   		select * from summoner where nickname = #{nickname}
+   </select>
 </mapper>

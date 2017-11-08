@@ -627,9 +627,9 @@ body {
 	width: 100%;
 }
 
-.modal {
-	top: 30%;
-}
+ .modal {
+ top:30%;
+} 
 
 .img-footer {
 	position: absolute;

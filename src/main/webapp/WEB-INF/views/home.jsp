@@ -121,14 +121,16 @@
         <div class="col-md-6 col-md-offset-3" style="text-align: center">
             <img src="resources/bootjsp/img/logo.png">
             <div id="imaginary_container">
-                <div class="input-group stylish-input-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                    <span class="input-group-addon">
-                        <button type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
-                    </button>
-                    </span>
-                </div>
+                <form action="searchView" method="post">
+	                <div class="input-group stylish-input-group">
+	                    <input name="nickname" type="text" class="form-control" placeholder="Search">
+	                    <span class="input-group-addon">
+	                        <button id="search" type="submit">
+	                            <span class="glyphicon glyphicon-search"></span>
+	                    </button>
+	                    </span>
+	                </div>
+                </form>
             </div>
         </div>
         <section class="content">
