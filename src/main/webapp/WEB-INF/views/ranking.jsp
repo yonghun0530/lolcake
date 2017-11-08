@@ -14,6 +14,8 @@
     <script>
         $(document).ready(function() {
          var data = [];
+         var detail = [];
+         var hash;
          var id;
          var page = 1; // 현재 페이지 값
          var viewRow = 10; // 화면에 보여질 행 갯수
@@ -35,18 +37,12 @@
              }).done(function(result) {
                 dataJson = JSON.parse(result);
                    data = dataJson.list;
-                   console.log(data);
                 	createHtml();
+                	
              });
             }
             
-               $(window).scroll(function() {
-                   if ($(window).scrollTop() >= $(document).height() - $(window).height() - 60) {
-                       console.log(page);
-                       page++;
-                       initData();
-                   }
-               }); 
+
             
          
          function createHtml() {
@@ -78,11 +74,23 @@
                 id = $(this).find("td").eq(0).text();
                 userData();
              });
+
+/*             	$(window).off("scroll", scrollHandler); */
+           	$(window).scroll(scrollHandler);
+
          }
 
+         var scrollHandler = function() {
+        	 
+             if ($(window).scrollTop() >= $(document).height() - $(window).height() - 60) {
+                 page++;
+                 initData();
+          	}
+         }
+         
          function userData(){
         	 $('.panel-body').load('resources/bootjsp/userD.html',function(){
-                 var data = [];
+        		 $(window).off("scroll", scrollHandler);  
                  location.hash = "#R-" + id;
 	             var d = {"id" : id}; 
 	            $.ajax({
@@ -90,10 +98,9 @@
 	               url : "userDData",
 	               typedata : "json",
 	               data : d 
-	            }).done(function(result) { 
-	               console.log(result);
-	               data = result.list;
-	               console.log(data);
+	            }).done(function(result) {
+	               detail = result.list;
+	               console.log("detail[0]",detail[0].result);
 	               userHead();
 	               createUserD();
 	            });
@@ -101,32 +108,41 @@
       	}
          
           function userHead(){
-             $(".user-name").html(data[0].nickname + '<span>'+ id +'등</span>');
-             $(".table-user tbody tr td b").html(data[0].LP);
-             $(".table-user tbody tr td p").html("승률" + data[0].rate + "%")
+             $(".user-name").html(data[id-1].nickname + '<span>'+ id +'등</span>');
+             $(".table-user tbody tr td b").html(data[id-1].LP);
+             $(".table-user tbody tr td p").html("승률" + data[id-1].rate + "%")
              $(".tier").html('<img src = "resources/tier/challenger_1.png">' + '<br>' + "Challenger");
           }
+          
           function createUserD() {
             var tag = "";
      
             $(".table-userD tbody").empty();
-                for (var i = 0; i < data.length; i++){
-               if(data[i].result == "win"){
-                  tag += '<tr class="row win">';
+            console.log("detail",detail);
+              for (var i = 0; i < detail.length; i++){
+               if(detail[i].result == "win"){
+                  tag += '<tr class="win">';
                }else{
-                  tag += '<tr class="row lose">';
+                  tag += '<tr class="lose">';
                }               
-               tag += '<td><img class="img-circle" src="' + data[i].url + '"></td>';
-               tag += '<td><p>랭크게임</p><p>' + data[i].result + '</p>'+'<p>' + data[i].kda + '</p><p>' + data[i].time + '</p></td>';
-               tag += '<td><img src="' + data[i].s1_url + '" class="spell"><img src="'+ data[i].s2_url + '" class="spell"><img src="' + data[i].s3_url + '" class="spell"></td>';
-               tag += '<td>아 군<div class="uChamp"><img src="' + data[i].Team1Url + '">' + data[i].Team1Champname + '</div><div class="uChamp"><img src="' + data[i].Team2Url + '">' + data[i].Team2Champname + '</div><div class="uChamp"><img src="' + data[i].Team3Url + '">' + data[i].Team3Champname + '</div><div class="uChamp"><img src="' + data[i].Team4Url + '">' + data[i].Team4Champname + '</div><div class="uChamp"><img src="' + data[i].Team5Url + '">' + data[i].Team5Champname + '</div></td>';
-               tag += '<td>적 군<div class="uChamp"><img src="' + data[i].Other1Url + '">' + data[i].Other1Champname + '</div><div class="uChamp"><img src="' + data[i].Other2Url + '">' + data[i].Other2Champname + '</div><div class="uChamp"><img src="' + data[i].Other3Url + '">' + data[i].Other3Champname + '</div><div class="uChamp"><img src="' + data[i].Other4Url + '">' + data[i].Other4Champname + '</div><div class="uChamp"><img src="' + data[i].Other5Url + '">' + data[i].Other5Champname + '</div></td>';
+               tag += '<td><img class="img-circle" src="' + detail[i].url + '"></td>';
+               tag += '<td><p>랭크게임</p><p>' + detail[i].result + '</p>'+'<p>' + detail[i].kda + '</p><p>' + detail[i].time + '</p></td>';
+               tag += '<td><img src="' + detail[i].s1_url + '" class="spell"><img src="'+ detail[i].s2_url + '" class="spell"><img src="' + detail[i].s3_url + '" class="spell"></td>';
+               tag += '<td><b>아 군</b><div class="uChamp"><img src="' + detail[i].Team1Url + '">' + detail[i].Team1Champname + '</div><div class="uChamp"><img src="' + detail[i].Team2Url + '">' + detail[i].Team2Champname + '</div><div class="uChamp"><img src="' + detail[i].Team3Url + '">' + detail[i].Team3Champname + '</div><div class="uChamp"><img src="' + detail[i].Team4Url + '">' + detail[i].Team4Champname + '</div><div class="uChamp"><img src="' + detail[i].Team5Url + '">' + detail[i].Team5Champname + '</div></td>';
+               tag += '<td><b>적 군</b><div class="uChamp"><img src="' + detail[i].Other1Url + '">' + detail[i].Other1Champname + '</div><div class="uChamp"><img src="' + detail[i].Other2Url + '">' + detail[i].Other2Champname + '</div><div class="uChamp"><img src="' + detail[i].Other3Url + '">' + detail[i].Other3Champname + '</div><div class="uChamp"><img src="' + detail[i].Other4Url + '">' + detail[i].Other4Champname + '</div><div class="uChamp"><img src="' + detail[i].Other5Url + '">' + detail[i].Other5Champname + '</div></td>';
                tag += '</tr>';
 
             }
              $(".table-userD tbody").append(tag);
-                
          }
+          Pageload();
+          function Pageload(){
+              hash = location.hash;
+              if(hash != ""){
+                 id = hash.substr(3,hash.lengh);
+                 userData();
+              }
+           }
          
             function progress() {
                 $('.progress .progress-bar').css("width",
@@ -136,9 +152,20 @@
                     }
                 )
             }
-            
             progress();
+			
+            function popstateEvent(event) {
+                hash = location.hash;
+                if(hash != ""){
+                   Pageload();
+                }else{
+                   location.href = "/lolcake/ranking";
+                }
+                 
+             }
 
+
+             $(window).on('popstate', popstateEvent);
         });
     </script>
     <style>

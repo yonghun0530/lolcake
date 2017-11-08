@@ -84,50 +84,64 @@ body {
 	display: block;
 }
 
-@media only screen and (max-width: 768px) {
-	#myNavbar ul li h4 {
-		position: relative;
-		width: 100%;
-		top: 0;
-		color: #ffffff;
-		display: block;
-		background-color: transparent;
+	@media only screen and (max-width: 560px) {
+		 .table-userD tbody tr td{
+			display: block;
+			height:100%!important;
+			border: none!important;
+		} 
 	}
-	#myNavbar ul li .active h4, #myNavbar ul li h4:hover {
-		color: #d9534f;
+	
+	@media only screen and (max-width: 768px) {
+		#myNavbar ul li h4 {
+			position: relative;
+			width: 100%;
+			top: 0;
+			color: #ffffff;
+			display: block;
+			background-color: transparent;
+		}
+		#myNavbar ul li .active h4, #myNavbar ul li h4:hover {
+			color: #d9534f;
+		}
+		#myNavbar ul li h4:after {
+			border-left: 0;
+			border-right: 0;
+			border-bottom: 0;
+			content: "";
+			position: relative;
+			top: 0;
+			left: 0;
+		}
+		#myNavbar ul li a {
+			border-radius: 0px;
+			display: inline-block;
+			padding: 0px;
+			margin: 0px 0px;
+			width: 100%;
+			height: 10px;
+			background-color: transparent;
+		}
+		#myNavbar ul li .active {
+			background-color: transparent;
+		}
+		#myNavbar ul li a:hover {
+			background-color: transparent;
+		}
+		.table-comm tbody tr td:nth-child(3), .table-comm tbody tr td:nth-child(6){
+			display: none;
+		}
+		.table-ranking tr td:nth-child(5), .table-ranking tr td:nth-child(6) {
+			display: none;
+		}
+	 	.table-userD tbody tr td:nth-child(1),.table-userD tbody tr td:nth-child(2),.table-userD tbody tr td:nth-child(3){
+			display: block;
+			height:100%!important;
+			border: none!important;
+		} 
 	}
-	#myNavbar ul li h4:after {
-		border-left: 0;
-		border-right: 0;
-		border-bottom: 0;
-		content: "";
-		position: relative;
-		top: 0;
-		left: 0;
-	}
-	#myNavbar ul li a {
-		border-radius: 0px;
-		display: inline-block;
-		padding: 0px;
-		margin: 0px 0px;
-		width: 100%;
-		height: 10px;
-		background-color: transparent;
-	}
-	#myNavbar ul li .active {
-		background-color: transparent;
-	}
-	#myNavbar ul li a:hover {
-		background-color: transparent;
-	}
-	.table-comm tbody tr td:nth-child(3), .table-comm tbody tr td:nth-child(6)
-		{
-		display: none;
-	}
-	.table-ranking tr td:nth-child(5), .table-ranking tr td:nth-child(6) {
-		display: none;
-	}
-}
+
+
 
 /*********************검색창**************************/
 #imaginary_container {
@@ -705,14 +719,14 @@ footer span {
 }
 
 .uChamp img {
-	margin-right: 20px;
+	margin-right: 10px;
 	width: 30px;
 	height: 30px;
 }
 
 .spell {
-	width: calc(100%/ 3);
-	float: left;
+ 	width: 50px;
+ 	height:50px; 
 }
 
 .table-user tbody tr:hover{

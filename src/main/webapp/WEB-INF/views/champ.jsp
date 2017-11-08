@@ -21,10 +21,10 @@
             type : "post", // post 방식으로 통신 요청
             url : "champData", // Spring에서 만든 URL 호출
             typedata : "json"
-         }).done(function(result) { // 비동기식 데이터 가져오기
-            data = result.list;
-            createHtml();
-         });
+	         }).done(function(result) { // 비동기식 데이터 가져오기
+	            data = result.list;
+	            createHtml();
+	         });
             
             function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
             $(".champ").empty();
