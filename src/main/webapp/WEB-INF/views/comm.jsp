@@ -78,18 +78,17 @@
                  } else {
                    $('.table-comm tbody tr').css('display', 'none').show();
                    
-                 }
+                 } 
                 $('.panel-body h1').text($target);
                 initData();
             }
            
             //뒤로갈경우 데이터 유지 
             function popstateEvent(event) {
-            Load();
+            	load();
             }
             
             $(window).on('popstate', popstateEvent);
-            
             //게시판 리스트 html 구현
             function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
             $(".table-comm tbody").empty();
@@ -126,7 +125,6 @@
                $('.divide').hide();
                $('.no').show();
             }
-            
                $('.table-comm tbody tr').on('click', function () {
                    no = $(this).find('td').eq(0).text();
                    $target =  $(this).data('status');
@@ -139,7 +137,6 @@
                    hitandlike("hit");
                });
          }
-            
               //편집시 아이디와 패스워드 검사 후 버튼별 이벤트 지정
              function editError(button){
                 id = $('#myModal').find('input').eq(0).val();
@@ -157,7 +154,7 @@
                       var d = {
                          "no" : no
                       };
-                      console.log(d);
+//                      console.log(d);
                       $.ajax({
                          type : "post", // post 방식으로 통신 요청
                          url : "Delete", // Spring에서 만든 URL 호출
@@ -240,7 +237,7 @@
                         var nickname = $("#nickname").val();
                         var passwd = $("#passwd").val();
                         var url = $("#url").val();
-                        console.log(type);
+//                        console.log(type);
                        
                       var param = {
                             "type":$target,
@@ -271,7 +268,7 @@
                                  typedata : "json",
                                  data : param
                               }).done(function(result) { // 비동기식 데이터 가져오기
-                                 console.log(param);
+//                                 console.log(param);
                               alert("수정하였습니다")
                                  location.href = '/lolcake/comm';
                               });
@@ -382,7 +379,7 @@
             }).done(function(result) { // 비동기식 데이터 가져오기
                dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
                bbsD = dataJson.bbsD;
-               console.log(bbsD);
+//               console.log(bbsD);
                createBbs();
             });
          }
@@ -390,7 +387,6 @@
          initData();
          
          function popstateEvent(event) {
-            hash = location.hash;
          Load();        
          }
 

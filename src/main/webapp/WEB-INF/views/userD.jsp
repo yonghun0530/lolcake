@@ -28,9 +28,9 @@
                  typedata : "json",
                  data : d 
               }).done(function(result) { 
-                 console.log(result);
+//                 console.log(result);
                  data = result.list;
-                 console.log(data);
+//                 console.log(data);
                  createHtml();
                  userHead();
               });

@@ -58,7 +58,7 @@
                   $("#champImg").attr("src",  data[0].path + "/" + data[0].img);
                   $("tbody").empty();
                   for(var i = 0; i < result.data.length; i++){
-                     console.log(result.data[i]);
+//                     console.log(result.data[i]);
                      $("#skills img").eq(i).attr("src",  data[i].skill_path + "/" + data[i].skill_img);
                      $("tbody").append("<tr><td>" + data[i].skillname + "</td><td>" + data[i].dept + "</td></tr>");
                   }
