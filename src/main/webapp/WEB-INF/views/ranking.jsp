@@ -20,9 +20,9 @@
          var page = 1; // 현재 페이지 값
          var viewRow = 10; // 화면에 보여질 행 갯수
          initData();
-            function initData(){
+         function initData(){
                var end = (viewRow * page);
-                var start = (end - viewRow);
+               var start = (end - viewRow);
                 
                var d = {
                         "start" : start,
@@ -40,7 +40,7 @@
                 	createHtml();
                 	
              });
-            }
+         }
             
 
             
@@ -90,7 +90,7 @@
          
          function userData(){
         	 $('.panel-body').load('resources/bootjsp/userD.html',function(){
-        		 $(window).off("scroll", scrollHandler);  
+        		  $(window).off("scroll", scrollHandler);
                  location.hash = "#R-" + id;
 	             var d = {"id" : id}; 
 	            $.ajax({
@@ -100,7 +100,6 @@
 	               data : d 
 	            }).done(function(result) {
 	               detail = result.list;
-	               console.log("detail[0]",detail[0].result);
 	               userHead();
 	               createUserD();
 	            });
@@ -108,17 +107,21 @@
       	}
          
           function userHead(){
-             $(".user-name").html(data[id-1].nickname + '<span>'+ id +'등</span>');
-             $(".table-user tbody tr td b").html(data[id-1].LP);
-             $(".table-user tbody tr td p").html("승률" + data[id-1].rate + "%")
-             $(".tier").html('<img src = "resources/tier/challenger_1.png">' + '<br>' + "Challenger");
+        	 var index = id % 10 - 1 ;
+        	 if(index < 0){
+        		 index = 10;
+        	 }
+        	 
+             $(".user-name").html(data[index].nickname + '<span>'+ id +'등</span>');
+             $(".table-user tbody tr td b").html(data[index].LP);
+             $(".table-user tbody tr td p").html("승률" + data[index].rate + "%")
+             $(".tier").html('<img src = "resources/tier/challenger_1.png">' + '<br>' + "Challenger"); 
           }
           
           function createUserD() {
             var tag = "";
      
             $(".table-userD tbody").empty();
-            console.log("detail",detail);
               for (var i = 0; i < detail.length; i++){
                if(detail[i].result == "win"){
                   tag += '<tr class="win">';
@@ -129,7 +132,7 @@
                tag += '<td><p>랭크게임</p><p>' + detail[i].result + '</p>'+'<p>' + detail[i].kda + '</p><p>' + detail[i].time + '</p></td>';
                tag += '<td><img src="' + detail[i].s1_url + '" class="spell"><img src="'+ detail[i].s2_url + '" class="spell"><img src="' + detail[i].s3_url + '" class="spell"></td>';
                tag += '<td><b>아 군</b><div class="uChamp"><img src="' + detail[i].Team1Url + '">' + detail[i].Team1Champname + '</div><div class="uChamp"><img src="' + detail[i].Team2Url + '">' + detail[i].Team2Champname + '</div><div class="uChamp"><img src="' + detail[i].Team3Url + '">' + detail[i].Team3Champname + '</div><div class="uChamp"><img src="' + detail[i].Team4Url + '">' + detail[i].Team4Champname + '</div><div class="uChamp"><img src="' + detail[i].Team5Url + '">' + detail[i].Team5Champname + '</div></td>';
-               tag += '<td><b>적 군</b><div class="uChamp"><img src="' + detail[i].Other1Url + '">' + detail[i].Other1Champname + '</div><div class="uChamp"><img src="' + detail[i].Other2Url + '">' + detail[i].Other2Champname + '</div><div class="uChamp"><img src="' + detail[i].Other3Url + '">' + detail[i].Other3Champname + '</div><div class="uChamp"><img src="' + detail[i].Other4Url + '">' + detail[i].Other4Champname + '</div><div class="uChamp"><img src="' + detail[i].Other5Url + '">' + detail[i].Other5Champname + '</div></td>';
+               tag += '<td><b>ㅈ 군</b><div class="uChamp"><img src="' + detail[i].Other1Url + '">' + detail[i].Other1Champname + '</div><div class="uChamp"><img src="' + detail[i].Other2Url + '">' + detail[i].Other2Champname + '</div><div class="uChamp"><img src="' + detail[i].Other3Url + '">' + detail[i].Other3Champname + '</div><div class="uChamp"><img src="' + detail[i].Other4Url + '">' + detail[i].Other4Champname + '</div><div class="uChamp"><img src="' + detail[i].Other5Url + '">' + detail[i].Other5Champname + '</div></td>';
                tag += '</tr>';
 
             }
