@@ -2,124 +2,75 @@
 <html>
 
 <head>
-<title>LOLCAKE</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="resources/bootjsp/css/main.css">
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script
-   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-   
-</script>
+    <title>LOLCAKE</title>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+     <link rel="stylesheet" href="resources/bootjsp/css/main.css">
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+    <script type='text/javascript'>
+
+    </script>
 </head>
 
 <body>
-   <section class="content">
-      <div class="col-md-12">
-         <form action="" class="search-form">
-            <div class="form-group has-feedback">
-               <label for="search" class="sr-only">Search</label> <input
-                  type="text" class="form-control" name="search" id="search"
-                  placeholder="search"> <span
-                  class="glyphicon glyphicon-search form-control-feedback"></span>
-            </div>
-         </form>
-         <div class="panel panel-default">
-            <div class="panel-body table-responsive">
-               <table class="table-commD">
-                  <tbody>
-                  </tbody>
-               </table>
-            </div>
-         </div>
-         <div class="like">
-            <div id="like" class="btn btn-default stat-item"> 
-            <img src="resources/bootjsp/img/like.png" class="icon"><b></b>
-            </div>
-            <button type="button" class="btn btn-danger"
-               style="background-color: #b1b1b1; border: none;" id="list">목록</button>
-            <button type="button" class="btn btn-danger"
-               style="background-color: #b1b1b1; border: none;"
-               data-toggle="modal" data-target="#myModal">편집</button>
-            <div id="myModal" class="modal fade text-center" role="dialog">
-               <div class="modal-dialog">
-                  <div class="modal-content">
-                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3>글 편집</h3>
-                     </div>
-                     <div class="modal-body">
-                        <input class="input-info" placeholder="닉네임" type="text">
-                        <input class="input-info" placeholder="비번" type="password">
-                     </div>
-                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger"
-                           style="background-color: #b1b1b1; border: none;" id="bbsEdit">수정</button>
-                        <button type="button" class="btn btn-danger"
-                           style="background-color: #b1b1b1; border: none;" id="bbsDelete">삭제</button>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-		
-         <div class="post-footer">
-            <input class="input-info" placeholder="닉네임" type="text"> <input
-               class="input-info" placeholder="비번" type="password">
+    <section class='content'>
+        <div class='col-md-12'>
+            <form action='' class='search-form'>
+                <div class='form-group has-feedback'>
+                    <label for='search' class='sr-only'>Search</label> <input type='text' class='form-control' name='search' id='search' placeholder='search'> <span class='glyphicon glyphicon-search form-control-feedback'></span>
+                </div>
+            </form>
+            <div class='panel panel-default'>
+                <div class='panel-body table-responsive'>
+                    <table class='table-commD'>
+                        <tbody>
 
-            <div class="input-group">
-               <input class="form-control" placeholder="댓글을 입력하세요" type="text">
-               <span class="input-group-addon"> <a href="#">글쓰기</a>
-               </span>
+                    </table>
+                </div>
             </div>
-            <ul class="comments-list">
-               <li class="comment">
-                  <div class="comment-body">
-                     <div class="comment-heading">
-                        <h4 class="user">임채영</h4>
-                        <h5 class="time">5 minutes ago</h5>
-                     </div>
-                     <p>졸리다</p>
-                  </div>
-                  <ul class="comments-list">
-                     <li class="comment">
-                        <div class="comment-body">
-                           <div class="comment-heading">
-                              <h4 class="user">최혁</h4>
-                              <h5 class="time">3 minutes ago</h5>
-                           </div>
-                           <p>동의 ~~~ 어보감 ~~~</p>
+            <div class='like'>
+                <a href='#' class='btn btn-default stat-item'> <img
+               src='resources/bootjsp/img/like.png' class='icon'>254
+            </a>
+                <button type='button' class='btn btn-danger' style='background-color: #b1b1b1; border: none;' id='list'>목록</button>
+                <button type='button' class='btn btn-danger' style='background-color: #b1b1b1; border: none;' data-toggle='modal' data-target='#myModal'>편집</button>
+                <div id='myModal' class='modal fade text-center' role='dialog'>
+                    <div class='modal-dialog'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <button type='button' class='close' data-dismiss='modal'>&times;</button>
+                                <h3>글 편집</h3>
+                            </div>
+                            <div class='modal-body'>
+                                <input class='input-info' placeholder='닉네임' type='text'>
+                                <input class='input-info' placeholder='비번' type='password'>
+                            </div>
+                            <div class='modal-footer'>
+                                <button type='button' class='btn btn-danger' style='background-color: #b1b1b1; border: none;' id='bbsEdit'>수정</button>
+                                <button type='button' class='btn btn-danger' style='background-color: #b1b1b1; border: none;' id='bbsDelete'>삭제</button>
+                            </div>
                         </div>
-                     </li>
-                     <li class="comment">
-                        <div class="comment-body">
-                           <div class="comment-heading">
-                              <h4 class="user">주용훈</h4>
-                              <h5 class="time">3 minutes ago</h5>
-                           </div>
-                           <p>ㄷㄷ</p>
-                        </div>
-                     </li>
-                  </ul>
-               </li>
-               <li class="comment">
-                  <div class="comment-body">
-                     <div class="comment-heading">
-                        <h4 class="user">임채영</h4>
-                        <h5 class="time">5 minutes ago</h5>
-                     </div>
-                     <p>졸리다</p>
-                  </div>
-               </li>
-            </ul>
-         </div>
-      </div>
+                    </div>
+                </div>
+            </div>
 
-   </section>
+            <div class='post-footer'>
+                <input class='input-info Pid' placeholder='닉네임' type='text'>
+				<input class='input-info Ppasswd' placeholder='비번' type='password'>
+               <div class='input-group'>
+                    <textarea  rows="7" class='form-control Pcomment' placeholder='댓글을 입력하세요'></textarea>
+                    <span id="reWrite" class="input-group-addon" style="background-color: rgba(177, 177, 177, 1); color: white; cursor: pointer;">글쓰기</span>
+                </div>
+                <ul class='comments-list'>
+                	<li class='comment'>
+                	</li>	
+                 </ul>
+            </div>
+        </div>
+
+    </section>
 </body>
 
 </html>

@@ -102,4 +102,58 @@ public class BoardController {
 			 HashMap<String, Object> param = HttpUtil.getParameterMap(req);
 	         HttpUtil.sendResponceToJson(resp, bsi.bbshit(param));
 	     }
+		  
+		  
+		  /*댓글보기*/
+			@RequestMapping("/replyD")
+			public ModelAndView Reply(ModelAndView mav, HttpServletRequest req) {
+				HashMap<String, Object> param = new HashMap<String, Object>();
+				param.put("no", Integer.parseInt(req.getParameter("no")));
+				
+				JSONObject jsonObject = new JSONObject();
+				jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(bsi.Reply(param)));
+				mav.addObject("message", jsonObject.toString());
+				
+				mav.setViewName("json");
+				return mav;
+			}
+			/*댓글쓰기*/
+			@RequestMapping("/replyWrite")
+			public ModelAndView reWrite(ModelAndView mav, HttpServletRequest req, HttpSession session) {
+				HashMap<String, Object> param = HttpUtil.getParameterMap(req);
+				
+				JSONObject jsonObject = new JSONObject();
+				jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(bsi.reWrite(param)));
+				mav.addObject("message", jsonObject.toString());
+
+				mav.setViewName("json");
+				return mav;
+			}
+			
+			
+			/*댓글수정*/
+			@RequestMapping("/reEdit")
+			public ModelAndView reEdit(ModelAndView mav, HttpServletRequest req, HttpSession session) {
+				HashMap<String, Object> param = HttpUtil.getParameterMap(req);
+				JSONObject jsonObject = new JSONObject();
+				jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(bsi.reEdit(param)));
+				mav.addObject("message", jsonObject.toString());
+				mav.setViewName("json");
+				return mav;
+			}
+			
+			/********************************
+			 * 댓글 삭제
+			 ***************************************/
+			@RequestMapping("/reRemove")
+			public ModelAndView reRemove(ModelAndView mav, HttpServletRequest req, HttpSession session) {
+				HashMap<String, Object> param = HttpUtil.getParameterMap(req);
+				JSONObject jsonObject = new JSONObject();
+				jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(bsi.reRemove(param)));
+				mav.addObject("message", jsonObject.toString());
+				mav.setViewName("json");
+				return mav;
+			}
+
+		
 }

@@ -18,7 +18,7 @@ body {
 	min-height: calc(100vh - 230px);
 }
 
-/***********************네비**************************/
+/***********************�꽕鍮�**************************/
 .navbar .navbar-nav {
 	display: inline-block;
 	float: none;
@@ -135,7 +135,7 @@ body {
 
 
 
-/*********************검색창**************************/
+/*********************寃��깋李�**************************/
 #imaginary_container {
 	margin: 3% 0;
 }
@@ -155,7 +155,7 @@ body {
 	background: transparent;
 }
 
-/*********************테이블**************************/
+/*********************�뀒�씠釉�**************************/
 .panel {
 	border: 1px solid #ddd;
 	background-color: #fcfcfc;
@@ -338,7 +338,7 @@ body {
 	font-size: 14px;
 }
 
-/*******************글쓰기************************/
+/*******************湲��벐湲�************************/
 .bbswrite input {
 	border: none;
 	border-bottom: 1px dotted;
@@ -356,7 +356,7 @@ body {
 	width: 100%;
 }
 
-/*****************랭킹*******************/
+/*****************�옲�궧*******************/
 .progress {
 	height: 35px;
 	margin: 0;
@@ -389,7 +389,7 @@ body {
 	color: #3a5dbe;
 }
 
-/*******************글상세보기****************/
+/*******************湲��긽�꽭蹂닿린****************/
 .table-commD {
 	width: 100%;
 }
@@ -426,126 +426,129 @@ body {
 }
 
 /**********************코멘트***************/
+
 .like {
-	width: 100%;
-	text-align: right;
-	margin-bottom: 15px;
+    width: 100%;
+    text-align: right;
+    margin-bottom: 15px;
 }
 
 .stat-item {
-	display: inline-block;
-	vertical-align: middle;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .stat-item .icon {
-	margin-right: 8px;
-	width: 20px;
+    margin-right: 8px;
+    width: 20px;
 }
 
 .post-footer {
-	border-top: 1px solid #ddd;
-	padding-top: 15px;
-	position: relative;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+    position: relative;
 }
 
-.post-footer .input-group-addon a {
-	color: #454545;
-}
+
 
 .post-footer .comments-list {
-	padding: 0;
-	margin-top: 20px;
-	list-style-type: none;
-	position: relative;
+    padding: 0;
+    margin-top: 20px;
+    list-style-type: none;
+    position: relative;
 }
 
 .post-footer .comments-list .comment-body {
-	padding: 10px;
-	background-color: white;
-	border-radius: 4px;
-	border: 1px dotted #989393;
-	z-index: 99;
+    padding: 10px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px dotted #989393;
+    z-index: 99;
 }
 
 .post-footer .comments-list .comment {
-	display: block;
-	width: 100%;
-	margin: 10px 0;
+    display: block;
+    width: 100%;
+    margin: 10px 0;
 }
 
-.post-footer .comments-list .comment p {
-	margin: 0;
+.post-footer .comments-list .comment .cmt {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+.post-footer .comments-list .comment .hideBtn button{
+	padding: 10px;
 }
 
 .post-footer .comments-list .comment .avatar {
-	width: 35px;
-	height: 35px;
+    width: 35px;
+    height: 35px;
 }
 
 .post-footer .comments-list .comment .comment-heading {
-	display: block;
-	width: 100%;
+    display: block;
+    width: 100%;
 }
 
 .post-footer .comments-list .comment .comment-heading .user {
-	font-size: 14px;
-	font-weight: bold;
-	display: inline;
-	color: #14296f;
-	margin-top: 0;
-	margin-right: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline;
+    color: #14296f;
+    margin-top: 0;
+    margin-right: 10px;
 }
 
 .post-footer .comments-list .comment .comment-heading .time {
-	font-size: 12px;
-	color: #aaa;
-	margin-top: 0;
-	display: inline;
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 0;
+    display: inline;
 }
 
-.post-footer .comments-list .comment .comments-list {
-	padding-left: 50px;
-	margin-top: 0;
-	position: relative;
+/* .post-footer .comments-list .comment .comments-list {
+    padding-left: 50px;
+    margin-top: 0;
+    position: relative;
 }
 
 .post-footer .comments-list .comment .comments-list li {
-	position: relative;
+    position: relative;
 }
 
 .post-footer .comments-list .comment .comments-list:before {
-	content: '';
-	width: 2px;
-	height: 100%;
-	background: #c7cacb;
-	position: absolute;
-	left: 25px;
-	top: 0;
+    content: '';
+    width: 2px;
+    height: 100%;
+    background: #c7cacb;
+    position: absolute;
+    left: 25px;
+    top: 0;
 }
 
 .post-footer .comments-list .comment .comments-list li:before {
-	content: '';
-	width: 26px;
-	height: 2px;
-	background: #c7cacb;
-	position: absolute;
-	top: 30px;
-	left: -25px;
-}
+    content: '';
+    width: 26px;
+    height: 2px;
+    background: #c7cacb;
+    position: absolute;
+    top: 30px;
+    left: -25px;
+} */
 
 .input-info {
-	height: 34px;
-	line-height: 1.42857143;
-	padding: 0 12px;
-	font-size: 14px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	color: #555;
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-	margin-bottom: 5px;
+    height: 34px;
+    line-height: 1.42857143;
+    padding: 0 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #555;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    margin-bottom: 5px;
 }
 
-/********************챔피언******************/
+/********************梨뷀뵾�뼵******************/
 .panel-champ {
 	padding: 15px 10px;
 }
@@ -583,8 +586,8 @@ body {
 	}
 }
 
-/*******************챔피언디******************/
-/*******************챔피언디******************/
+/*******************梨뷀뵾�뼵�뵒******************/
+/*******************梨뷀뵾�뼵�뵒******************/
 .champ-skill {
 	padding: 0 5px;
 }
@@ -657,7 +660,7 @@ body {
 	height: 100%;
 }
 
-/********************푸터*************************/
+/********************�뫖�꽣*************************/
 footer {
 	margin-top: 30px;
 	width: 100%;
@@ -679,7 +682,7 @@ footer span {
 	padding: 10px;
 }
 
-/****************유저인포*************/
+/****************�쑀���씤�룷*************/
 .win {
 	background-color: #a3cfec;
 }

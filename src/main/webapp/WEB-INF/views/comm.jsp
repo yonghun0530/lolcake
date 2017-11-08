@@ -16,6 +16,7 @@
     var hash = location.hash;
     var data = []; // 데이터 담을 배열 변수 선언
     var bbsD = [];
+    var reply = [];
     var page = 1; // 현재 페이지 값
     var viewRow = 10; // 화면에 보여질 행 갯수
     var totCnt = 0; // 데이터 전체 객수
@@ -322,9 +323,163 @@
                     $('#bbsDelete').on('click',function(){
                        editError('#bbsDelete');
                     });
+
+                    /* 댓글쓰기 */
+                    $("#reWrite").click(function reWrite() {
+
+                        no = bbsD.no;
+                        var id = $(".Pid").val();
+                        var passwd = $(".Ppasswd").val();
+                        var comment = $(".Pcomment").val();
+                        comment = comment.replace(/\n/g, "<br>");
+                        var Cparam = {
+                            "no": no,
+                            "comment": comment,
+                            "id": id,
+                            "passwd": passwd
+                        };
+
+                        if (comment == "") {
+                            alert("내용을 입력하세요");
+                        } else if (id == "") {
+                            alert("ID을 입력하세요");
+                        } else if (passwd == "") {
+                            alert("비밀번호를 입력하세요");
+                        } else {
+
+                            $.ajax({
+                                type: "post",
+                                url: "replyWrite",
+                                typedata: "json",
+                                data: Cparam
+                            }).done(function(result) {
+                                alert("작성이 완료되었습니다.");
+                                passwd = $(".Ppasswd").val("");
+                                comment = $(".Pcomment").val("");
+                                id = $(".Pid").val("");
+                                $(".comment").empty();
+                                Reply();
+                            });
+                        }
                 });
                
             }
+                
+
+                function createCmt() {
+                    var replyC = [];
+                    for (var i = 0; i < reply.length; i++) {
+                        var tag = "";
+                        tag += "<li class='comment'>" +
+                            "<div class='comment-body'>" +
+                            "<div class='comment-heading'>" +
+                            "<h4 class='user'>" +
+                            reply[i].id +
+                            "</h4>" +
+                            "<h5 class='time'>" +
+                            reply[i].datetime +
+                            "</h4>" +
+                            "</div>" +
+                            "<div class='row'>" +
+                            "<p class='col-xs-12 cmt'>" +
+                            reply[i].comment +
+                            "</p>" +
+                            "<textarea class='Edit' rows='10' style='width: 97%; margin-left:15px;'>" +
+                            "</textarea>" +
+                            "<div class='col-xs-12 text-right cmtBtn'>" +
+                            "<button type='button' class='btn btn-danger cmtBtnEdit' style='background-color: #b1b1b1; border: none;'>편집</button>" +
+                            "<div class='hideInput'>" +
+                            "<input class='input-info Eid' placeholder='닉네임' type='text'>" +
+                            "<input class='input-info Epasswd' placeholder='비번' type='password'>" +
+                            "<input class='input-info okay' type='button' value='확인'>" +
+                            "</div>" +
+                            "<div class='hideBtn'>" +
+                            "<button type='button' class='btn btn-danger cmtBtnUpdate' style='background-color: #b1b1b1; border: none; margin: 5px;'>수정</button>" +
+                            "<button type='button' class='btn btn-danger cmtBtnDelete' style='background-color: #b1b1b1; border: none;'>삭제</button>" +
+                            "</div>" +
+                            "</div>" +
+                            "</div>" +
+                            "</div>" +
+                            "</li>";
+
+                        $(".comment").parent().eq(0).append(tag);
+                    }
+                    $('.hideInput').hide();
+                    $('.hideBtn').hide();
+                    $('.Edit').hide();
+                    /* 편집버튼 */
+                    $('.cmtBtnEdit').click(function() {
+                        var i = $(".cmtBtnEdit").index(this);
+
+                        $('.hideInput').eq(i).show();
+                        $(this).hide();
+                        alert('댓글에 ID와 비밀번호를 입력해주세요');
+                    });
+
+
+                    /* 로그인?버튼 */
+                    $('.okay').click(function() {
+                        var i = $('.okay').index(this);
+                        var comment = $(".cmt").eq(i).html();
+                        comment = comment.replace(/<br>/g, '\n');
+                        $('.Edit').eq(i).text(comment);
+
+                        if ($('.Eid').eq(i).val() == reply[i].id && $('.Epasswd').eq(i).val() == reply[i].passwd) {
+                            $('.hideBtn').eq(i).show();
+                            $('.hideInput').eq(i).hide();
+                            $('.Edit').eq(i).show();
+                            $('.cmt').eq(i).hide();
+                        } else {
+                            alert('ID와Password가 정확하지 않습니다.');
+                        }
+
+                    });
+
+                    $(".cmtBtnDelete").click(function() {
+                        var j = $(".cmtBtnDelete").index(this);
+
+                        var d = {
+                            "no": reply[j].no
+                        }
+                        $.ajax({
+                            type: 'post',
+                            typedata: 'json',
+                            data: d,
+                            url: 'reRemove'
+                        }).done()
+
+                        alert("삭제되었습다")
+                        $(".comment").empty();
+                        Reply();
+                    })
+
+                    /* 수정버튼 */
+                    $('.cmtBtnUpdate').click(function() {
+                        var index = $('.cmtBtnUpdate').index(this);
+                        var comment = $(".Edit").eq(index).val();
+                        comment = comment.replace(/\n/g, '<br>');
+                        var d = {
+                            "no": reply[index].no,
+                            "comment": comment
+                        }
+                        $.ajax({
+                            type: "post", // post 방식으로 통신 요청
+                            url: "reEdit", // Spring에서 만든 URL 호출
+                            typedata: "json",
+                            data: d
+                        }).done(
+                            function(result) { // 비동기식 데이터 가져오기
+
+                                alert("수정하였습니다")
+                                $('.hideBtn').eq(index).hide();
+                                $('.Edit').eq(index).hide();
+                                $('.cmt').eq(index).show();
+                            });
+                        $(".comment").empty();
+                        Reply();
+                    });
+
+                }
             
             //페이징 
             function createPaging() {
@@ -381,6 +536,24 @@
                createBbs();
             });
          }
+            
+          function Reply() {
+              var d = {
+                  "no": no
+              };
+              $.ajax({
+                  type: "post", // post 방식으로 통신 요청
+                  url: "replyD", // Spring에서 만든 URL 호출
+                  typedata: "json",
+                  data: d
+              }).done(function(result) { // 비동기식 데이터 가져오기
+                  dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
+                  reply = dataJson.replyD;
+
+                  createCmt();
+              });
+          }
+
             
          initData();
          

@@ -16,4 +16,11 @@ public interface BoardServiceInterface {
 	   public HashMap<String, Object> delete(HashMap<String, Object> param);
 	   public HashMap<String, Object> bbshit(HashMap<String, Object> param);
 	   public HashMap<String, Object> bbslike(HashMap<String, Object> param);
+	   public HashMap<String, Object> Reply(HashMap<String, Object> param);
+
+	   public HashMap<String, Object> reWrite(HashMap<String, Object> param);
+
+	   public HashMap<String, Object> reEdit(HashMap<String, Object> param);
+
+	   public HashMap<String, Object> reRemove(HashMap<String, Object> param);
 }
