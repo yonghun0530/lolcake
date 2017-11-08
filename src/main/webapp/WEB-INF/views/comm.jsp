@@ -173,7 +173,7 @@
               
             // 글쓰기 부분 두가지로 구성. 쓰기 OR 수정 
             function writeBbs(write){
-                console.log(write);
+                console.log(write, bbsD, no);
                 $('.container').load('resources/bootjsp/write.html',function(){
                    $('.bbswrite input').eq(1).hide();
                     var $target = "FREE";
@@ -287,8 +287,6 @@
                     
                     Reply();
                     
-                    
-                    
                     $(".table-commD tbody").empty();
                     var tag = "";
                     tag += '<tr><td><p>' + bbsD.datetime + '<span>'
@@ -302,7 +300,7 @@
                     if(bbsD.type == "MOVIE"){
                        var movie = bbsD.url.split("/");
                        if(movie[2] == "www.youtube.com" || movie[2] == "youtu.be"){
-                          tag += '<iframe src="https://www.youtube.com/embed/' + movie[movie.length - 1] + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
+                          tag += '<iframe src="https://www.youtube.com/embed/' + movie[movie.length - 1] + '" width="100%" height="100%"frameborder="0" allowfullscreen></iframe>';
                        }else{
                           tag += '<iframe src="' + bbsD.url + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
                        }       
@@ -321,7 +319,8 @@
                     $('#bbsEdit').on('click',function(){
                        editError('#bbsEdit');
                     });
-                    
+                    $('.comm-body img').css("width","auto");
+                    $('.comm-body img').css("height","auto");
                     //삭제버튼클릭시
                     $('#bbsDelete').on('click',function(){
                        editError('#bbsDelete');
@@ -367,7 +366,7 @@
                 });
                
             });
-            }
+         }
                 
 
                 function createCmt() {
