@@ -58,7 +58,6 @@
                   $("#champImg").attr("src",  data[0].path + "/" + data[0].img);
                   $("tbody").empty();
                   for(var i = 0; i < result.data.length; i++){
-//                     console.log(result.data[i]);
                      $("#skills img").eq(i).attr("src",  data[i].skill_path + "/" + data[i].skill_img);
                      $("tbody").append("<tr><td>" + data[i].skillname + "</td><td>" + data[i].dept + "</td></tr>");
                   }
@@ -106,6 +105,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
+            <img src="resources/bootjsp/img/logo.png" style="width:60px; position:absolute; left:-1px; top:-7px;">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -113,7 +113,7 @@
       </button>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
-            <img src="resources/bootjsp/img/logo.png" style="width:60px; position:absolute; left:-1px; top:-7px;">
+            
                 <ul class="nav navbar-nav navbar-center">
                     <li>
                         <a href="/lolcake/">

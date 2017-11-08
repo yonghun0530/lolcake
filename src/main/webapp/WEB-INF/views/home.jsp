@@ -24,7 +24,6 @@
         }).done(function(result) { // 비동기식 데이터 가져오기
            dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
            data = dataJson.list;
-//           console.log(data);
            createHtml("if");
         });
      }
@@ -38,7 +37,6 @@
         }).done(function(result) { // 비동기식 데이터 가져오기
            dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
            data = dataJson.list;
-//           console.log(data);
            createHtml("mv");
         });
      }

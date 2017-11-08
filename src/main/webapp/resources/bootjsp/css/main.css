@@ -148,6 +148,9 @@ body {
 	#myNavbar ul li a:hover {
 		background-color: transparent;
 	}
+	#myNavbar img{
+		top:-1px;
+	}
  	.table-comm tbody tr td:nth-child(4){
 		width:60%!important;
 	} 

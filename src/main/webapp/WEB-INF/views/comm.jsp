@@ -143,7 +143,6 @@
             
               //편집시 아이디와 패스워드 검사 후 버튼별 이벤트 지정
              function editError(button){
-            	console.log($no, bbsD.nickname, bbsD.passwd);
                 id = $('#myModal').find('input').eq(0).val();
                 pwd = $('#myModal').find('input').eq(1).val();
                 
@@ -159,7 +158,6 @@
                       var d = {
                          "no" : $no
                       };
-                      console.log(d);
                       $.ajax({
                          type : "post", // post 방식으로 통신 요청
                          url : "Delete", // Spring에서 만든 URL 호출
@@ -185,7 +183,6 @@
               
             // 글쓰기 부분 두가지로 구성. 쓰기 OR 수정 
             function writeBbs(write){
-                console.log(write, bbsD, $no);
                 $('.container').load('resources/bootjsp/write.html',function(){
                    $('.bbswrite input').eq(1).hide();
                     var $target = "FREE";
@@ -241,7 +238,6 @@
                         var nickname = $("#nickname").val();
                         var passwd = $("#passwd").val();
                         var url = $("#url").val();
-                        console.log(type);
                        
                       var param = {
                             "type":$target,
@@ -262,8 +258,8 @@
                          alert("이름을 입력하세요");
                       }else if(passwd==""){
                          alert("비밀번호를 입력하세요");
-                      }else if(type==""){
-                         alert("게시판을 선택하세요");
+                      }else if(type == "MOVIE" && url == "http://"){
+                         alert('동영상을 입력하세요');
                       }else{
                          if(write != "WRITE"){
                             $.ajax({
@@ -272,7 +268,6 @@
                                  typedata : "json",
                                  data : param
                               }).done(function(result) { // 비동기식 데이터 가져오기
-                                 console.log(param);
                               alert("수정하였습니다")
                                  location.href = '/lolcake/comm';
                               });
@@ -532,7 +527,6 @@
                totCnt = dataJson.totCntall.tot;
                createPaging();
                createHtml(); // 화면에 표현하기 위하여 함수 호출
-               console.log(data);
             });
          }
             
@@ -550,7 +544,6 @@
             }).done(function(result) { // 비동기식 데이터 가져오기
                dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
                bbsD = dataJson.bbsD;
-               console.log();
                createBbs();
             });
          }
@@ -583,6 +576,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
+            <img src="resources/bootjsp/img/logo.png" style="width:60px; position:absolute; left:-1px; top:-7px;">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -590,7 +584,7 @@
       </button>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
-            	<img src="resources/bootjsp/img/logo.png" style="width:60px; position:absolute; left:-1px; top:-7px;">
+            	
                 <ul class="nav navbar-nav navbar-center">
                     <li>
                         <a href="/lolcake/">
