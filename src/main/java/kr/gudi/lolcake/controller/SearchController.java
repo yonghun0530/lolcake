@@ -54,4 +54,5 @@ public class SearchController {
 	      }
 	      return viewName;
 	   }
+	   /*커밋*/
 }
