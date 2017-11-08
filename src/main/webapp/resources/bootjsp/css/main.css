@@ -619,9 +619,9 @@ body {
 	width: 100%;
 }
 
- .modal {
- top:30%;
-} 
+.modal {
+	padding-top:10%;
+}  
 
 .img-footer {
 	position: absolute;
