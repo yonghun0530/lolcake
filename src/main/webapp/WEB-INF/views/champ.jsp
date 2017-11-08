@@ -113,6 +113,7 @@
       </button>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
+            <img src="resources/bootjsp/img/logo.png" style="width:60px; position:absolute; left:-1px; top:-7px;">
                 <ul class="nav navbar-nav navbar-center">
                     <li>
                         <a href="/lolcake/">

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="resources/bootjsp/css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="resources/ckeditor/ckeditor.js"></script>
     
     <script type="text/javascript">
     var hash = location.hash;
@@ -20,7 +21,7 @@
     var page = 1; // 현재 페이지 값
     var viewRow = 10; // 화면에 보여질 행 갯수
     var totCnt = 0; // 데이터 전체 객수
-    var no;
+    var $no;
     var id;
     var pwd;
 
@@ -46,19 +47,31 @@
                   $target = 배열[0];
                   page = 배열[1];
                   pageload();
-               }else if(data == "WRITE" | data == "EDIT"){
+               }else if(data == "WRITE"){
               		writeBbs(data);
-               }else{
+               }else if(data.split('-') != '-1'){
                   var 배열 = data.split('-');
-                  no = 배열[1];
-                  hitandlike("hit");
+                  $no = 배열[1];
+                  if(배열[0] == "EDIT"){
+                	location.hash = "";
+                	location.reload();
+                	alert('정상적인 경로가 아닙니다.');
+                  }else{
+                  	hitandlike("hit");
+                  }
+               }else{
+            	   location.reload();
+            	   alert('정상적인 경로가 아닙니다.');
                }
            }
            
-           function popstateEvent(event) {
-              location.reload();
+            function popstateEvent(event) {
+            	 hash = location.hash;
+            	if(hash.indexOf("EDIT") == -1 ){
+            		location.reload();
+            	}
             }
-
+  
 
             $(window).on('popstate', popstateEvent);
            
@@ -88,56 +101,55 @@
             //게시판 리스트 html 구현
             function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
             $(".table-comm tbody").empty();
-         
-            
-            //상세보기 html
-            for (var i = 0; i < data.length; i++) {
-               var tag = "";
-               tag += '<tr data-status="' + data[i].type + '">';
-               tag += '<td class="no">' + data[i].no + '</td>';
-               tag += '<td class="divide">' + data[i].divide + '</td>';
-               tag += '<td>';
-               if(data[i].type == "MOVIE"){
-                  var movie = data[i].url.split("/");
-                  if(movie[2] == "www.youtube.com" || movie[2] == "youtu.be"){
-                     tag += '<img class="media-photo" src="' + 'http://img.youtube.com/vi/' + movie[movie.length - 1] + '/0.jpg' + '">';
-                  }else{
-                     tag += '<img class="media-photo" src="' + 'https://odenseofficial.com/web/img/news/img_video_over.png' + '">';
-                  }
-                  
-               }
-               tag += '<p class="'+data[i].type+'" data-target="'+data[i].type+'">(' + data[i].type + ')</p></td>';
-               tag += '<td>' + data[i].title + '</td>';
-               tag += '<td>'+data[i].nickname+'</li>';
-               tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].like +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
-               tag += '</tr>';
-               $(".table-comm tbody").append(tag);
-            }
-            
-            if($target !="ALL"){
-               $('.divide').show();
-               $('.no').hide();
-            }else{
-               $('.divide').hide();
-               $('.no').show();
-            }
-            
-               $('.table-comm tbody tr').on('click', function () {
-                   no = $(this).find('td').eq(0).text();
-                   $target =  $(this).data('status');
-                   location.hash = $target + "-" + no;
-               });
-               
-         }
+	            //상세보기 html
+	            for (var i = 0; i < data.length; i++) {
+	               var tag = "";
+	               tag += '<tr data-status="' + data[i].type + '">';
+	               tag += '<td class="no">' + data[i].no + '</td>';
+	               tag += '<td class="divide">' + data[i].divide + '</td>';
+	               tag += '<td>';
+	               if(data[i].type == "MOVIE"){
+	                  var movie = data[i].url.split("/");
+	                  if(movie[2] == "www.youtube.com" || movie[2] == "youtu.be"){
+	                     tag += '<img class="media-photo" src="' + 'http://img.youtube.com/vi/' + movie[movie.length - 1] + '/0.jpg' + '">';
+	                  }else{
+	                     tag += '<img class="media-photo" src="' + 'https://odenseofficial.com/web/img/news/img_video_over.png' + '">';
+	                  }
+	                  
+	               }
+	               tag += '<p class="'+data[i].type+'" data-target="'+data[i].type+'">(' + data[i].type + ')</p></td>';
+	               tag += '<td>' + data[i].title + '</td>';
+	               tag += '<td>'+data[i].nickname+'</li>';
+	               tag += '<td><p>' + data[i].datetime + '</p><i><img src="resources/bootjsp/img/like.png">'+ data[i].like +'<img src="resources/bootjsp/img/click.png">'+ data[i].hit +'</i></td>';
+	               tag += '</tr>';
+	               $(".table-comm tbody").append(tag);
+	            }
+	            
+	            if($target !="ALL"){
+	               $('.divide').show();
+	               $('.no').hide();
+	            }else{
+	               $('.divide').hide();
+	               $('.no').show();
+	            }
+	            
+	               $('.table-comm tbody tr').on('click', function () {
+	                   $no = $(this).find('td').eq(0).text();
+	                   $target =  $(this).data('status');
+	                   location.hash = $target + "-" + $no;
+	               });
+	               
+	         }
             
               //편집시 아이디와 패스워드 검사 후 버튼별 이벤트 지정
              function editError(button){
+            	console.log($no, bbsD.nickname, bbsD.passwd);
                 id = $('#myModal').find('input').eq(0).val();
                 pwd = $('#myModal').find('input').eq(1).val();
                 
                 if(id == null | pwd == null){
                    alert("아이디 또는 비번을 입력해야합니다.");
-                }else if(bbsD.nickname != id && bbsD.passwd != pwd){
+                }else if(bbsD.nickname != id | bbsD.passwd != pwd){
                    alert("아이디 또는 비번이 잘못되었습니다.");
                 }else{
                    if(button == "#bbsEdit"){
@@ -145,7 +157,7 @@
                        writeBbs("EDIT");                 
                    }else{
                       var d = {
-                         "no" : no
+                         "no" : $no
                       };
                       console.log(d);
                       $.ajax({
@@ -165,7 +177,7 @@
                          type : "post",
                          url : url,
                          typedata : "json",
-                         data : {"no" : no}
+                         data : {"no" : $no}
                       }).done(function(result) { 
                          bbsData();
                       });
@@ -173,11 +185,14 @@
               
             // 글쓰기 부분 두가지로 구성. 쓰기 OR 수정 
             function writeBbs(write){
-                console.log(write, bbsD, no);
+                console.log(write, bbsD, $no);
                 $('.container').load('resources/bootjsp/write.html',function(){
                    $('.bbswrite input').eq(1).hide();
                     var $target = "FREE";
                      location.hash = write;
+                    if(write == "EDIT"){
+                    	location.hash = write + "-" + $no;
+                    }
                     $('.btn-filter').on('click', function() {
                         $target = $(this).data('target');
                         writeload();
@@ -203,7 +218,7 @@
                               CKEDITOR.instances['contents'].destroy();
                           }
                           CKEDITOR.replace('contents', {
-                              customConfig: 'resources/js/config.js'
+                              customConfig: 'config.js'
                           });
                           
                           if(write != "WRITE"){
@@ -212,7 +227,7 @@
                       });
                        
                     if(write != "WRITE"){
-                       $("#title").val(bbsD.title);                          
+                        $("#title").val(bbsD.title);                          
                         $("#nickname").val(bbsD.nickname);
                         if(bbsD.type =="MOVIE"){
                            $("#url").val(bbsD.url);
@@ -235,7 +250,7 @@
                             "nickname" : nickname,
                             "passwd":passwd,
                             "url":url,
-                            "no": no
+                            "no": $no
                          };
                       
                       
@@ -281,7 +296,7 @@
             //상세보기 html 부분구현
             function createBbs(){
                 $('.container').load('resources/bootjsp/commD.html', function(){
-                    $('#list').on('click', function () {
+                	$('#list').on('click', function () {
                        location.href = '/lolcake/comm';
                      });
                     
@@ -300,9 +315,9 @@
                     if(bbsD.type == "MOVIE"){
                        var movie = bbsD.url.split("/");
                        if(movie[2] == "www.youtube.com" || movie[2] == "youtu.be"){
-                          tag += '<iframe src="https://www.youtube.com/embed/' + movie[movie.length - 1] + '" width="100%" height="100%"frameborder="0" allowfullscreen></iframe>';
+                          tag += '<div class="video-container"><iframe src="https://www.youtube.com/embed/' + movie[movie.length - 1] + '" width="100%" height="315" frameborder="0" allowfullscreen></iframe></div>';
                        }else{
-                          tag += '<iframe src="' + bbsD.url + '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
+                          tag += '<div class="video-container"><iframe src="' + bbsD.url + '" width="100%" height="315" frameborder="0" allowfullscreen></iframe></div>';
                        }       
                     }      
                     tag += bbsD.dept+ '</td></tr>';
@@ -329,13 +344,13 @@
                     /* 댓글쓰기 */
                     $("#reWrite").click(function reWrite() {
 
-                        no = bbsD.no;
+                        $no = bbsD.no;
                         var id = $(".Pid").val();
                         var passwd = $(".Ppasswd").val();
                         var comment = $(".Pcomment").val();
                         comment = comment.replace(/\n/g, "<br>");
                         var Cparam = {
-                            "no": no,
+                            "no": $no,
                             "comment": comment,
                             "id": id,
                             "passwd": passwd
@@ -366,7 +381,7 @@
                 });
                
             });
-         }
+            }
                 
 
                 function createCmt() {
@@ -524,7 +539,7 @@
             //게시판 상세보기 데이터 불러오기
           function bbsData() { // 디비에서 데이터 가져오기 위한 함수
             var d = {
-                  "no" : no
+                  "no" : $no
                };
             
             $.ajax({
@@ -542,7 +557,7 @@
             
           function Reply() {
               var d = {
-                  "no": no
+                  "no": $no
               };
               $.ajax({
                   type: "post", // post 방식으로 통신 요청
@@ -575,6 +590,7 @@
       </button>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
+            	<img src="resources/bootjsp/img/logo.png" style="width:60px; position:absolute; left:-1px; top:-7px;">
                 <ul class="nav navbar-nav navbar-center">
                     <li>
                         <a href="/lolcake/">
@@ -603,13 +619,6 @@
     <div class="container" style="margin-top:90px">
         <section class="content">
             <div class="col-md-12"> 
-<!--             <form action="" class="search-form"> -->
-<!--                 <div class="form-group has-feedback"> -->
-<!--                   <label for="search" class="sr-only">Search</label> -->
-<!--                   <input type="text" class="form-control" name="search" id="search" placeholder="search"> -->
-<!--                     <span class="glyphicon glyphicon-search form-control-feedback"></span> -->
-<!--                </div> -->
-<!--             </form> -->
             <div class="panel panel-default">
                <div class="panel-body">
                   <div>
@@ -619,7 +628,7 @@
                                     <button type="button" class="btn btn-warning btn-filter" data-target="INFO">INFO</button>
                                     <button type="button" class="btn btn-danger btn-filter" data-target="MOVIE">MOVIE</button>
                             </div>
-                      <h1>ALL</h1>
+                      <h1 style="vertical-align:middle">ALL</h1>
                      <table class="table table-filter table-comm">
                         <tbody>
                            
