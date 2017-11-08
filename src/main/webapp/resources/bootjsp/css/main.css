@@ -17,7 +17,11 @@ body {
 .container {
 	min-height: calc(100vh - 230px);
 }
-
+.comm-body img{
+	max-width:100%!important;
+	width:auto;
+	height:auto;
+}
 /***********************�꽕鍮�**************************/
 .navbar .navbar-nav {
 	display: inline-block;
@@ -181,6 +185,7 @@ body {
 	border-bottom: 1px solid #eee;
 }
 
+
 .table-filter tbody tr:hover {
 	cursor: pointer;
 	background-color: #eee;
@@ -207,25 +212,34 @@ body {
 }
 
 .table-comm tbody tr td:nth-child(3), .table-filter .media-photo {
-	width: 50px;
+	width: 100px;
 }
 
 .table-comm tbody tr td:nth-child(3) p {
 	padding: 5px;
 	margin: 0 0;
 }
-
 .table-comm tbody tr td:nth-child(4) {
 	color: #4b4b4b;
 	font-size: 16px;
 	font-weight: bold;
 	text-align: left;
+	width : auto;
+	text-overflow : ellipsis;
+	overflow: hidden;
+	white-space:nowrap; 
 }
-
+.table-comm{
+	table-layout:fixed;
+}
 .table-comm tbody tr td:nth-child(5) {
 	font-size: 13px;
 	color: #0d6290;
 	width: 100px;
+}
+
+.table-comm tbody tr td{
+
 }
 
 .table-comm tbody tr td:nth-child(6) {
