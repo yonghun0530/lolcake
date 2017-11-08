@@ -312,6 +312,7 @@
                     $(".table-commD tbody").append(tag);
                  
                     $(".like b").text(bbsD.like);
+                    
                     $("#like").off().on("click",function(){
                        hitandlike("like");
                     });
