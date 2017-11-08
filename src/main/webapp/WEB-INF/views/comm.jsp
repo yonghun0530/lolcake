@@ -127,8 +127,10 @@
                    no = $(this).find('td').eq(0).text();
                    $target =  $(this).data('status');
                    location.hash = $target + "-" + no;
+                   
    /*                 hitandlike("hit"); */
                });
+               
          }
             
               //편집시 아이디와 패스워드 검사 후 버튼별 이벤트 지정
@@ -284,6 +286,7 @@
                     $('#list').on('click', function () {
                        location.href = '/lolcake/comm';
                      });
+                    Reply();
                     
                     
                     
@@ -363,6 +366,7 @@
                         }
                 });
                
+            });
             }
                 
 
@@ -417,7 +421,7 @@
                     });
 
 
-                    /* 로그인?버튼 */
+                    /* 유효성검사버튼 */
                     $('.okay').click(function() {
                         var i = $('.okay').index(this);
                         var comment = $(".cmt").eq(i).html();
@@ -532,7 +536,7 @@
             }).done(function(result) { // 비동기식 데이터 가져오기
                dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
                bbsD = dataJson.bbsD;
-               console.log(bbsD);
+               console.log();
                createBbs();
             });
          }
@@ -549,7 +553,6 @@
               }).done(function(result) { // 비동기식 데이터 가져오기
                   dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
                   reply = dataJson.replyD;
-
                   createCmt();
               });
           }
