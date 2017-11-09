@@ -55,7 +55,10 @@
                   data : {no : no}
                }).done(function(result) { // 비동기식 데이터 가져오기
                   data = result.data;
+               	  //$(".champ-skill .skill p").empty();
                   $("#champImg").attr("src",  data[0].path + "/" + data[0].img);
+                  //$(".champ-skill .skill p").append("<p>" + data[0].champname + "</p>")
+                  $('#champName').text(data[0].champname);
                   $("tbody").empty();
                   for(var i = 0; i < result.data.length; i++){
                      $("#skills img").eq(i).attr("src",  data[i].skill_path + "/" + data[i].skill_img);
@@ -88,7 +91,7 @@
             function popstateEvent(event) {
                hash = location.hash;
                if(hash != ""){
-                  pageload();
+                 // pageload();
                }else{
                   location.href = "/lolcake/champ";
                }
