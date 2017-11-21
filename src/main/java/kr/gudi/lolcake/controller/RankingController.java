@@ -1,5 +1,6 @@
 package kr.gudi.lolcake.controller;
 
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,18 +14,25 @@ import kr.gudi.util.HttpUtil;
 
 @Controller
 public class RankingController {
-	
+
 	@Autowired
 	RankingServiceInterface rsi;
-	
+
 	@RequestMapping(value = "/ranking", method = RequestMethod.GET)
-	public ModelAndView ranking(ModelAndView mav){
+	public ModelAndView ranking(ModelAndView mav) {
 		mav.setViewName("ranking");
 		return mav;
 	}
-	
-	  @RequestMapping(value = "/rankingData", method = RequestMethod.POST)
-      public void readData(HttpServletRequest req, HttpServletResponse resp){
-         HttpUtil.sendResponceToJson(resp, rsi.ranking());
-     }
+
+	@RequestMapping(value = "/rankingData", method = RequestMethod.POST)
+	public ModelAndView readData(ModelAndView mav, HttpServletResponse resp) {
+		return HttpUtil.makeHashToJsonModelAndView(rsi.ranking());
+	}
+
+	@RequestMapping(value = "/userDData", method = RequestMethod.POST)
+	public ModelAndView readData2(ModelAndView mav, HttpServletRequest req, HttpServletResponse resp) {
+		HashMap<String, Object> param = new HashMap<String, Object>();
+        param.put("id", Integer.parseInt(req.getParameter("id")));
+		return HttpUtil.makeHashToJsonModelAndView(rsi.userD(param));
+	}
 }

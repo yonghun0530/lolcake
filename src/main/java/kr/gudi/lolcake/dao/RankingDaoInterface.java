@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface RankingDaoInterface {
 	public List<HashMap<String, Object>> ranking();
+	public List<HashMap<String, Object>> userD(HashMap<String, Object> param);
 }

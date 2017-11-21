@@ -23,4 +23,12 @@ public class RankingService implements RankingServiceInterface {
 		map.put("list", list);
 		return map;
 	}
+	
+	@Override
+	public HashMap<String, Object> userD(HashMap<String, Object> param) {
+	      List<HashMap<String, Object>> list = rdi.userD(param);
+	      HashMap<String, Object> map = new HashMap<String, Object>();
+	      map.put("list", list);
+	      return map;
+	  }
 }

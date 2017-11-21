@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.gudi.lolcake.dao.SearchDaoInterface;
-import kr.gudi.lolcake.dao.UserDDaoInterface;
 
 @Service
 public class SearchService implements SearchServiceInterface{
