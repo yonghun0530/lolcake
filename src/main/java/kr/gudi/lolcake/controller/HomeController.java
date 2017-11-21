@@ -19,42 +19,43 @@ import net.sf.json.JSONSerializer;
 @Controller
 public class HomeController {
 
-	@RequestMapping(value = "/JSON", method = RequestMethod.GET)
-	public void home(HttpServletRequest req, HttpServletResponse resp) {
-		// 파라메터 값 받아서 map으로 변경하기.
-		HashMap<String, Object> param = HttpUtil.getParameterMap(req);
-		// 결과값을 JSON으로 출력하기.
-		HttpUtil.sendResponceToJson(resp, param);
-	}
-	@Autowired
-	   HomeServiceInterface hsi;
-	   
-	   @RequestMapping(value = "/", method = RequestMethod.GET)
-	     public ModelAndView bbsall(ModelAndView mav){
-	        mav.setViewName("home");
-	        return mav;
-	     }
-	     @RequestMapping("/homeifdata")
-	      public ModelAndView IFData(ModelAndView mav, HttpServletRequest req){
-	         HashMap<String, Object> param = new HashMap<String, Object>();
-	         
-	         JSONObject jsonObject = new JSONObject();
-	         jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(hsi.homeif(param)));
-	         mav.addObject("message", jsonObject.toString());
-	         
-	         mav.setViewName("json");
-	         return mav;
-	     }
-	     @RequestMapping("/homemvdata")
-	      public ModelAndView MVData(ModelAndView mav, HttpServletRequest req){
-	         HashMap<String, Object> param = new HashMap<String, Object>();
-	         
-	         JSONObject jsonObject = new JSONObject();
-	         jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(hsi.homemv(param)));
-	         mav.addObject("message", jsonObject.toString());
-	         
-	         mav.setViewName("json");
-	         return mav;
-	     }
+   @RequestMapping(value = "/JSON", method = RequestMethod.GET)
+   public void home(HttpServletRequest req, HttpServletResponse resp) {
+      // 파라메터 값 받아서 map으로 변경하기.
+      HashMap<String, Object> param = HttpUtil.getParameterMap(req);
+      // 결과값을 JSON으로 출력하기.
+      HttpUtil.sendResponceToJson(resp, param);
+   }
+   @Autowired
+      HomeServiceInterface hsi;
+      
+      @RequestMapping(value = "/", method = RequestMethod.GET)
+        public ModelAndView bbsall(ModelAndView mav){
+           mav.setViewName("home");
+           return mav;
+        }
+        @RequestMapping("/homeifdata")
+         public ModelAndView IFData(ModelAndView mav, HttpServletRequest req){
+            HashMap<String, Object> param = new HashMap<String, Object>();
+            
+            JSONObject jsonObject = new JSONObject();
+            jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(hsi.homeif(param)));
+            mav.addObject("message", jsonObject.toString());
+            
+            mav.setViewName("json");
+            return mav;
+        }
+        @RequestMapping("/homemvdata")
+         public ModelAndView MVData(ModelAndView mav, HttpServletRequest req){
+            HashMap<String, Object> param = new HashMap<String, Object>();
+            
+            JSONObject jsonObject = new JSONObject();
+            jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(hsi.homemv(param)));
+            mav.addObject("message", jsonObject.toString());
+            
+            mav.setViewName("json");
+            return mav;
+        }
+
 }
 

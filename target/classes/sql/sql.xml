@@ -13,7 +13,7 @@
 			and type = #{type}
 		</if>
 		order by no desc
-		limit #{start}, #{viewRow};
+		limit ${start}, ${viewRow};
 		<!-- 서버 다시시작해야함 -->
 	</select>
 	
