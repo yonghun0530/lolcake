@@ -45,8 +45,9 @@
                  }else if(result != '-1'){
                     var 배열 = data.split('/');
                     $target = 배열[0];
-                    page = 배열[1];
-                    if(isInteger(page)){
+
+                    if($.isNumeric(배열[1])){
+                    	page = 배열[1];
                     	pageload();
                     }else{
                     	alert('정상적인 경로가 아닙니다.');
@@ -57,27 +58,23 @@
                 	writeBbs(data);
                  }else if(data.split('-') != '-1'){
                     var 배열 = data.split('-');
-                    $no = 배열[1];
+
                     if(배열[0] == "EDIT"){
 	                  	location.hash = "";
 	                  	location.reload();
 	                  	alert('잘못된 접근입니다.');
                     }else{
-                    	hitandlike("hit");
+                        if($.isNumeric(배열[1])){
+                        	$no = 배열[1];
+                        	hitandlike("hit");
+                        }else{
+                        	alert('정상적인 경로가 아닙니다.');
+                        	location.href= '/lolcake/comm';
+                        }
                     }
                  }
            }
-           function isInteger(s) {
-	       		try {
-	       			Integer.parseInt(s);
-	       		} catch(NumberFormatException) {
-	       			return false;
-	       		} catch(NullPointerException e) {
-	       			return false;
-	       		}
-	       		return true;
-       		}
-           
+
             function popstateEvent(event) {
             	 hash = location.hash;
             	if(hash.indexOf("EDIT") == -1 ){
@@ -536,18 +533,19 @@
                   "viewRow" : viewRow,
                   "type" : $target
                };
-            $.ajax({
-               type : "post", // post 방식으로 통신 요청
-               url : "allData", // Spring에서 만든 URL 호출
-               typedata : "json",
-               data : d 
-            }).done(function(result) { // 비동기식 데이터 가져오기
-               dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
-               data = dataJson.list;
-               totCnt = dataJson.totCntall.tot;
-               createPaging();
-               createHtml(); // 화면에 표현하기 위하여 함수 호출
-            });
+            	$.ajax({
+                    type : "post", // post 방식으로 통신 요청
+                    url : "allData", // Spring에서 만든 URL 호출
+                    typedata : "json",
+                    data : d 
+                 }).done(function(result) { // 비동기식 데이터 가져오기
+                    dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
+                    data = dataJson.list;
+                    totCnt = dataJson.totCntall.tot;
+                    createPaging();
+                    createHtml(); // 화면에 표현하기 위하여 함수 호출
+                 });
+            
          }
             
             //게시판 상세보기 데이터 불러오기
