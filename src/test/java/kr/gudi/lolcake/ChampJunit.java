@@ -1,6 +1,7 @@
 package kr.gudi.lolcake;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.util.Map;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.crypto.Data;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -287,7 +289,7 @@ public class ChampJunit {
 		mock = MockMvcBuilders.webAppContextSetup(wac).build();
 	}
 
-	@Test
+//	@Test
 	public void champController() {
 		mav = cc.champ(new ModelAndView());
 
@@ -297,7 +299,7 @@ public class ChampJunit {
 		assertEquals(map, mav.getModel());
 	}
 
-	@Test
+//	@Test
 	public void champdataController() {
 		ModelAndView view = cc.readData(new ModelAndView(), resp);
 		HashMap<String, Object> map = (HashMap<String, Object>) view.getModel();
@@ -316,7 +318,7 @@ public class ChampJunit {
 
 	@Test
 	public void champdetaildataController() throws Exception {
-		String no = "5";
+		String no = "dd";
 		mock.perform(post("/champDetailData") // get방식 : get("주소"), post방식 : post("주소")
 				.param("no", no)) // paramater값 설정 : .param("key", "value")
 				.andDo(new ResultHandler(){// 처리 내용을 출력합니다.
@@ -324,22 +326,26 @@ public class ChampJunit {
 					public void handle(MvcResult arg0) throws Exception {
 						ModelAndView mav = arg0.getModelAndView();
 						Map<String, Object> map = mav.getModel();
-						System.out.println(map);
+						//System.out.println("map : " + map);
 
 						String message = map.get("message").toString();
-						System.out.println(message);
+						//System.out.println("message : " + message);
 						JsonParser parser = new JsonParser();
 						JsonElement element = parser.parse(message);
+						if(element.equals(null)){
+							fail("Not yet implemented");
+						}else {
+							JsonObject jobject = element.getAsJsonObject();
+							JsonArray list = jobject.get("data").getAsJsonArray();
+							//System.out.println("리스트 : " + list);
 
-						JsonObject jobject = element.getAsJsonObject();
-						JsonArray list = jobject.get("data").getAsJsonArray();
-
-						for (int i = 0; i < list.size(); i++) {
-							JsonObject ob = list.get(i).getAsJsonObject();
-							assertEquals(no, ob.get("no").getAsString());
+								JsonObject ob = list.get(0).getAsJsonObject();
+								assertEquals(no, ob.get("no").getAsString());
+							
+							}	
 						}
-					}
-				});
+						
+			});
 	}
 
 }
