@@ -24,7 +24,8 @@
                 url : "rankingData",
                 typedata : "json"
              }).done(function(result) {
- 	            data = result.list;
+            	 dataJson = JSON.parse(result); 
+                 data = dataJson.list;
                    createHtml();
              });
          }
@@ -76,7 +77,8 @@
 	               typedata : "json",
 	               data : d 
 	            }).done(function(result) {
-	               detail = result.list;
+	            	dataJson = JSON.parse(result); 
+	                 detail = dataJson.list;
 	               userHead();
 	               createUserD();
 	            });

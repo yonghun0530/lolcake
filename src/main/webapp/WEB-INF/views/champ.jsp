@@ -22,7 +22,8 @@
             url : "champData", // Spring에서 만든 URL 호출
             typedata : "json"
 	         }).done(function(result) { // 비동기식 데이터 가져오기
-	            data = result.list;
+	        	 dataJson = JSON.parse(result); 
+                 data = dataJson.list;
 	            createHtml();
 	         });
             
@@ -54,13 +55,14 @@
                   typedata : "json",
                   data : {no : no}
                }).done(function(result) { // 비동기식 데이터 가져오기
-                  data = result.data;
+            	   dataJson = JSON.parse(result); 
+                   data = dataJson.data;
                	  //$(".champ-skill .skill p").empty();
                   $("#champImg").attr("src",  data[0].path + "/" + data[0].img);
                   //$(".champ-skill .skill p").append("<p>" + data[0].champname + "</p>")
                   $('#champName').text(data[0].champname);
                   $("tbody").empty();
-                  for(var i = 0; i < result.data.length; i++){
+                  for(var i = 0; i < data.length; i++){
                      $("#skills img").eq(i).attr("src",  data[i].skill_path + "/" + data[i].skill_img);
                      $("tbody").append("<tr><td>" + data[i].skillname + "</td><td>" + data[i].dept + "</td></tr>");
                   }
