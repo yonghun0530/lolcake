@@ -37,33 +37,46 @@
                var data = hash.substr(1,hash.lengh);
                var result = data.indexOf("/");
                
-               if(location.hash == ""){
-                     page = 1;
-                    hash = "ALL/1";
-                    location.hash = hash;
-                    $target = "ALL";
-               }else if(result != '-1'){
-                  var 배열 = data.split('/');
-                  $target = 배열[0];
-                  page = 배열[1];
-                  pageload();
-               }else if(data == "WRITE"){
-              		writeBbs(data);
-               }else if(data.split('-') != '-1'){
-                  var 배열 = data.split('-');
-                  $no = 배열[1];
-                  if(배열[0] == "EDIT"){
-                	location.hash = "";
-                	location.reload();
-                	alert('정상적인 경로가 아닙니다.');
-                  }else{
-                  	hitandlike("hit");
-                  }
-               }else{
-            	   location.reload();
-            	   alert('정상적인 경로가 아닙니다.');
-               }
+            	  if(location.hash == ""){
+                      page = 1;
+                      hash = "ALL/1";
+                      location.hash = hash;
+                      $target = "ALL";
+                 }else if(result != '-1'){
+                    var 배열 = data.split('/');
+                    $target = 배열[0];
+                    page = 배열[1];
+                    if(isInteger(page)){
+                    	pageload();
+                    }else{
+                    	alert('정상적인 경로가 아닙니다.');
+                    	location.href= '/lolcake/comm';
+                    }
+                    
+                 }else if(data == "WRITE"){
+                	writeBbs(data);
+                 }else if(data.split('-') != '-1'){
+                    var 배열 = data.split('-');
+                    $no = 배열[1];
+                    if(배열[0] == "EDIT"){
+	                  	location.hash = "";
+	                  	location.reload();
+	                  	alert('잘못된 접근입니다.');
+                    }else{
+                    	hitandlike("hit");
+                    }
+                 }
            }
+           function isInteger(s) {
+	       		try {
+	       			Integer.parseInt(s);
+	       		} catch(NumberFormatException) {
+	       			return false;
+	       		} catch(NullPointerException e) {
+	       			return false;
+	       		}
+	       		return true;
+       		}
            
             function popstateEvent(event) {
             	 hash = location.hash;
@@ -177,7 +190,8 @@
                          typedata : "json",
                          data : {"no" : $no}
                       }).done(function(result) { 
-                         bbsData();
+                    	  bbsData();
+                         
                       });
             }
               
@@ -467,7 +481,6 @@
                             data: d,
                             url: 'reRemove'
                         }).done()
-
                         alert("삭제되었습다")
                         $(".comment").empty();
                         Reply();
@@ -551,7 +564,12 @@
             }).done(function(result) { // 비동기식 데이터 가져오기
                dataJson = JSON.parse(result); // JSON으로 받은 데이터를 사용하기 위하여 전역변수인 data에 값으로 넣기
                bbsD = dataJson.bbsD;
-               createBbs();
+               if(bbsD == null){
+            	   alert('정상적인 경로가 아닙니다.');
+            	   location.href = "/lolcake/comm";
+               }else{
+            	   createBbs();
+               }
             });
          }
             

@@ -30,9 +30,26 @@ public class RankingController {
 	}
 
 	@RequestMapping(value = "/userDData", method = RequestMethod.POST)
-	public ModelAndView readData2(ModelAndView mav, HttpServletRequest req, HttpServletResponse resp) {
+	public ModelAndView readData2(ModelAndView mav, HttpServletRequest req, HttpServletResponse resp) 
+			throws Exception{
 		HashMap<String, Object> param = new HashMap<String, Object>();
-        param.put("id", Integer.parseInt(req.getParameter("id")));
+		//int 로 변환 가능할 경우.
+		if(isInteger(req.getParameter("id"))) {
+        	param.put("id", Integer.parseInt(req.getParameter("id")));
+        }
 		return HttpUtil.makeHashToJsonModelAndView(rsi.userD(param));
+		
 	}
+	
+	public static boolean isInteger(String s) {
+		try {
+			Integer.parseInt(s);
+		} catch (NumberFormatException e) {
+			return false;
+		} catch (NullPointerException e) {
+			return false;
+		}
+		return true;
+	}
+
 }

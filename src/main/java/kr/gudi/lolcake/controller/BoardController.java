@@ -27,34 +27,9 @@ public class BoardController {
 	  }
 	  @RequestMapping("/allData")
 	   public ModelAndView listData(ModelAndView mav, HttpServletRequest req){
-//		  HashMap<String, Object> param = new HashMap<String, Object>();
-//		  param = new HashMap<String, Object>();
-//		  if(req.getParameter("no")!=null){
-////			  param.put("no", req.getParameter("no"));
-//			  param.put("type", "FREE");
-//			  param.put("start", "0");
-//			  param.put("viewRow", "10");
-//		  }else{
-//			  param.put("type", "FREE");
-//			  param.put("start", "0");
-//			  param.put("viewRow", "10");
-//		  }
-//		  return HttpUtil.makeHashToJsonModelAndView(bsi.all(param));
 	      HashMap<String, Object> param = HttpUtil.getParameterMap(req);
 	      System.out.println(param);
 	      return HttpUtil.makeHashToJsonModelAndView(bsi.all(param));
-//	      param.put("s"
-//	      		+ "tart", Integer.parseInt(req.getParameter("start")));
-//	      param.put("viewRow", Integer.parseInt(req.getParameter("viewRow")));
-//	      param.put("type", req.getParameter("type"));
-//	      //type 추가 추가
-//	      
-//	      JSONObject jsonObject = new JSONObject();
-//	      jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(bsi.all(param)));
-//	      mav.addObject("message", jsonObject.toString());
-//			
-//	      mav.setViewName("json");
-//	      return mav;
 	  }
 	  
 	  /*************************게시글쓰기************************************/

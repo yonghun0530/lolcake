@@ -1,6 +1,7 @@
 package kr.gudi.lolcake;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -38,6 +39,8 @@ import javax.servlet.http.Part;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.internal.runners.statements.Fail;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +63,7 @@ import com.google.gson.JsonParser;
 import kr.gudi.lolcake.controller.RankingController;
 import kr.gudi.lolcake.dao.RankingDaoInterface;
 import kr.gudi.lolcake.service.RankingServiceInterface;
+import net.bytebuddy.dynamic.loading.PackageDefinitionStrategy.Definition.Undefined;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -770,17 +774,26 @@ public class RankingJunit {
 						System.out.println(map);
 
 						String message = map.get("message").toString();
-						System.out.println(message);
+
 						JsonParser parser = new JsonParser();
 						JsonElement element = parser.parse(message);
 
-						JsonObject jobject = element.getAsJsonObject();
-						JsonArray list = (JsonArray) jobject.get("list");
-
-						for (int i = 0; i < list.size(); i++) {
-							JsonObject ob = list.get(i).getAsJsonObject();
-							assertEquals(id, ob.get("id").getAsString());
+						
+						System.out.println(element);
+								
+						try {
+							JsonObject jobject = element.getAsJsonObject();
+							JsonArray list = (JsonArray) jobject.get("list");
+							
+							for (int i = 0; i < list.size(); i++) {
+								JsonObject ob = list.get(i).getAsJsonObject();
+								assertEquals(id, ob.get("id").getAsString());
+							}
+						
+						}catch(NullPointerException e){
+							fail("id 값이 잘못되었습니다.");
 						}
+						
 					}
 				}).andExpect(status().isOk())// 상태값은 OK가 나와야 합니다.
 				.andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.

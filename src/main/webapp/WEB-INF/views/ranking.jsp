@@ -28,10 +28,7 @@
                    createHtml();
              });
          }
-            
 
-            
-         
          function createHtml() {
             var tag = "";
             for (var i = 0; i < data.length; i++){
@@ -68,7 +65,6 @@
          
          function userData(){
         	 $('.panel-body').load('resources/bootjsp/userD.html',function(){
-                 location.hash = "#R-" + id;
 	             var d = {"id" : id}; 
 	            $.ajax({
 	               type : "post", //post 방식
@@ -78,8 +74,15 @@
 	            }).done(function(result) {
 	            	dataJson = JSON.parse(result); 
 	                 detail = dataJson.list;
-	               userHead();
-	               createUserD();
+		                if(detail == undefined){
+		                	alert('정상적인 경로가 아닙니다.');
+		                	location.href = "/lolcake/ranking";
+		                }else{
+		                	userHead();
+			               	createUserD();
+			               	location.hash = "#R-" + id;
+		                }
+
 	            });
         	 });
       	}

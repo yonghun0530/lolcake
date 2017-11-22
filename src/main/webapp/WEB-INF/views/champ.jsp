@@ -13,59 +13,70 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-         var data = [];
+            var data = [];
+            var detail = [];
             var hash;
             var no;
             
-            $.ajax({
-            type : "post", // post 방식으로 통신 요청
-            url : "champData", // Spring에서 만든 URL 호출
-            typedata : "json"
-	         }).done(function(result) { // 비동기식 데이터 가져오기
-	        	 dataJson = JSON.parse(result); 
-                 data = dataJson.list;
-	            createHtml();
-	         });
+            initData();
             
-            function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
-            $(".champ").empty();
-            for (var i = 0; i < data.length; i++) {
-               var tag = "";
-               tag += '<div class="col-md-2 col-sm-2 portfolio-item">';
-               tag += '<img src="'+data[i].path+''+data[i].img+'"alt="">';
-               tag += '<p>' + data[i].champname + '</p>';
-               tag += '</div>';
-               $(".champ").append(tag);
+            function initData(){
+            	 $.ajax({
+                     type : "post", // post 방식으로 통신 요청
+                     url : "champData", // Spring에서 만든 URL 호출
+                     typedata : "json"
+         	         }).done(function(result) { // 비동기식 데이터 가져오기
+         	        	 dataJson = JSON.parse(result); 
+                          data = dataJson.list;
+         	            createHtml();
+         	         });
             }
-            
-            $(".champ div.portfolio-item").on("click", function(){
-               var index = $(".champ div.portfolio-item").index($(this));
-               no = data[index].no;
-               champD();   
-            });
+
+            function createHtml() { // ul(부모) 태그 속에 li(자식) 태그 넣기 위한 함수
+	            $(".champ").empty();
+	            for (var i = 0; i < data.length; i++) {
+	               var tag = "";
+	               tag += '<div class="col-md-2 col-sm-2 portfolio-item">';
+	               tag += '<img src="'+data[i].path+''+data[i].img+'"alt="">';
+	               tag += '<p>' + data[i].champname + '</p>';
+	               tag += '</div>';
+	               $(".champ").append(tag);
+	            }
+	            
+	            $(".champ div.portfolio-item").on("click", function(){
+	               var index = $(".champ div.portfolio-item").index($(this));
+	               no = data[index].no;
+	               champD();   
+	            });
             }
             
             function champD(){
                $('.panel-body').load('resources/bootjsp/champD.html',function(){
-               var detail = [];
-               location.hash = "#C-" + no;
+            	   var d = {"no" : no}; 
                $.ajax({
                   type : "post", // post 방식으로 통신 요청
                   url : "champDetailData", // Spring에서 만든 URL 호출
                   typedata : "json",
-                  data : {no : no}
+                  data : d
                }).done(function(result) { // 비동기식 데이터 가져오기
             	   dataJson = JSON.parse(result); 
-                   data = dataJson.data;
-               	  //$(".champ-skill .skill p").empty();
-                  $("#champImg").attr("src",  data[0].path + "/" + data[0].img);
-                  //$(".champ-skill .skill p").append("<p>" + data[0].champname + "</p>")
-                  $('#champName').text(data[0].champname);
-                  $("tbody").empty();
-                  for(var i = 0; i < data.length; i++){
-                     $("#skills img").eq(i).attr("src",  data[i].skill_path + "/" + data[i].skill_img);
-                     $("tbody").append("<tr><td>" + data[i].skillname + "</td><td>" + data[i].dept + "</td></tr>");
-                  }
+                   detail = dataJson.data;
+                   if(detail == undefined){
+                	   alert('정상적인 경로가 아닙니다.');
+                	   location.href = "/lolcake/champ";
+                   }else{
+                	   //$(".champ-skill .skill p").empty();
+                	   location.hash = "#C-" + no;
+                       $("#champImg").attr("src",  detail[0].path + "/" + detail[0].img);
+                       //$(".champ-skill .skill p").append("<p>" + data[0].champname + "</p>")
+                       $('#champName').text(detail[0].champname);
+                       $("tbody").empty();
+                       for(var i = 0; i < detail.length; i++){
+                          $("#skills img").eq(i).attr("src",  detail[i].skill_path + "/" + detail[i].skill_img);
+                          $("tbody").append("<tr><td>" + detail[i].skillname + "</td><td>" + detail[i].dept + "</td></tr>");
+                       }
+                   }
+               	  
                });
                
                $("#skills img").on("click", function(){
@@ -78,8 +89,9 @@
                       $("#myModal").modal("show");
                    });
                
-            });
+            	});
             }
+            
             Pageload();
             
             function Pageload(){
@@ -93,7 +105,7 @@
             function popstateEvent(event) {
                hash = location.hash;
                if(hash != ""){
-                 // pageload();
+                  pageload();
                }else{
                   location.href = "/lolcake/champ";
                }
