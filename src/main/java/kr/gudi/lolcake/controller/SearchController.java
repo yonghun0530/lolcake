@@ -30,7 +30,7 @@ public class SearchController {
 //	      return mav;
 //	   }
 	   
-	   @RequestMapping(value = "/searchData", method = RequestMethod.POST)
+	   @RequestMapping(value = "/searchData", method = RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	   public void readData(HttpServletRequest req, HttpServletResponse resp){
 	      HashMap<String, Object> param = new HashMap<String, Object>();
 	      param.put("nickname", req.getParameter("nickname"));
@@ -39,23 +39,11 @@ public class SearchController {
 	   }
 	   
 	   @RequestMapping(value = "/searchView", method = RequestMethod.POST)
-	   public String searchView(HttpServletRequest req, ModelAndView mav, HttpServletResponse resp) throws IOException{
+	   public ModelAndView searchView(HttpServletRequest req, ModelAndView mav, HttpServletResponse resp) {
 	      HashMap<String, Object> param = HttpUtil.getParameterMap(req);
 	      String viewName = "/";
 	      HashMap<String, Object> map = ssi.search(param);
-	      req.setCharacterEncoding("UTF-8");
-    	  resp.setContentType("text/html; charset=UTF-8");
-	      
-	      if(Integer.parseInt(map.get("status").toString()) == 1){
-	    	  viewName = "redirect:ranking#R-" + map.get("id");
-	      }else{
-	    	  req.setCharacterEncoding("UTF-8");
-	    	  resp.setContentType("text/html; charset=UTF-8");
-	    	  			PrintWriter out = resp.getWriter();
-						out.println("<script>alert('닉네임을 확인하세요'); history.go(-1);</script>");
-						out.flush(); 
-	      }
-	      return viewName;
+	      return HttpUtil.makeHashToJsonModelAndView(map);
 	   }
 	   /*커밋*/
 }

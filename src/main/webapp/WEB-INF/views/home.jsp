@@ -75,6 +75,27 @@
     });
     //initDataif();
   }
+  
+  $(document).ready(function(){
+	 
+	  $( "form" ).on( "submit", function( event ) {
+		  event.preventDefault(); // action 막기!
+		  
+		  $.ajax({url:"searchView", type:"post",
+			      data:$( this ).serialize()
+			}).done(function(result){
+				var data = JSON.parse(result);
+				console.log(data);
+				if(data.status == 1){
+					location.href = "ranking#R-" + data.id;
+				}else{
+					alert("잘못입력하였습니다.")
+				}
+			});
+		  
+	  });
+	  
+  });
 
     </script>
 </head>
