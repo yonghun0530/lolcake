@@ -353,11 +353,18 @@
 
                         if (comment == "") {
                             alert("내용을 입력하세요");
-                        } else if (id == "") {
+                        }
+                        else if(comment.length > 500){
+                        	alert("내용은 최대 500자 입니다.")
+                        }else if (id == "") {
                             alert("ID을 입력하세요");
+                        }else if(id.length > 20){
+                        	alert("ID는 최대 20자 입니다.");
                         } else if (passwd == "") {
                             alert("비밀번호를 입력하세요");
-                        } else {
+                        } else if(passwd.length > 20){
+                        	alert("비밀번호는 최대 20자 입니다.")
+                        }else {
 
                             $.ajax({
                                 type: "post",

@@ -59,7 +59,7 @@ public class BoardController {
 	  
 	  /*************************게시글쓰기************************************/
 	     @RequestMapping("/writeData")
-	      public ModelAndView bbsData(ModelAndView mav, HttpServletRequest req, HttpSession session){
+	      public ModelAndView bbswrite(ModelAndView mav, HttpServletRequest req){
 	         HashMap<String, Object> param = HttpUtil.getParameterMap(req);
 	         
 	         JSONObject jsonObject = new JSONObject();
@@ -71,7 +71,7 @@ public class BoardController {
 	     }
 	     /********************************게시글 수정***************************************/
 	     @RequestMapping("/editData")
-	      public ModelAndView editData(ModelAndView mav, HttpServletRequest req, HttpSession session){
+	      public ModelAndView editData(ModelAndView mav, HttpServletRequest req){
 	         HashMap<String, Object> param = HttpUtil.getParameterMap(req);
 	         JSONObject jsonObject = new JSONObject();
 	         jsonObject = JSONObject.fromObject(JSONSerializer.toJSON(bsi.bbsEdit(param)));

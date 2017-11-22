@@ -718,7 +718,7 @@ public class BoardJunit {
 		mock = MockMvcBuilders.webAppContextSetup(wac).build();
 	}
 		
-	@Test
+//	@Test
 	public void BoardTest() throws Exception {
 		
 		mock.perform(get(URI)           // get방식 : get("주소"), post방식 : post("주소") 
@@ -768,11 +768,11 @@ public class BoardJunit {
 //	}
 //	
 		
-	@Test
+//	@Test
 	public void LikeTest() throws Exception {
 		
 		mock.perform(post("/like")           // get방식 : get("주소"), post방식 : post("주소") 
-				 .param("no", "83")) // paramater값 설정 : .param("key", "value")
+				 .param("no", "111")) // paramater값 설정 : .param("key", "value")
 		.andDo(new ResultHandler() {// 처리 내용을 출력합니다.
 			@Override
 			public void handle(MvcResult arg0) throws Exception {
@@ -790,18 +790,17 @@ public class BoardJunit {
 				System.out.println("추천수 + "+str);
 //				JsonArray list = jobject.get("bbslike").getAsJsonArray();
 //				System.out.println(jobject);
-//				assertEquals(size, list.size());
+				assertEquals("1", str.toString());
 			}
 		})
 		.andExpect(status().isOk())// 상태값은 OK가 나와야 합니다.
 		.andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.
 		
 	}
-	@Test
+//	@Test
 	public void HitTest() throws Exception {
-		
 		mock.perform(post("/hit")           // get방식 : get("주소"), post방식 : post("주소") 
-				 .param("no", "101")) // paramater값 설정 : .param("key", "value")
+				 .param("no", "106")) // paramater값 설정 : .param("key", "value")
 		.andDo(new ResultHandler() {// 처리 내용을 출력합니다.
 			@Override
 			public void handle(MvcResult arg0) throws Exception {
@@ -818,14 +817,14 @@ public class BoardJunit {
 				JsonElement str = jobject.get("bbshit");
 				System.out.println("조회수 + " +str);
 //				System.out.println("조회수 " + jobject);
-//				assertEquals(size, list.size());
+				assertEquals("1", str.toString());
 			}
 		})
 		.andExpect(status().isOk())// 상태값은 OK가 나와야 합니다.
 		.andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.
 	}
 	
-	@Test
+//	@Test
 	public void BoardDetailTest() throws Exception {
 		
 		mock.perform(get("/bbsData")           // get방식 : get("주소"), post방식 : post("주소") 
@@ -852,6 +851,40 @@ public class BoardJunit {
 		.andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.
 		
 	}
+	
+	      
+	   @Test
+	   public void BoardController() throws Exception {
+		   int size = 10;
+		   int tot = 7;
+		   String boardno = "91";
+		   String URI = "/replyD";
+	      mock.perform(get(URI)           // get방식 : get("주소"), post방식 : post("주소") 
+	             .param("no", boardno)) // paramater값 설정 : .param("key", "value")
+	      .andDo(new ResultHandler() {// 처리 내용을 출력합니다.
+	         @Override
+	         public void handle(MvcResult arg0) throws Exception {
+	            ModelAndView mav = arg0.getModelAndView();
+	            Map<String, Object> map = mav.getModel();
+	            System.out.println(map);
+	            
+	            String message = map.get("message").toString();
+	            System.out.println(message);
+	            JsonParser parser = new JsonParser();
+	            JsonElement element = parser.parse(message);
+
+	            JsonObject jobject = element.getAsJsonObject(); 
+	            JsonArray list = jobject.get("replyD").getAsJsonArray();
+	            System.out.println(list);
+	            assertEquals(size, list.size());
+	            
+	         }
+	      })
+	      .andExpect(status().isOk())// 상태값은 OK가 나와야 합니다.
+	      .andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.
+	      
+	   }
+	   
 	
 	
 }
