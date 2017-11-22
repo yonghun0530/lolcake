@@ -356,7 +356,7 @@
                         var comment = $(".Pcomment").val();
                         comment = comment.replace(/\n/g, "<br>");
                         var Cparam = {
-                            "no": $no,
+                            "boardno": $no,
                             "comment": comment,
                             "id": id,
                             "passwd": passwd
@@ -573,7 +573,7 @@
             
           function Reply() {
               var d = {
-                  "no": $no
+                  "boardno": $no
               };
               $.ajax({
                   type: "post", // post 방식으로 통신 요청

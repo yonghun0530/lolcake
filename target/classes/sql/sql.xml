@@ -136,16 +136,16 @@
     <!-- 댓글보기 -->
    <select id="replyD" parameterType="hashmap" resultType="hashmap">
       select c.comment,DATE_FORMAT(c.datetime, '%X-%m-%d') as datetime, c.id , c.passwd , c.no
-       from comment as c
+       from board as b
        inner join
-       board as b on (c.`boardno` = b.`no`) where c.`boardno` = #{no} and c.del_yn='N'
+       comment as c on (c.`boardno` = b.`no`) where c.`boardno` = #{boardno} and c.del_yn='N'
    </select>
    
    
    <!--댓글쓰기 -->
    <insert id="reWrite" parameterType="hashmap">
       insert into comment(boardno,comment,datetime,del_yn,id,passwd)
-      values(#{no},#{comment},now(),'N',#{id},#{passwd});
+      values(#{boardno},#{comment},now(),'N',#{id},#{passwd});
    </insert>
 
 	 <!--댓글수정 -->
