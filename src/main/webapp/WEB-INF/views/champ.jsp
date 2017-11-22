@@ -82,8 +82,8 @@
                $("#skills img").on("click", function(){
                       var i = $("#skills img").index($(this));
                       var html = '<div style="text-align: center;"><img src="resources/bootjsp/img/LOL.jpg" style="width:80%;"></div>';
-                      if(data[i].media_url != undefined ){
-                         html = '<video class="skill-video" controls autoplay loop><source src="'+data[i].media_path + data[i].media_url+'" type="video/mp4">Your browser does not support HTML5 video.</video>';
+                      if(detail[i].media_url != undefined ){
+                         html = '<video class="skill-video" controls autoplay loop><source src="'+detail[i].media_path + detail[i].media_url+'" type="video/mp4">Your browser does not support HTML5 video.</video>';
                       }
                       $(".modal-dialog").empty().html(html);
                       $("#myModal").modal("show");
@@ -105,7 +105,7 @@
             function popstateEvent(event) {
                hash = location.hash;
                if(hash != ""){
-                  pageload();
+                  /* pageload(); */
                }else{
                   location.href = "/lolcake/champ";
                }
