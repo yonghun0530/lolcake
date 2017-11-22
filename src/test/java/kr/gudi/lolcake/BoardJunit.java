@@ -34,6 +34,7 @@ import javax.servlet.http.Part;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -52,10 +53,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml","file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 @WebAppConfiguration
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BoardJunit {
 	
 	@Autowired // WebContext Bean 받아오기
@@ -64,8 +67,8 @@ public class BoardJunit {
 	// MockMVC 변수 생성
 	private MockMvc mock;
 	
-	private int size = 7;
-	private int tot = 7;
+	private int size = 10;
+	private int tot = 35;
 	ModelAndView mav = new ModelAndView();
 	private HttpServletRequest req = new HttpServletRequest() {
 
@@ -718,12 +721,12 @@ public class BoardJunit {
 		mock = MockMvcBuilders.webAppContextSetup(wac).build();
 	}
 		
-//	@Test
+	@Test
 	public void BoardTest() throws Exception {
 		
 		mock.perform(get(URI)           // get방식 : get("주소"), post방식 : post("주소") 
-				 .param("start", start) // paramater값 설정 : .param("key", "value")
-	             .param("viewRow", viewRow)
+				 .param("start", "0") // paramater값 설정 : .param("key", "value")
+	             .param("viewRow", "10")
 	             .param("type", type))
 		.andDo(new ResultHandler() {// 처리 내용을 출력합니다.
 			@Override
@@ -768,7 +771,7 @@ public class BoardJunit {
 //	}
 //	
 		
-//	@Test
+	@Test
 	public void LikeTest() throws Exception {
 		
 		mock.perform(post("/like")           // get방식 : get("주소"), post방식 : post("주소") 
@@ -797,7 +800,7 @@ public class BoardJunit {
 		.andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.
 		
 	}
-//	@Test
+	@Test
 	public void HitTest() throws Exception {
 		mock.perform(post("/hit")           // get방식 : get("주소"), post방식 : post("주소") 
 				 .param("no", "106")) // paramater값 설정 : .param("key", "value")
@@ -824,7 +827,7 @@ public class BoardJunit {
 		.andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.
 	}
 	
-//	@Test
+	@Test
 	public void BoardDetailTest() throws Exception {
 		
 		mock.perform(get("/bbsData")           // get방식 : get("주소"), post방식 : post("주소") 
@@ -854,7 +857,7 @@ public class BoardJunit {
 	
 	      
 	   @Test
-	   public void BoardController() throws Exception {
+	   public void ReplyController() throws Exception {
 		   int size = 10;
 		   int tot = 7;
 		   String boardno = "91";
@@ -885,6 +888,87 @@ public class BoardJunit {
 	      
 	   }
 	   
-	
-	
+	   @Test  //게시글삭제
+	   public void BoardDeleteTest() throws Exception{
+	      mock.perform(get("/Delete")           // get방식 : get("주소"), post방식 : post("주소") 
+	                .param("no", "83")) // paramater값 설정 : .param("key", "value")
+	         .andDo(new ResultHandler() {// 처리 내용을 출력합니다.
+	            @Override
+	            public void handle(MvcResult arg0) throws Exception {
+	               ModelAndView mav = arg0.getModelAndView();
+	               Map<String, Object> map = mav.getModel();
+	               System.out.println(map);
+	               
+	               String message = map.get("message").toString();
+	               JsonParser parser = new JsonParser();
+	               JsonElement element = parser.parse(message);
+	               JsonObject jobject = element.getAsJsonObject(); 
+	               JsonElement val = jobject.get("delete");
+	               System.out.println(val);
+	               assertEquals("1", val.toString());
+	            }
+	         })
+	         .andExpect(status().isOk())// 상태값은 OK가 나와야 합니다.
+	         .andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.
+	   }
+	   
+	   @Test  //게시글수정
+	   public void BoardUpdateTest() throws Exception{
+	      mock.perform(get("/editData")           // get방식 : get("주소"), post방식 : post("주소") 
+	                .param("type", "MOVIE")
+	                .param("title", "ddddd")
+	                .param("dept", "test")
+	                .param("url", "https://www.youtube.com/watch?v=oWiR9Ojn7JY")
+	                .param("no", "83"))
+	         .andDo(new ResultHandler() {// 처리 내용을 출력합니다.
+	            @Override
+	            public void handle(MvcResult arg0) throws Exception {
+	               ModelAndView mav = arg0.getModelAndView();
+	               Map<String, Object> map = mav.getModel();
+	               System.out.println(map);
+	               
+	               String message = map.get("message").toString();
+	               JsonParser parser = new JsonParser();
+	               JsonElement element = parser.parse(message);
+	               JsonObject jobject = element.getAsJsonObject(); 
+	               JsonElement val = jobject.get("list");
+	               System.out.println(val);
+	               assertEquals("1", val.toString());
+	            }
+	         })
+	         .andExpect(status().isOk())// 상태값은 OK가 나와야 합니다.
+	         .andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.
+	   }
+	   
+	   @Test  //게시글쓰기
+	   public void BoardWriteTest() throws Exception{
+	      mock.perform(get("/writeData")           // get방식 : get("주소"), post방식 : post("주소") 
+	                .param("type", "FREE")
+	                .param("title", "WriteTest")
+	                .param("contents", "test")
+	                .param("nickname", "Junit")
+	                .param("passwd", "1234")
+	                .param("hit", "0")
+	                .param("like", "0")
+	                .param("del_yn", "N")
+	                .param("url", "http://"))
+	         .andDo(new ResultHandler() {// 처리 내용을 출력합니다.
+	            @Override
+	            public void handle(MvcResult arg0) throws Exception {
+	               ModelAndView mav = arg0.getModelAndView();
+	               Map<String, Object> map = mav.getModel();
+	               System.out.println(map);
+	               
+	               String message = map.get("message").toString();
+	               JsonParser parser = new JsonParser();
+	               JsonElement element = parser.parse(message);
+	               JsonObject jobject = element.getAsJsonObject(); 
+	               JsonElement val = jobject.get("list");
+	               System.out.println(val);
+	               assertEquals("1", val.toString());
+	            }
+	         })
+	         .andExpect(status().isOk())// 상태값은 OK가 나와야 합니다.
+	         .andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.
+	   }
 }
