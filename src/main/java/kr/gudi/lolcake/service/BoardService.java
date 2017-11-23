@@ -31,9 +31,53 @@ public class BoardService implements BoardServiceInterface {
 	/************************* 게시판글쓰기 ************************************/
 	@Override
 	public HashMap<String, Object> bbsWrite(HashMap<String, Object> param) {
-		int list = bdi.bbsWrite(param);
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
+		boolean check = true;
+		String passwd = param.get("passwd").toString();
+		String title = param.get("title").toString();
+		String contents = param.get("contents").toString();
+		String nickname = param.get("nickname").toString();
+		System.out.println("==========Param Value==============");
+		System.out.println("title : " + title.length());
+		System.out.println("contents : " + contents.length());
+		System.out.println("nickname : " + nickname.length());
+		System.out.println("==========Param Value==============");
+		
+		if(title.length() > 100){
+			check = false;
+			System.out.println("제목은 최대 100글자 입니다.");
+		}else if(("").equals(title)){
+			check = false;
+			System.out.println("제목을 입력해주세요");
+		}
+		if(passwd.length() > 10){
+			check = false;
+			System.out.println("비밀번호는 최대 10글자 입니다.");
+		}else if(("").equals(passwd)){
+			check = false;
+			System.out.println("비밀번호를 입력해주세요");
+		}
+		if(contents.length() > 10000){
+			check = false;
+			System.out.println("내용은 최대 10000글자 입니다.");
+		}else if(("").equals(contents)){
+			check = false;
+			System.out.println("내용을 입력해주세요");
+		}
+		if(nickname.length() > 50){
+			check = false;
+			System.out.println("닉네임은 최대 50글자 입니다.");
+		}else if(("").equals(nickname)){
+			check = false;
+			System.out.println("닉네임을 입력해주세요");
+		}
+		
+		if(check){
+			map.put("list", bdi.bbsWrite(param));
+			map.put("status", 1);
+		}else{
+			map.put("status", 0);
+		}
 		return map;
 	}
 

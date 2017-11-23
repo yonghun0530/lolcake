@@ -45,6 +45,7 @@ import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.NestedServletException;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -813,32 +814,46 @@ public class BoardJunit {
 				.andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.
 	}
 
-	/* @Test */
+//	@Test
 	public void BoardDetailTest() throws Exception {
 
-		mock.perform(get("/bbsData") // get방식 : get("주소"), post방식 : post("주소")
-				.param("no", "116")) // paramater값 설정 : .param("key", "value")
-				.andDo(new ResultHandler() {// 처리 내용을 출력합니다.
-					@Override
-					public void handle(MvcResult arg0) throws Exception {
-						ModelAndView mav = arg0.getModelAndView();
-						Map<String, Object> map = mav.getModel();
-						System.out.println(map);
+		String no = "110";
+	      mock.perform(get("/bbsData") // get방식 : get("주소"), post방식 : post("주소")
+	            .param("no", no)) // paramater값 설정 : .param("key", "value")
+	            .andDo(new ResultHandler(){// 처리 내용을 출력합니다.
+	               @Override
+	               public void handle(MvcResult arg0) throws Exception {
+	                  ModelAndView mav = arg0.getModelAndView();
+	                  Map<String, Object> map = mav.getModel();
+	                  //System.out.println("map : " + map);
 
-						String message = map.get("message").toString();
-						// System.out.println(message);
-						JsonParser parser = new JsonParser();
-						JsonElement element = parser.parse(message);
-
-						JsonObject jobject = element.getAsJsonObject();
-						// JsonArray list = jobject.get("bbsD").getAsJsonArray();
-						System.out.println(jobject);
-						// assertEquals(size, list.size());
-					}
-				}).andExpect(status().isOk())// 상태값은 OK가 나와야 합니다.
-				.andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.
-
-	}
+	                  String message = map.get("message").toString();
+//	                  System.out.println("message : " + message);
+	                  JsonParser parser = new JsonParser();
+	                  JsonElement element = parser.parse(message);
+//	                  System.out.println(element);
+	                  String val = element.getAsJsonObject().get("bbsD").toString();
+//	                  System.out.println(val);
+	                  if(val.equals("null")){
+	                	fail("있는번호로 하셈"); 
+	                  }else{
+	                	  System.out.println(val);
+	                  }
+//	                  
+//	                  try{
+//	                     JsonObject jobject = element.getAsJsonObject();
+//	                     JsonArray list = jobject.get("bbsD").getAsJsonArray();
+//	                     System.out.println("리스트 : " + list);
+//
+//	                     JsonObject ob = list.get(0).getAsJsonObject();
+//	                     assertEquals(no, ob.get("no").getAsString());
+//	                  }catch(NullPointerException e) {
+//	                        fail("있는번호로 먹여야함");
+//	                     }   
+	                  }
+	                  
+	         });
+	   }
 
 	/* @Test */
 	public void ReplyController() throws Exception {
@@ -893,11 +908,15 @@ public class BoardJunit {
 				.andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.
 	}
 
-	/* @Test */ // 게시글수정
+//	 @Test // 게시글수정
 	public void BoardUpdateTest() throws Exception {
 		mock.perform(get("/editData") // get방식 : get("주소"), post방식 : post("주소")
-				.param("type", "MOVIE").param("title", "ddddd").param("dept", "test")
-				.param("url", "https://www.youtube.com/watch?v=oWiR9Ojn7JY").param("no", "83"))
+				.param("type", "MOVIE")
+				.param("title", "ddddd")
+				.param("contents", "test")
+				.param("url", "https://www.youtube.com/watch?v=oWiR9Ojn7JY")
+				.param("no", "88")
+				.param("passwd", "1234"))
 				.andDo(new ResultHandler() {// 처리 내용을 출력합니다.
 					@Override
 					public void handle(MvcResult arg0) throws Exception {
@@ -917,12 +936,19 @@ public class BoardJunit {
 				.andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.
 	}
 
-	/* @Test */ // 게시글쓰기
+//	@Test // 게시글쓰기
 	public void BoardWriteTest() throws Exception {
 		mock.perform(get("/writeData") // get방식 : get("주소"), post방식 : post("주소")
-				.param("type", "FREE").param("title", "WriteTest").param("contents", "test").param("nickname", "Junit")
-				.param("passwd", "1234").param("hit", "0").param("like", "0").param("del_yn", "N")
-				.param("url", "http://")).andDo(new ResultHandler() {// 처리 내용을 출력합니다.
+				.param("type", "FREE")
+				.param("passwd", "1234")
+				.param("hit", "0")
+				.param("like", "0")
+				.param("del_yn", "N")
+				.param("url", "http://")
+				.param("title", "write")
+				.param("contents", "test")
+				.param("nickname", "Junit"))
+				.andDo(new ResultHandler() {// 처리 내용을 출력합니다.
 					@Override
 					public void handle(MvcResult arg0) throws Exception {
 						ModelAndView mav = arg0.getModelAndView();
@@ -933,12 +959,10 @@ public class BoardJunit {
 						JsonParser parser = new JsonParser();
 						JsonElement element = parser.parse(message);
 						JsonObject jobject = element.getAsJsonObject();
-						JsonElement val = jobject.get("list");
-						System.out.println(val);
-						assertEquals("1", val.toString());
+						int val = jobject.get("status").getAsInt();
+						assertEquals(1, val);
 					}
-				}).andExpect(status().isOk())// 상태값은 OK가 나와야 합니다.
-				.andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.
+				});
 	}
 
 	/*@Test*/ // 댓글쓰기
@@ -1015,7 +1039,7 @@ public class BoardJunit {
 	}
 
 	
-	/*@Test*/ // 댓글삭제
+//	@Test // 댓글삭제
 	public void TestCommnetDelete() throws Exception {
 		mock.perform(get("/reRemove") // get방식 : get("주소"), post방식 : post("주소")
 				.param("no", no)) // paramater값 설정 : .param("key", "value")

@@ -263,12 +263,20 @@
                       
                       if(title==""){
                          alert("제목을 입력하세요");
+                      }else if(title.length> 100){
+                    	  alert("제목은 최대 100글자 입니다.");
                       }else if(contents==""){
                          alert("내용을 입력하세요");
+                      }else if(contents.length>10000){
+                    	  alert("게시글의 최대 글자수는 10000자 입니다.");
                       }else if(nickname==""){
                          alert("이름을 입력하세요");
+                      }else if(nickname.length>50){
+                    	  alert("닉네임은 최대 50글자 입니다.");
                       }else if(passwd==""){
                          alert("비밀번호를 입력하세요");
+                      }else if(passwd.length>10){
+                    	  alert("비밀번호는 최대 10글자 입니다.");
                       }else if(type == "MOVIE" && url == "http://"){
                          alert('동영상을 입력하세요');
                       }else{
@@ -364,8 +372,7 @@
 
                         if (comment == "") {
                             alert("내용을 입력하세요");
-                        }
-                        else if(comment.length > 500){
+                        }else if(comment.length > 500){
                         	alert("내용은 최대 500자 입니다.")
                         }else if (id == "") {
                             alert("ID을 입력하세요");

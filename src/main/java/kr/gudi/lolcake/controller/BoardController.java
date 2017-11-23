@@ -45,7 +45,7 @@ public class BoardController {
 	         return mav;
 	     }
 	     /********************************게시글 수정***************************************/
-	     @RequestMapping("/editData")
+	     @RequestMapping(value ="/editData")
 	      public ModelAndView editData(ModelAndView mav, HttpServletRequest req){
 	         HashMap<String, Object> param = HttpUtil.getParameterMap(req);
 	         JSONObject jsonObject = new JSONObject();
