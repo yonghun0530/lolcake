@@ -88,10 +88,10 @@
       	}
          
           function userHead(){
-        	 var index = id % 10 - 1 ;
-        	 if(index < 0){
-        		 index = 10;
-        	 }
+        	 var index = (id - 1) ;
+//         	 if(index < 0){
+//         		 index = 10;
+//         	 }
         	 
              $(".user-name").html(data[index].nickname + '<span>'+ id +'등</span>');
              $(".table-user tbody tr td b").html(data[index].LP);
