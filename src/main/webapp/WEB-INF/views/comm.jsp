@@ -200,7 +200,7 @@
                    if($target == "ALL"){
                         $target = "FREE";
                    }
-                    var $target = "FREE";
+
                      location.hash = write;
                     if(write == "EDIT"){
                        location.hash = write + "-" + $no;

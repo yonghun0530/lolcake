@@ -2,79 +2,80 @@
 <html>
 
 <head>
-    <title>LOLCAKE</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="resources/bootjsp/css/main.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function() {
+<title>LOLCAKE</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/bootjsp/css/main.css">
+<script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+   $(document).ready(function() {
 
-
-        });
-
-    </script>
+   });
+</script>
 </head>
 
 <body>
 
-    <h1>CHAMPION INFO</h1>
-    <div class="row">
-        <div class="col-md-7 col-sm-7 col-xm-7 champ-skill">
-            <div class="col-md-3 col-xm-3 col-sm-3">
-                <img src="http://placehold.it/200x200" alt="" id="champImg">
+   <h1>CHAMPION INFO</h1>
+   <div class="row">
+      <div class="col-md-7 col-sm-7 col-xm-7 champ-skill">
+         <div class="col-md-3 col-xm-3 col-sm-3">
+            <img src="http://placehold.it/200x200" alt="" id="champImg">
+         </div>
+         <div class="col-md-7 col-sm-7 col-xm-7 skill" id="skills">
+            <p id="champName"><span>스킬 클릭시 영상이 나옵니다.</span></p>
+            <div>
+               <img src="http://placehold.it/200x200" alt="">
             </div>
-            <div class="col-md-7 col-sm-7 col-xm-7 skill" id="skills">
-                <p id="champName"></p>
-                <div>
-                    <img src="http://placehold.it/200x200" alt="">
-                </div>
-                <div>
-                    <img src="http://placehold.it/200x200" alt="">
-                    <div class='img-footer'>
-                        <p>Q</p>
-                    </div>
-                </div>
-                <div>
-                    <img  src="http://placehold.it/200x200" alt="">
-                    <div class='img-footer'>
-                        <p>W</p>
-                    </div>
-                </div>
-                <div>
-                    <img  src="http://placehold.it/200x200" alt="">
-                    <div class='img-footer'>
-                        <p>E</p>
-                    </div>
-                </div>
-                <div>
-                    <img  src="http://placehold.it/200x200" alt="">
-                    <div class='img-footer'>
-                        <p>R</p>
-                    </div>
-                </div>
+            <div>
+               <img src="http://placehold.it/200x200" alt="">
+               <div class='img-footer'>
+                  <p>Q</p>
+               </div>
             </div>
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog modal-lg"></div>
+            <div>
+               <img src="http://placehold.it/200x200" alt="">
+               <div class='img-footer'>
+                  <p>W</p>
+               </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 skillinfo">
-            <table class="table table-filter table-champ">
-                <thead>
-                    <tr>
-                        <td>스킬명</td>
-                        <td>설명</td>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
+            <div>
+               <img src="http://placehold.it/200x200" alt="">
+               <div class='img-footer'>
+                  <p>E</p>
+               </div>
+            </div>
+            <div>
+               <img src="http://placehold.it/200x200" alt="">
+               <div class='img-footer'>
+                  <p>R</p>
+               </div>
+            </div>
+         </div>
+         <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-lg"></div>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-12 skillinfo">
+         <table class="table table-filter table-champ">
+            <thead>
+               <tr>
+                  <td>스킬명</td>
+                  <td>설명</td>
+               </tr>
+            </thead>
+            <tbody></tbody>
+         </table>
+      </div>
 
-    </div>
+   </div>
 
 </body>
 
