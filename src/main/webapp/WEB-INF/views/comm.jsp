@@ -151,35 +151,36 @@
 	               
 	         }
             
-              //편집시 아이디와 패스워드 검사 후 버튼별 이벤트 지정
-             function editError(button){
-                id = $('#myModal').find('input').eq(0).val();
-                pwd = $('#myModal').find('input').eq(1).val();
-                
-                if(id == null | pwd == null){
-                   alert("아이디 또는 비번을 입력해야합니다.");
-                }else if(bbsD.nickname != id | bbsD.passwd != pwd){
-                   alert("아이디 또는 비번이 잘못되었습니다.");
-                }else{
-                   if(button == "#bbsEdit"){
-                       $('.modal-backdrop.fade').css('display','none');
-                       writeBbs("EDIT");                 
-                   }else{
-                      var d = {
-                         "no" : $no
-                      };
-                      $.ajax({
-                         type : "post", // post 방식으로 통신 요청
-                         url : "Delete", // Spring에서 만든 URL 호출
-                         typedata : "json",
-                         data : d
-                      }).done(function(result) { // 비동기식 데이터 가져오기
-                         alert("삭제되었습니다.");
-                         location.href = '/lolcake/comm';
-                      });
-                   }
-                }
-             }
+            //편집시 아이디와 패스워드 검사 후 버튼별 이벤트 지정
+            function editError(button){
+               id = $('#myModal').find('input').eq(0).val();
+               pwd = $('#myModal').find('input').eq(1).val();
+               
+               if(id == null | pwd == null){
+                  alert("아이디 또는 비번을 입력해야합니다.");
+               }else if(bbsD.nickname != id | bbsD.passwd != pwd){
+                  alert("아이디 또는 비번이 잘못되었습니다.");
+               }else{
+                  if(button == "#bbsEdit"){
+                      $('.modal-backdrop.fade').css('display','none');
+                      $target = bbsD.type;
+                      writeBbs("EDIT");                 
+                  }else{
+                     var d = {
+                        "no" : $no
+                     };
+                     $.ajax({
+                        type : "post", // post 방식으로 통신 요청
+                        url : "Delete", // Spring에서 만든 URL 호출
+                        typedata : "json",
+                        data : d
+                     }).done(function(result) { // 비동기식 데이터 가져오기
+                        alert("삭제되었습니다.");
+                        location.href = '/lolcake/comm';
+                     });
+                  }
+               }
+            }
             function hitandlike(url){
                       $.ajax({
                          type : "post",
@@ -192,14 +193,18 @@
                       });
             }
               
-            // 글쓰기 부분 두가지로 구성. 쓰기 OR 수정 
+         // 글쓰기 부분 두가지로 구성. 쓰기 OR 수정 
             function writeBbs(write){
                 $('.container').load('resources/bootjsp/write.html',function(){
                    $('.bbswrite input').eq(1).hide();
+                   if($target == "ALL"){
+                        $target = "FREE";
+                   }
                     var $target = "FREE";
                      location.hash = write;
                     if(write == "EDIT"){
-                    	location.hash = write + "-" + $no;
+                       location.hash = write + "-" + $no;
+                       writeload();
                     }
                     $('.btn-filter').on('click', function() {
                         $target = $(this).data('target');
@@ -264,19 +269,19 @@
                       if(title==""){
                          alert("제목을 입력하세요");
                       }else if(title.length> 100){
-                    	  alert("제목은 최대 100글자 입니다.");
+                         alert("제목은 최대 100글자 입니다.");
                       }else if(contents==""){
                          alert("내용을 입력하세요");
                       }else if(contents.length>10000){
-                    	  alert("게시글의 최대 글자수는 10000자 입니다.");
+                         alert("게시글의 최대 글자수는 10000자 입니다.");
                       }else if(nickname==""){
                          alert("이름을 입력하세요");
                       }else if(nickname.length>50){
-                    	  alert("닉네임은 최대 50글자 입니다.");
+                         alert("닉네임은 최대 50글자 입니다.");
                       }else if(passwd==""){
                          alert("비밀번호를 입력하세요");
                       }else if(passwd.length>10){
-                    	  alert("비밀번호는 최대 10글자 입니다.");
+                         alert("비밀번호는 최대 10글자 입니다.");
                       }else if(type == "MOVIE" && url == "http://"){
                          alert('동영상을 입력하세요');
                       }else{
@@ -306,7 +311,6 @@
                  });
                
             }
-            
             //상세보기 html 부분구현
             function createBbs(){
                 $('.container').load('resources/bootjsp/commD.html', function(){
