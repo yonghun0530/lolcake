@@ -69,7 +69,7 @@
                 	   location.hash = "#C-" + no;
                        $("#champImg").attr("src",  detail[0].path + "/" + detail[0].img);
                        //$(".champ-skill .skill p").append("<p>" + data[0].champname + "</p>")
-                       $('#champName').text(detail[0].champname);
+                       $('#champName').prepend(detail[0].champname);
                        $("tbody").empty();
                        for(var i = 0; i < detail.length; i++){
                           $("#skills img").eq(i).attr("src",  detail[i].skill_path + "/" + detail[i].skill_img);
