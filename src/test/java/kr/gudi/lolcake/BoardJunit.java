@@ -1010,7 +1010,7 @@ public class BoardJunit {
 	}
 
 	
-	@Test // 댓글보기  (댓글생성 테스트하고나면 댓글 하나 추가되니까 assertEquals(a,b) 할떄 a에다 +1해서 테스트해야함)
+	//@Test // 댓글보기  (댓글생성 테스트하고나면 댓글 하나 추가되니까 assertEquals(a,b) 할떄 a에다 +1해서 테스트해야함)
 	public void TestCommentView() throws Exception {
 
 		mock.perform(get(URL) // get방식 : get("주소"), post방식 : post("주소")
@@ -1039,10 +1039,10 @@ public class BoardJunit {
 	}
 
 	
-//	@Test // 댓글삭제
+	//@Test // 댓글삭제
 	public void TestCommnetDelete() throws Exception {
 		mock.perform(get("/reRemove") // get방식 : get("주소"), post방식 : post("주소")
-				.param("no", no)) // paramater값 설정 : .param("key", "value")
+				.param("no", "asdasdas")) // paramater값 설정 : .param("key", "value")
 				.andDo(new ResultHandler() {// 처리 내용을 출력합니다.
 					@Override
 					public void handle(MvcResult arg0) throws Exception {
@@ -1053,7 +1053,10 @@ public class BoardJunit {
 						String message = map.get("message").toString();
 						JsonParser parser = new JsonParser();
 						JsonElement element = parser.parse(message);
+						JsonObject jobject = element.getAsJsonObject();
+						JsonElement val = jobject.get("delete");
 						System.out.println(element);
+						assertEquals("1", val.toString());  // 삭제할게 있으면 1 없으면 0
 					}
 				}).andExpect(status().isOk())// 상태값은 OK가 나와야 합니다.
 				.andExpect(model().attributeExists("message"));// "message"이라는 attribute가 존재해야 합니다.
