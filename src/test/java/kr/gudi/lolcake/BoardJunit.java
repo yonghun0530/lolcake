@@ -1010,7 +1010,7 @@ public class BoardJunit {
 	}
 
 	
-	/*@Test*/ // 댓글보기
+	@Test // 댓글보기  (댓글생성 테스트하고나면 댓글 하나 추가되니까 assertEquals(a,b) 할떄 a에다 +1해서 테스트해야함)
 	public void TestCommentView() throws Exception {
 
 		mock.perform(get(URL) // get방식 : get("주소"), post방식 : post("주소")
@@ -1030,7 +1030,7 @@ public class BoardJunit {
 						JsonObject jobject = element.getAsJsonObject();
 						JsonArray list = jobject.get("replyD").getAsJsonArray();
 						System.out.println(list);
-						assertEquals(10, list.size());
+						assertEquals(15, list.size());
 
 					}
 				}).andExpect(status().isOk())// 상태값은 OK가 나와야 합니다.

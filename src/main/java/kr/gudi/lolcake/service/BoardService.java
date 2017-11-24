@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.gudi.lolcake.dao.BoardDaoInterface;
 
+
 @Service
 public class BoardService implements BoardServiceInterface {
 
